@@ -1,0 +1,157 @@
+"use client";
+
+import { signIn } from "next-auth/react";
+import React, { useState } from "react";
+import axios from "axios";
+import Footer from "@/components/common/Footer";
+import Image from "next/image";
+import GoogleIcon from "@/public/icons/google.png";
+import FacebookIcon from "@/public/icons/facebook.jpg";
+import darkImage from "@/public/darkacademia.webp";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
+
+const LoginContent: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
+
+  interface CustomJwtPayload {
+    userId: number;
+    exp: number;
+    iat: number;
+    scope: string;
+    fullname: string;
+  }
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+  
+    try {
+      const response = await axios.post("http://localhost:8080/api/v1/auth/login", {
+        email,
+        password,
+      });
+  
+      if (response.data.success) {
+        console.log("Login successful", response.data);
+  
+        const { accessToken, fullname } = response.data.data; 
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("fullname", fullname);
+  
+        const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
+        console.log("Decoded token:", decodedToken);
+  
+        if (decodedToken.scope === "Customer") {
+          router.push("/dashboard/user");
+        } else {
+          router.push("/dashboard/admin");
+        }
+      } else {
+        setError(response.data.message || "Invalid email or password");
+      }
+    } catch (error) {
+      setError("Failed to log in. Please try again.");
+    }
+    setLoading(false);
+  };
+  
+
+  const handleSocialLogin = async (provider: string) => {
+    setLoading(true);
+    try {
+      if (provider === "Google") {
+        await signIn("google", { callbackUrl: "/dashboard" });
+      } else {
+        console.log(`Logging in with ${provider}`);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setError(`Failed to log in with ${provider}`);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <>
+      <div className="flex flex-col lg:flex-row min-h-screen bg-light-gray">
+        <div className="relative w-full lg:w-1/2">
+          <Image src={darkImage} alt="Background" layout="fill" objectFit="cover" className="absolute inset-0" />
+        </div>
+
+        <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8">
+          <h1 className="text-4xl font-bold text-red-600 mb-4 text-center">Welcome Back to Rockstock!</h1>
+          <p className="text-gray-600 mb-4 text-center">
+            The place where dark academia, goth, and emo souls come to find solace in their golden years.
+          </p>
+
+          {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
+
+          <form onSubmit={handleLogin} className="w-full max-w-xs">
+            <input
+              type="email"
+              placeholder="Email Address"
+              className="border text-black border-gray-300 rounded-lg p-2 w-full mb-4"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              className="border text-black border-gray-300 rounded-lg p-2 w-full mb-4"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <div className="flex items-center mb-4">
+              <input type="checkbox" id="rememberMe" className="mr-2" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
+              <label htmlFor="rememberMe" className="text-gray-700">Remember Me</label>
+            </div>
+            <button type="submit" className="bg-rockstock-primary text-black font-semibold py-2 px-4 rounded-full hover:bg-rockstock-primary-dark transition duration-300 w-full mb-4" disabled={loading}>
+              {loading ? "Logging In..." : "Login"}
+            </button>
+          </form>
+
+          <p className="text-gray-600 mb-4 text-center">or</p>
+
+          <button
+            className="flex items-center bg-white text-black border border-gray-300 rounded-full py-2 px-4 hover:bg-gray-100 transition duration-300 w-full max-w-xs mb-4"
+            onClick={() => handleSocialLogin("Google")}
+            disabled={loading}
+          >
+            <Image src={GoogleIcon} alt="Google Icon" width={20} height={20} className="mr-2" />
+            {loading ? "Logging in with Google..." : "Login with Google"}
+          </button>
+
+          <button
+            className="flex items-center bg-white text-black border border-gray-300 rounded-full py-2 px-4 hover:bg-gray-100 transition duration-300 w-full max-w-xs mb-4"
+            onClick={() => handleSocialLogin("Facebook")}
+            disabled={loading}
+          >
+            <Image src={FacebookIcon} alt="Facebook Icon" width={20} height={20} className="mr-2" />
+            {loading ? "Logging in with Facebook..." : "Login with Facebook"}
+          </button>
+
+          <p className="mt-4 text-gray-700 text-center">
+            Don&apos;t have an account? <Link href="/signup" className="text-purple-600 underline">Sign up</Link>
+          </p>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+const Login: React.FC = () => {
+  return <LoginContent />;
+};
+
+export default Login;
