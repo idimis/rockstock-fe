@@ -3,12 +3,13 @@
 import useProducts from "@/hooks/useProducts";
 import ProductCard from "@/components/products/ProductCard";
 import Pagination from "@/components/products/Pagination";
+import Navbar from "@/components/common/Navbar";
 
 const Products = () => {
   const { products, currentPage, setCurrentPage, totalPages, loading } = useProducts();
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <><Navbar /><div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl text-gray-500 font-bold mb-4">Products</h1>
 
       {loading ? (
@@ -22,8 +23,7 @@ const Products = () => {
                 productId={product.productId}
                 productName={product.productName}
                 price={product.price}
-                productPictures={product.productPictures}
-              />
+                productPictures={product.productPictures} />
             ))
           ) : (
             <p>No products available</p>
@@ -33,7 +33,7 @@ const Products = () => {
 
       {/* Pagination */}
       <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={setCurrentPage} />
-    </div>
+    </div></>
   );
 };
 

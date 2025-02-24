@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import useProductDetail from "@/hooks/useProductDetail";
 import ImageCarousel from "@/components/products/ImageCarousel";
 import QuantitySelector from "@/components/products/QuantitySelector";
+import Navbar from "@/components/common/Navbar";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ const ProductDetail = () => {
   if (!product) return <p>Product not found.</p>;
 
   return (
+    <><Navbar />
     <div className="flex space-x-8 p-8">
       {/* Left: Image */}
       <div className="w-1/3 text-gray-600">
@@ -31,7 +33,7 @@ const ProductDetail = () => {
       <div className="w-1/3">
         <QuantitySelector totalStock={product.totalStock} price={product.price} />
       </div>
-    </div>
+    </div></>
   );
 };
 
