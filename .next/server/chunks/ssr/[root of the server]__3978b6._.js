@@ -1033,12 +1033,8 @@ const UserSidebar = ()=>{
                         title: "❓ Help",
                         links: [
                             {
-                                name: "Customer Support",
+                                name: "Support & FAQ",
                                 path: "/dashboard/user/help"
-                            },
-                            {
-                                name: "FAQ",
-                                path: "/dashboard/user/help/faq"
                             }
                         ]
                     }, void 0, false, {
@@ -1053,12 +1049,12 @@ const UserSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 44,
+                            lineNumber: 43,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 43,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1068,12 +1064,12 @@ const UserSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 47,
+                            lineNumber: 46,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 46,
+                        lineNumber: 45,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1096,7 +1092,7 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 57,
+                lineNumber: 56,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1108,23 +1104,23 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 61,
+                            lineNumber: 60,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 60,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 58,
+                lineNumber: 57,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/UserSidebar.tsx",
-        lineNumber: 56,
+        lineNumber: 55,
         columnNumber: 3
     }, this);
 const __TURBOPACK__default__export__ = UserSidebar;
@@ -1252,13 +1248,18 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib
 ;
 const ShippingCalculation = ()=>{
     const [selectedAddress, setSelectedAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [shippingCost, setShippingCost] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [postalCode, setPostalCode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [destinationOptions, setDestinationOptions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [selectedCourier, setSelectedCourier] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("jne");
+    const [shippingCost, setShippingCost] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const apiKey = "YOUR_API_KEY_HERE";
+    // Fetch list of cities from API
     const fetchDestinations = async (city)=>{
+        if (!city) return;
         try {
+            setLoading(true);
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get("https://rajaongkir.komerce.id/api/v1/destination/domestic-destination", {
                 params: {
                     search: city,
@@ -1268,56 +1269,60 @@ const ShippingCalculation = ()=>{
                     "Authorization": `Bearer ${apiKey}`
                 }
             });
-            setDestinationOptions(response.data.results);
+            const cities = response.data.results;
+            setDestinationOptions(cities);
         } catch (error) {
             console.error("Error fetching destinations:", error);
             alert("Failed to fetch destination data.");
+        } finally{
+            setLoading(false);
         }
     };
+    // Fetch shipping cost
     const calculateShipping = async ()=>{
-        if (!selectedAddress || !destinationOptions.length) return;
-        const origin = selectedAddress.city_id; // Corrected property
-        const destination = destinationOptions[0].city_id; // Corrected property
-        const weight = 1000;
-        const courier = selectedCourier;
+        if (!selectedAddress || !postalCode) {
+            alert("Please select a city and enter a postal code.");
+            return;
+        }
+        const origin = selectedAddress.city_id;
+        const destination = destinationOptions.length > 0 ? destinationOptions[0].city_id : null;
+        if (!destination) {
+            alert("Invalid destination.");
+            return;
+        }
         try {
+            setLoading(true);
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post("https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost", {
                 origin,
                 destination,
-                weight,
-                courier,
+                weight: 1000,
+                courier: selectedCourier,
                 price: "lowest"
             }, {
                 headers: {
                     "Authorization": `Bearer ${apiKey}`
                 }
             });
-            const costData = response.data.results[0].costs[0];
-            setShippingCost(costData.value);
+            const costData = response.data.results[0]?.costs[0];
+            setShippingCost(costData?.value ?? 0);
         } catch (error) {
             console.error("Error calculating shipping cost:", error);
             alert("Failed to calculate shipping cost.");
+        } finally{
+            setLoading(false);
         }
-    };
-    const handleAddressChange = (event)=>{
-        const selectedCity = event.target.value;
-        setSelectedAddress({
-            city_id: selectedCity,
-            city_name: selectedCity
-        });
-        fetchDestinations(selectedCity);
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col bg-gray-100 text-black",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                lineNumber: 84,
+                lineNumber: 104,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                lineNumber: 85,
+                lineNumber: 105,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1325,7 +1330,7 @@ const ShippingCalculation = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$UserSidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                        lineNumber: 87,
+                        lineNumber: 107,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1336,7 +1341,7 @@ const ShippingCalculation = ()=>{
                                 children: "🚚 Shipping Calculation"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                lineNumber: 89,
+                                lineNumber: 109,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1346,13 +1351,59 @@ const ShippingCalculation = ()=>{
                                         type: "text",
                                         placeholder: "Enter City",
                                         className: "w-full p-2 border rounded-lg mt-2",
-                                        onChange: handleAddressChange
+                                        onChange: (e)=>fetchDestinations(e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                        lineNumber: 93,
+                                        lineNumber: 113,
                                         columnNumber: 13
                                     }, this),
                                     destinationOptions.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                        className: "w-full p-2 border rounded-lg mt-4",
+                                        onChange: (e)=>{
+                                            const selectedCity = destinationOptions.find((city)=>city.city_id === e.target.value);
+                                            if (selectedCity) {
+                                                setSelectedAddress({
+                                                    city_id: selectedCity.city_id,
+                                                    city_name: selectedCity.city_name,
+                                                    postal_code: postalCode
+                                                });
+                                            }
+                                        },
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "",
+                                                children: "Select Destination City"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
+                                                lineNumber: 135,
+                                                columnNumber: 17
+                                            }, this),
+                                            destinationOptions.map((city)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: city.city_id,
+                                                    children: city.city_name
+                                                }, city.city_id, false, {
+                                                    fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
+                                                    lineNumber: 137,
+                                                    columnNumber: 19
+                                                }, this))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
+                                        lineNumber: 122,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        type: "text",
+                                        placeholder: "Enter Postal Code",
+                                        className: "w-full p-2 border rounded-lg mt-2",
+                                        value: postalCode,
+                                        onChange: (e)=>setPostalCode(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
+                                        lineNumber: 145,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         className: "w-full p-2 border rounded-lg mt-4",
                                         onChange: (e)=>setSelectedCourier(e.target.value),
                                         value: selectedCourier,
@@ -1362,38 +1413,47 @@ const ShippingCalculation = ()=>{
                                                 children: "JNE"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                                lineNumber: 107,
-                                                columnNumber: 17
+                                                lineNumber: 159,
+                                                columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "sicepat",
                                                 children: "SiCepat"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                                lineNumber: 108,
-                                                columnNumber: 17
+                                                lineNumber: 160,
+                                                columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "jnt",
                                                 children: "J&T"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                                lineNumber: 109,
-                                                columnNumber: 17
+                                                lineNumber: 161,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "tiki",
+                                                children: "TIKI"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
+                                                lineNumber: 162,
+                                                columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                        lineNumber: 102,
-                                        columnNumber: 15
+                                        lineNumber: 154,
+                                        columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500",
+                                        className: `mt-4 px-4 py-2 rounded-lg text-white ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500"}`,
                                         onClick: calculateShipping,
-                                        children: "Calculate Shipping Cost"
+                                        disabled: loading,
+                                        children: loading ? "Calculating..." : "Calculate Shipping Cost"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                        lineNumber: 113,
+                                        lineNumber: 166,
                                         columnNumber: 13
                                     }, this),
                                     shippingCost !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1404,36 +1464,36 @@ const ShippingCalculation = ()=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                        lineNumber: 121,
+                                        lineNumber: 178,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                                lineNumber: 91,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                        lineNumber: 88,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                lineNumber: 86,
+                lineNumber: 106,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-                lineNumber: 126,
+                lineNumber: 183,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/user/shipping/page.tsx",
-        lineNumber: 83,
+        lineNumber: 103,
         columnNumber: 5
     }, this);
 };

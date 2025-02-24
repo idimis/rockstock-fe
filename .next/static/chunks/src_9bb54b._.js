@@ -588,8 +588,6 @@ var _s = __turbopack_refresh__.signature();
 const SignupContent = ()=>{
     _s();
     const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [password, setPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [confirmPassword, setConfirmPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [fullname, setFullname] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [gender, setGender] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [birthdate, setBirthdate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
@@ -599,17 +597,11 @@ const SignupContent = ()=>{
         e.preventDefault();
         setLoading(true);
         setError(null);
-        if (password !== confirmPassword) {
-            setLoading(false);
-            setError("Passwords do not match!");
-            return;
-        }
         try {
             const formattedBirthdate = new Date(birthdate).toISOString();
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("http://localhost:8080/api/v1/user/register", {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("http://localhost:8080/api/v1/auth/register", {
                 fullname,
                 email,
-                password,
                 gender,
                 birthdate: formattedBirthdate
             });
@@ -640,12 +632,12 @@ const SignupContent = ()=>{
                             className: "absolute inset-0"
                         }, void 0, false, {
                             fileName: "[project]/src/app/signup/page.tsx",
-                            lineNumber: 68,
+                            lineNumber: 55,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/signup/page.tsx",
-                        lineNumber: 67,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -656,7 +648,7 @@ const SignupContent = ()=>{
                                 children: "Join Rockstock Now!"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 72,
+                                lineNumber: 59,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -664,7 +656,7 @@ const SignupContent = ()=>{
                                 children: "The place where dark academia, goth, and emo souls come to find solace in their golden years."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 73,
+                                lineNumber: 60,
                                 columnNumber: 11
                             }, this),
                             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -672,7 +664,7 @@ const SignupContent = ()=>{
                                 children: error
                             }, void 0, false, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 75,
+                                lineNumber: 62,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -689,7 +681,7 @@ const SignupContent = ()=>{
                                         "aria-label": "Fullname"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 65,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -704,7 +696,7 @@ const SignupContent = ()=>{
                                                 children: "Select Gender"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/signup/page.tsx",
-                                                lineNumber: 81,
+                                                lineNumber: 68,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -712,7 +704,7 @@ const SignupContent = ()=>{
                                                 children: "Male"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/signup/page.tsx",
-                                                lineNumber: 82,
+                                                lineNumber: 69,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -720,7 +712,7 @@ const SignupContent = ()=>{
                                                 children: "Female"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/signup/page.tsx",
-                                                lineNumber: 83,
+                                                lineNumber: 70,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -728,13 +720,13 @@ const SignupContent = ()=>{
                                                 children: "Wibu"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/signup/page.tsx",
-                                                lineNumber: 84,
+                                                lineNumber: 71,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 67,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -747,7 +739,7 @@ const SignupContent = ()=>{
                                         "aria-label": "Birthdate"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 87,
+                                        lineNumber: 74,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -760,33 +752,7 @@ const SignupContent = ()=>{
                                         "aria-label": "Email Address"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 89,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "password",
-                                        placeholder: "Password",
-                                        className: "border border-gray-300 text-gray-600 rounded-lg p-2 w-full mb-4",
-                                        value: password,
-                                        onChange: (e)=>setPassword(e.target.value),
-                                        required: true,
-                                        "aria-label": "Password"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 91,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "password",
-                                        placeholder: "Confirm Password",
-                                        className: "border border-gray-300 text-gray-600 rounded-lg p-2 w-full mb-4",
-                                        value: confirmPassword,
-                                        onChange: (e)=>setConfirmPassword(e.target.value),
-                                        required: true,
-                                        "aria-label": "Confirm Password"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 93,
+                                        lineNumber: 76,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -796,13 +762,13 @@ const SignupContent = ()=>{
                                         children: loading ? "Signing Up..." : "Sign Up"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 95,
+                                        lineNumber: 78,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 77,
+                                lineNumber: 64,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -810,7 +776,7 @@ const SignupContent = ()=>{
                                 children: "or"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 100,
+                                lineNumber: 83,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -826,14 +792,14 @@ const SignupContent = ()=>{
                                         className: "mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 86,
                                         columnNumber: 13
                                     }, this),
                                     "Sign up with Google"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 102,
+                                lineNumber: 85,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -843,20 +809,20 @@ const SignupContent = ()=>{
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$public$2f$icons$2f$facebook$2e$jpg$2e$mjs__$7b$__IMAGE__$3d3e$__$225b$project$5d2f$src$2f$public$2f$icons$2f$facebook$2e$jpg__$5b$app$2d$client$5d$__$28$static$2922$__$7d$__$5b$app$2d$client$5d$__$28$structured__image__object$2c$__ecmascript$29$__["default"],
-                                        alt: "Google Icon",
+                                        alt: "Facebook Icon",
                                         width: 20,
                                         height: 20,
                                         className: "mr-2"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 108,
+                                        lineNumber: 91,
                                         columnNumber: 13
                                     }, this),
                                     "Sign up with Facebook"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 107,
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -869,41 +835,41 @@ const SignupContent = ()=>{
                                         children: "Log in"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/signup/page.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 95,
                                         columnNumber: 82
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/signup/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 95,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/signup/page.tsx",
-                        lineNumber: 71,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/signup/page.tsx",
-                lineNumber: 66,
+                lineNumber: 53,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/signup/page.tsx",
-                lineNumber: 115,
+                lineNumber: 98,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true);
 };
-_s(SignupContent, "qc0B33aOm4f4Dg5MDADqvEksO6Q=");
+_s(SignupContent, "UERuR723hmZZyfNIx7I4kFely3I=");
 _c = SignupContent;
 const Signup = ()=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SignupContent, {}, void 0, false, {
         fileName: "[project]/src/app/signup/page.tsx",
-        lineNumber: 121,
+        lineNumber: 104,
         columnNumber: 10
     }, this);
 };

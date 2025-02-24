@@ -1,87 +1,79 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import Sidebar from "@/components/common/AdminSidebar";
+import AdminSidebarPanel from "@/components/common/AdminSidebar";
 import axios from "axios";
+import Dialog from "@/components/ui/Dialog";
 
-// Define the type for the admin object
-type Admin = {
-  id: string;
-  username: string;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+interface Admin {
+  id: number;
+  name: string;
   email: string;
-  role: "Warehouse Admin" | "Super Admin";
-};
+  role: string;
+}
 
-const AdminManagement = () => {
-  // Define the state types properly
+const AdminPage = () => {
   const [admins, setAdmins] = useState<Admin[]>([]);
-  const [newAdmin, setNewAdmin] = useState<Admin>({
-    id: "", // id will be populated if editing
-    username: "",
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [newAdmin, setNewAdmin] = useState<Omit<Admin, "id">>({
+    name: "",
     email: "",
-    role: "Warehouse Admin",
+    role: "",
   });
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    // Fetch admins from the backend
-    const fetchAdmins = async () => {
-      const response = await axios.get("/api/v1/admin");
-      setAdmins(response.data);
-    };
-
     fetchAdmins();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setNewAdmin((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleAdminSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const fetchAdmins = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      if (editingAdmin) {
-        // Update admin
-        await axios.put(`/api/v1/admin/${editingAdmin.id}`, newAdmin);
-      } else {
-        // Create new admin
-        await axios.post("/api/v1/admin", newAdmin);
-      }
-      setNewAdmin({ id: "", username: "", email: "", role: "Warehouse Admin" });
-      setEditingAdmin(null);
-      // Refetch the admins list
-      const response = await axios.get("/api/v1/admin");
+      const response = await axios.get<Admin[]>(`${BACKEND_URL}/api/v1/admin`);
       setAdmins(response.data);
-    } catch (error) {
-      console.error("Error creating or updating admin:", error);
+    } catch (err) {
+      setError("Failed to fetch admins");
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleEdit = (admin: Admin) => {
-    setEditingAdmin(admin);
-    setNewAdmin({
-      id: admin.id,
-      username: admin.username,
-      email: admin.email,
-      role: admin.role,
-    });
+  const createAdmin = async () => {
+    try {
+      await axios.post(`${BACKEND_URL}/api/v1/admin`, newAdmin);
+      setNewAdmin({ name: "", email: "", role: "" });
+      fetchAdmins();
+    } catch (err) {
+      console.error("Failed to create admin", err);
+    }
   };
 
-  const handleDelete = async (adminId: string) => {
+  const updateAdmin = async () => {
     try {
-      await axios.delete(`/api/v1/admin/${adminId}`);
-      // Refetch the admins list after deletion
-      const response = await axios.get("/api/v1/admin");
-      setAdmins(response.data);
-    } catch (error) {
-      console.error("Error deleting admin:", error);
+      if (editingAdmin) {
+        await axios.put(`${BACKEND_URL}/api/v1/admin/${editingAdmin.id}`, editingAdmin);
+        setEditingAdmin(null);
+      }
+      fetchAdmins();
+    } catch (err) {
+      console.error("Failed to update admin", err);
+    }
+  };
+
+  const deleteAdmin = async (id: number) => {
+    try {
+      await axios.delete(`${BACKEND_URL}/api/v1/admin/${id}`);
+      fetchAdmins();
+    } catch (err) {
+      console.error("Failed to delete admin", err);
     }
   };
 
@@ -90,91 +82,42 @@ const AdminManagement = () => {
       <Header />
       <Navbar />
       <div className="flex flex-grow">
-        <Sidebar />
-        {/* Content */}
-        <main className="flex-grow p-6 bg-white shadow-md">
-          <h1 className="text-xl font-bold mb-4">Admin Management</h1>
+        <AdminSidebarPanel />
+      <div className="flex-grow p-6 bg-white shadow-md">
+        <h1 className="text-2xl font-bold mb-4">👤 Admins</h1>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
 
-          {/* Admin Creation/Editing Form */}
-          <div className="p-4 bg-gray-200 shadow rounded-lg mb-6">
-            <h2 className="text-lg font-bold mb-4">{editingAdmin ? "Edit Admin" : "Create New Admin"}</h2>
-            <form onSubmit={handleAdminSubmit}>
-              <input
-                type="text"
-                name="username"
-                value={newAdmin.username}
-                onChange={handleInputChange}
-                placeholder="Username"
-                className="w-full p-2 mb-2 border rounded-lg"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value={newAdmin.email}
-                onChange={handleInputChange}
-                placeholder="Email"
-                className="w-full p-2 mb-2 border rounded-lg"
-                required
-              />
-              <select
-                name="role"
-                value={newAdmin.role}
-                onChange={handleInputChange}
-                className="w-full p-2 mb-4 border rounded-lg"
-              >
-                <option value="Warehouse Admin">Warehouse Admin</option>
-                <option value="Super Admin">Super Admin</option>
-              </select>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
-              >
-                {editingAdmin ? "Update Admin" : "Create Admin"}
-              </button>
-            </form>
-          </div>
+        {/* Modal Edit Admin */}
+        {isModalOpen && (
+          <Dialog onClose={() => setIsModalOpen(false)}>
+            <h2 className="text-lg font-semibold">✏️ Edit Admin</h2>
+            <input type="text" placeholder="Admin Name" className="border p-2 mr-2" value={editingAdmin?.name || ""} onChange={(e) => setEditingAdmin({ ...editingAdmin!, name: e.target.value })} />
+            <input type="text" placeholder="Email" className="border p-2 mr-2" value={editingAdmin?.email || ""} onChange={(e) => setEditingAdmin({ ...editingAdmin!, email: e.target.value })} />
+            <button className="bg-green-500 text-white px-4 py-2 mt-4" onClick={updateAdmin}>Save</button>
+          </Dialog>
+        )}
 
-          {/* Admin List Table */}
-          <h2 className="text-xl font-bold mb-4">Admin Users</h2>
-          <table className="w-full border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border p-2">Username</th>
-                <th className="border p-2">Email</th>
-                <th className="border p-2">Role</th>
-                <th className="border p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {admins.map((admin) => (
-                <tr key={admin.id}>
-                  <td className="border p-2">{admin.username}</td>
-                  <td className="border p-2">{admin.email}</td>
-                  <td className="border p-2">{admin.role}</td>
-                  <td className="border p-2">
-                    <button
-                      className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
-                      onClick={() => handleEdit(admin)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="bg-red-500 text-white px-3 py-1 rounded"
-                      onClick={() => handleDelete(admin.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </main>
+        {/* Admin List */}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul>
+            {admins.map((admin) => (
+              <li key={admin.id} className="p-3 bg-white rounded-lg shadow mb-2">
+                <h3 className="font-semibold">{admin.name} ({admin.role})</h3>
+                <p>{admin.email}</p>
+                <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => { setEditingAdmin(admin); setIsModalOpen(true); }}>Edit</button>
+                <button className="bg-red-500 text-white px-2 py-1" onClick={() => deleteAdmin(admin.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       </div>
       <Footer />
     </div>
+    
   );
 };
 
-export default AdminManagement;
+export default AdminPage;

@@ -6,16 +6,40 @@ import Footer from "@/components/common/Footer";
 const ResendVerification: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleResendVerification = (e: React.FormEvent) => {
+  const handleResendVerification = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate sending verification email again
-    setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-      window.location.href = "/auth/verify-email"; // Redirect to verify email page
-    }, 3000);
+    setLoading(true);
+    setError("");
+    setIsSuccess(false);
+  
+    try {
+      const response = await fetch("http://localhost:8080/api/v1/auth/resend-verification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Something went wrong");
+      }
+  
+      const data = await response.json(); 
+      console.log(data.message);
+  
+      setIsSuccess(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
+  
 
   return (
     <>
@@ -25,7 +49,7 @@ const ResendVerification: React.FC = () => {
           <input
             type="email"
             placeholder="Enter Your Email"
-            className="border border-gray-300 rounded-lg p-2 w-full mb-4"
+            className="border border-gray-300 text-black rounded-lg p-2 w-full mb-4"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -33,10 +57,13 @@ const ResendVerification: React.FC = () => {
           <button
             type="submit"
             className="bg-red-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-red-700 transition duration-300 w-full mb-4"
+            disabled={loading}
           >
-            Resend Verification Email
+            {loading ? "Sending..." : "Resend Verification Email"}
           </button>
         </form>
+
+        {error && <p className="text-red-500">{error}</p>}
 
         {isSuccess && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

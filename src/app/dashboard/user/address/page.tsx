@@ -1,92 +1,122 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import UserSidebarPanel from "@/components/common/UserSidebar";
 import axios from "axios";
 
-// Define types for address and event
-type Address = {
+interface Address {
   id: number;
-  street: string;
-  city: string;
-  province: string;
-  isPrimary: boolean;
-};
+  label: string;
+  addressDetail: string;
+  longitude: number;
+  latitude: number;
+  note: string;
+  isMain: boolean;
+}
 
-type AddressChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-const AddressManagement = () => {
+const AddressPage = () => {
+  const [userId, setUserId] = useState<string | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [newAddress, setNewAddress] = useState<Address>({
-    street: "",
-    city: "",
-    province: "",
-    isPrimary: false,
-    id: 0, // Temporarily set to 0 for new addresses
-  });
+  const [editModalOpen, setEditModalOpen] = useState(false);
 
-  const router = useRouter();
-
-  // Fetch addresses from the backend
   useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const response = await axios.get("/api/v1/addresses");
-        setAddresses(response.data);
-        if (response.data.length > 0) {
-          setSelectedAddress(response.data[0]);
-        }
-      } catch (error) {
-        console.error("Error fetching addresses:", error);
-      }
-    };
-    fetchAddresses();
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
   }, []);
 
-  const handleAddressChange = (event: AddressChangeEvent) => {
-    const { name, value } = event.target;
-    setNewAddress((prev) => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    if (userId) {
+      fetchUserAddresses();
+    }
+  }, [userId]);
 
-  // Add new address
-  const addAddress = async () => {
+  const fetchUserAddresses = async () => {
+    setLoading(true);
+    setError(null);
+    const token = localStorage.getItem("accessToken");
+
+    if (!userId || !token) {
+      setError("You are not logged in");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post("/api/v1/addresses", newAddress);
-      setAddresses((prev) => [
-        ...prev,
-        {
-          ...newAddress,
-          id: Date.now(), // Simulating the new id for the address
-        },
-      ]);
-      setNewAddress({ street: "", city: "", province: "", isPrimary: false, id: 0 });
-    } catch (error) {
-      console.error("Error adding new address:", error);
+      const response = await axios.get(`${BACKEND_URL}/api/v1/addresses/users`, {
+        params: { userId },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.data.success && response.data.data) {
+        setAddresses(response.data.data);
+      } else {
+        setError("Failed to retrieve address data");
+      }
+    } catch (err) {
+      setError("Error fetching addresses");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Mark address as primary
-  const setPrimaryAddress = (id: number) => {
-    setAddresses((prev) =>
-      prev.map((address) =>
-        address.id === id ? { ...address, isPrimary: true } : { ...address, isPrimary: false }
-      )
-    );
+  
+  const setMainAddress = async (addressId: number) => {
+    const token = localStorage.getItem("accessToken");
+    if (!userId || !token) return;
+
+    try {
+      await axios.get(`${BACKEND_URL}/api/v1/addresses/user/${userId}/main`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchUserAddresses();
+    } catch (err) {
+      console.error("Failed to set main address", err);
+    }
   };
 
-  // Delete address
-  const deleteAddress = async (id: number) => {
+  // Update Address
+  const updateAddress = async () => {
+    if (!selectedAddress) return;
+    const token = localStorage.getItem("accessToken");
+
     try {
-      await axios.delete(`/api/v1/addresses/${id}`);
-      setAddresses((prev) => prev.filter((address) => address.id !== id));
-    } catch (error) {
-      console.error("Error deleting address:", error);
+      await axios.put(
+        `${BACKEND_URL}/api/v1/addresses/${selectedAddress.id}/user/${userId}`,
+        selectedAddress,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setEditModalOpen(false);
+      fetchUserAddresses();
+    } catch (err) {
+      console.error("Failed to update address", err);
+    }
+  };
+
+  // Delete Address
+  const deleteAddress = async (addressId: number) => {
+    const token = localStorage.getItem("accessToken");
+    if (!userId || !token) return;
+
+    try {
+      await axios.put(
+        `${BACKEND_URL}/api/v1/addresses/soft-delete/${addressId}/user/${userId}`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchUserAddresses();
+    } catch (err) {
+      console.error("Failed to delete address", err);
     }
   };
 
@@ -94,114 +124,113 @@ const AddressManagement = () => {
     <div className="flex min-h-screen flex-col bg-gray-100 text-black">
       <Header />
       <Navbar />
-      <div className="flex text-black">
+      <div className="flex flex-grow">
         <UserSidebarPanel />
         <main className="flex-grow p-6 bg-white shadow-md">
-          <h1 className="text-2xl font-bold mb-4">📍 Manage Addresses</h1>
-          <div className="p-4 bg-gray-100 shadow rounded-lg">
-            {addresses.length > 0 ? (
-              <select
-                className="w-full p-2 border rounded-lg mt-2"
-                value={selectedAddress?.id || ""}
-                onChange={(e: AddressChangeEvent) => {
-                  const selected = addresses.find((a) => a.id === Number(e.target.value));
-                  if (selected) setSelectedAddress(selected);
-                }}
-              >
-                {addresses.map((address) => (
-                  <option key={address.id} value={address.id}>
-                    {address.street}, {address.city}, {address.province} ({address.isPrimary ? "Primary" : ""})
-                  </option>
-                ))}
-              </select>
+          <h1 className="text-2xl font-bold mb-4">📍 My Addresses</h1>
+
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+
+          <div className="p-4 bg-blue-100 shadow rounded-lg">
+            {loading ? (
+              <p>Loading...</p>
             ) : (
-              <p className="text-red-500">No address found. Please add a new address.</p>
+              <ul>
+                {addresses.length > 0 ? (
+                  addresses.map((address) => (
+                    <li key={address.id} className="mt-2 p-3 bg-white rounded-lg shadow">
+                      <div>
+                        <h3 className="font-semibold">{address.label}</h3>
+                        <p>{address.addressDetail}</p>
+                        <p>{address.isMain ? "✅ Main Address" : "Secondary Address"}</p>
+                      </div>
+                      <div className="mt-2 flex gap-2">
+                        {!address.isMain && (
+                          <button
+                            className="px-4 py-2 bg-green-500 text-white rounded"
+                            onClick={() => setMainAddress(address.id)}
+                          >
+                            Set as Main
+                          </button>
+                        )}
+                        <button
+                          className="px-4 py-2 bg-yellow-500 text-white rounded"
+                          onClick={() => {
+                            setSelectedAddress(address);
+                            setEditModalOpen(true);
+                          }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="px-4 py-2 bg-red-500 text-white rounded"
+                          onClick={() => deleteAddress(address.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <p>No addresses found</p>
+                )}
+              </ul>
             )}
-            <button
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500"
-              onClick={() => setIsEditing(true)}
-            >
-              Add New Address
-            </button>
-          </div>
-
-          {isEditing && (
-            <div className="mt-6 p-4 bg-gray-100 shadow rounded-lg">
-              <h2 className="text-xl font-bold mb-4">Add New Address</h2>
-              <input
-                type="text"
-                name="street"
-                value={newAddress.street}
-                onChange={handleAddressChange}
-                placeholder="Street"
-                className="w-full p-2 mb-2 border rounded-lg"
-              />
-              <input
-                type="text"
-                name="city"
-                value={newAddress.city}
-                onChange={handleAddressChange}
-                placeholder="City"
-                className="w-full p-2 mb-2 border rounded-lg"
-              />
-              <input
-                type="text"
-                name="province"
-                value={newAddress.province}
-                onChange={handleAddressChange}
-                placeholder="Province"
-                className="w-full p-2 mb-2 border rounded-lg"
-              />
-              <div className="flex items-center mb-4">
-                <input
-                  type="checkbox"
-                  name="isPrimary"
-                  checked={newAddress.isPrimary}
-                  onChange={() =>
-                    setNewAddress((prev) => ({ ...prev, isPrimary: !prev.isPrimary }))
-                  }
-                />
-                <label className="ml-2">Set as Primary Address</label>
-              </div>
-              <button
-                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500"
-                onClick={addAddress}
-              >
-                Add Address
-              </button>
-            </div>
-          )}
-
-          <div className="mt-6">
-            <h2 className="text-xl font-bold mb-4">Your Addresses</h2>
-            {addresses.map((address) => (
-              <div key={address.id} className="flex items-center justify-between p-4 bg-gray-200 mb-2 rounded-lg">
-                <div>
-                  <p>{address.street}, {address.city}, {address.province}</p>
-                  {address.isPrimary && <span className="text-green-500">Primary</span>}
-                </div>
-                <div>
-                  <button
-                    className="mr-2 text-blue-500"
-                    onClick={() => setPrimaryAddress(address.id)}
-                  >
-                    Set as Primary
-                  </button>
-                  <button
-                    className="text-red-500"
-                    onClick={() => deleteAddress(address.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
           </div>
         </main>
       </div>
       <Footer />
+
+      {/* Edit Modal */}
+      {editModalOpen && selectedAddress && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold mb-4">Edit Address</h2>
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Label"
+              value={selectedAddress.label}
+              onChange={(e) => setSelectedAddress({ ...selectedAddress, label: e.target.value })}
+            />
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Address Detail"
+              value={selectedAddress.addressDetail}
+              onChange={(e) =>
+                setSelectedAddress({ ...selectedAddress, addressDetail: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Longitude"
+              value={selectedAddress.longitude}
+              onChange={(e) =>
+                setSelectedAddress({ ...selectedAddress, longitude: parseFloat(e.target.value) })
+              }
+            />
+            <input
+              type="text"
+              className="border p-2 w-full mb-2"
+              placeholder="Latitude"
+              value={selectedAddress.latitude}
+              onChange={(e) =>
+                setSelectedAddress({ ...selectedAddress, latitude: parseFloat(e.target.value) })
+              }
+            />
+            <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={updateAddress}>
+              Save
+            </button>
+            <button className="bg-gray-500 text-white px-4 py-2 rounded" onClick={() => setEditModalOpen(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default AddressManagement;
+export default AddressPage;

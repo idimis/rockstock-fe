@@ -42,13 +42,20 @@ const LoginContent: React.FC = () => {
       if (response.data.success) {
         console.log("Login successful", response.data);
   
-        const { accessToken, fullname } = response.data.data; 
-        localStorage.setItem("token", accessToken);
+        const { accessToken, refreshToken, fullname } = response.data.data;
+  
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("fullname", fullname);
   
+        
         const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
         console.log("Decoded token:", decodedToken);
   
+        
+        localStorage.setItem("userId", decodedToken.userId.toString());
+  
+        
         if (decodedToken.scope === "Customer") {
           router.push("/dashboard/user");
         } else {

@@ -1076,24 +1076,15 @@ const AdminSidebar = ()=>{
                             {
                                 name: "All Admins",
                                 path: "/dashboard/admin/admin-management"
+                            },
+                            {
+                                name: "Assign Admins",
+                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
                         lineNumber: 44,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
-                        title: "🚛 Shipping & Logistics",
-                        links: [
-                            {
-                                name: "Shipping Costs",
-                                path: "/dashboard/admin/shipping"
-                            }
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1106,7 +1097,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 56,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1119,7 +1110,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1129,12 +1120,12 @@ const AdminSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 69,
+                            lineNumber: 70,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 68,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1144,12 +1135,12 @@ const AdminSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 72,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 71,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1173,7 +1164,7 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 86,
+                lineNumber: 87,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1185,23 +1176,23 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 87,
+                lineNumber: 88,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-        lineNumber: 85,
+        lineNumber: 86,
         columnNumber: 3
     }, this);
 _c1 = SidebarSection;
@@ -1228,6 +1219,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/AdminSidebar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
@@ -1239,22 +1231,24 @@ var _s = __turbopack_refresh__.signature();
 ;
 const AdminManagement = ()=>{
     _s();
-    // Define the state types properly
     const [admins, setAdmins] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [newAdmin, setNewAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        id: "",
-        username: "",
+        id: 0,
         email: "",
-        role: "Warehouse Admin"
+        role: "Warehouse_Admin",
+        fullname: ""
     });
     const [editingAdmin, setEditingAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AdminManagement.useEffect": ()=>{
-            // Fetch admins from the backend
             const fetchAdmins = {
                 "AdminManagement.useEffect.fetchAdmins": async ()=>{
-                    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/api/v1/admin");
-                    setAdmins(response.data);
+                    try {
+                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin`);
+                        setAdmins(response.data);
+                    } catch (error) {
+                        console.error("Error fetching admins:", error);
+                    }
                 }
             }["AdminManagement.useEffect.fetchAdmins"];
             fetchAdmins();
@@ -1271,21 +1265,18 @@ const AdminManagement = ()=>{
         e.preventDefault();
         try {
             if (editingAdmin) {
-                // Update admin
-                await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`/api/v1/admin/${editingAdmin.id}`, newAdmin);
+                await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin/${editingAdmin.id}`, newAdmin);
             } else {
-                // Create new admin
-                await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/v1/admin", newAdmin);
+                await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin`, newAdmin);
             }
             setNewAdmin({
-                id: "",
-                username: "",
+                id: 0,
                 email: "",
-                role: "Warehouse Admin"
+                fullname: "",
+                role: "Warehouse_Admin"
             });
             setEditingAdmin(null);
-            // Refetch the admins list
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/api/v1/admin");
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin`);
             setAdmins(response.data);
         } catch (error) {
             console.error("Error creating or updating admin:", error);
@@ -1295,16 +1286,15 @@ const AdminManagement = ()=>{
         setEditingAdmin(admin);
         setNewAdmin({
             id: admin.id,
-            username: admin.username,
             email: admin.email,
-            role: admin.role
+            role: admin.role,
+            fullname: admin.fullname
         });
     };
     const handleDelete = async (adminId)=>{
         try {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(`/api/v1/admin/${adminId}`);
-            // Refetch the admins list after deletion
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/api/v1/admin");
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin/${adminId}`);
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/admin`);
             setAdmins(response.data);
         } catch (error) {
             console.error("Error deleting admin:", error);
@@ -1315,12 +1305,12 @@ const AdminManagement = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                lineNumber: 90,
+                lineNumber: 91,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                lineNumber: 91,
+                lineNumber: 92,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1328,7 +1318,7 @@ const AdminManagement = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                        lineNumber: 93,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1350,7 +1340,7 @@ const AdminManagement = ()=>{
                                         children: editingAdmin ? "Edit Admin" : "Create New Admin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 98,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1358,15 +1348,15 @@ const AdminManagement = ()=>{
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 type: "text",
-                                                name: "username",
-                                                value: newAdmin.username,
+                                                name: "fullname",
+                                                value: newAdmin.fullname,
                                                 onChange: handleInputChange,
-                                                placeholder: "Username",
+                                                placeholder: "Full Name",
                                                 className: "w-full p-2 mb-2 border rounded-lg",
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                lineNumber: 102,
+                                                lineNumber: 100,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1379,7 +1369,7 @@ const AdminManagement = ()=>{
                                                 required: true
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                lineNumber: 111,
+                                                lineNumber: 109,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1389,25 +1379,25 @@ const AdminManagement = ()=>{
                                                 className: "w-full p-2 mb-4 border rounded-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                        value: "Warehouse Admin",
+                                                        value: "Warehouse_Admin",
                                                         children: "Warehouse Admin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 126,
+                                                        lineNumber: 124,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                        value: "Super Admin",
+                                                        value: "Super_Admin",
                                                         children: "Super Admin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 127,
+                                                        lineNumber: 125,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                lineNumber: 120,
+                                                lineNumber: 118,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1416,19 +1406,19 @@ const AdminManagement = ()=>{
                                                 children: editingAdmin ? "Update Admin" : "Create Admin"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                lineNumber: 129,
+                                                lineNumber: 127,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                        lineNumber: 101,
+                                        lineNumber: 99,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                lineNumber: 99,
+                                lineNumber: 97,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1436,7 +1426,7 @@ const AdminManagement = ()=>{
                                 children: "Admin Users"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                lineNumber: 139,
+                                lineNumber: 136,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
@@ -1451,7 +1441,7 @@ const AdminManagement = ()=>{
                                                     children: "Username"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                    lineNumber: 143,
+                                                    lineNumber: 140,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1459,7 +1449,7 @@ const AdminManagement = ()=>{
                                                     children: "Email"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                    lineNumber: 144,
+                                                    lineNumber: 141,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1467,7 +1457,7 @@ const AdminManagement = ()=>{
                                                     children: "Role"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                    lineNumber: 145,
+                                                    lineNumber: 142,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1475,18 +1465,18 @@ const AdminManagement = ()=>{
                                                     children: "Actions"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 143,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                            lineNumber: 142,
+                                            lineNumber: 139,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                        lineNumber: 141,
+                                        lineNumber: 138,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1494,10 +1484,10 @@ const AdminManagement = ()=>{
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "border p-2",
-                                                        children: admin.username
+                                                        children: admin.fullname
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 152,
+                                                        lineNumber: 149,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1505,7 +1495,7 @@ const AdminManagement = ()=>{
                                                         children: admin.email
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 153,
+                                                        lineNumber: 150,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1513,7 +1503,7 @@ const AdminManagement = ()=>{
                                                         children: admin.role
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 154,
+                                                        lineNumber: 151,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1525,7 +1515,7 @@ const AdminManagement = ()=>{
                                                                 children: "Edit"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                                lineNumber: 156,
+                                                                lineNumber: 153,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1534,30 +1524,30 @@ const AdminManagement = ()=>{
                                                                 children: "Delete"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                                lineNumber: 162,
+                                                                lineNumber: 159,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                        lineNumber: 155,
+                                                        lineNumber: 152,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, admin.id, true, {
                                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 148,
                                                 columnNumber: 17
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 146,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                                lineNumber: 140,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -1569,22 +1559,22 @@ const AdminManagement = ()=>{
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                lineNumber: 92,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-                lineNumber: 175,
+                lineNumber: 172,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/admin-management/page.tsx",
-        lineNumber: 89,
+        lineNumber: 90,
         columnNumber: 5
     }, this);
 };
-_s(AdminManagement, "QD4keXPE4d2ERjOtXbeTc5oBP2Q=");
+_s(AdminManagement, "+RZQhWK5ehcf6brx2X36xYsZkDs=");
 _c = AdminManagement;
 const __TURBOPACK__default__export__ = AdminManagement;
 var _c;

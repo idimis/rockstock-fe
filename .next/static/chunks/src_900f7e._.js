@@ -124,29 +124,20 @@ const AdminSidebar = ()=>{
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
-                        title: "👥 User Management",
+                        title: "👥 Admin Management",
                         links: [
                             {
-                                name: "All Users",
-                                path: "/dashboard/admin/users"
+                                name: "All Admins",
+                                path: "/dashboard/admin/admin-management"
+                            },
+                            {
+                                name: "Assign Admins",
+                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
                         lineNumber: 44,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
-                        title: "🚛 Shipping & Logistics",
-                        links: [
-                            {
-                                name: "Shipping Costs",
-                                path: "/dashboard/admin/shipping"
-                            }
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -159,7 +150,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 56,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -172,7 +163,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -182,12 +173,12 @@ const AdminSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 69,
+                            lineNumber: 70,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 68,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -197,12 +188,12 @@ const AdminSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 72,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 71,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, this)
                 ]
@@ -226,7 +217,7 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 86,
+                lineNumber: 87,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -238,23 +229,23 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 87,
+                lineNumber: 88,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-        lineNumber: 85,
+        lineNumber: 86,
         columnNumber: 3
     }, this);
 _c1 = SidebarSection;
@@ -1237,126 +1228,32 @@ var _s = __turbopack_refresh__.signature();
 ;
 const AdminDashboard = ()=>{
     _s();
-    const [warehouses, setWarehouses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [newWarehouse, setNewWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        name: "",
-        address: "",
-        longitude: "",
-        latitude: ""
-    });
-    const [selectedWarehouse, setSelectedWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [adminUserId, setAdminUserId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(""); // ID admin yang ingin di-assign
-    // Simulasi role user (nanti bisa diganti dengan JWT auth)
-    const userRole = "SUPER_ADMIN"; // HARUS DIAMBIL DARI AUTH BACKEND
+    const [fullname, setFullname] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AdminDashboard.useEffect": ()=>{
-            fetchWarehouses();
+            // Mengambil fullname yang disimpan
+            const storedFullname = localStorage.getItem("fullname");
+            setFullname(storedFullname || "Admin");
+            // Mengambil JWT token jika ada di localStorage
+            const jwtToken = localStorage.getItem("jwt_token");
+            if (jwtToken) {
+                console.log("JWT Token is available:", jwtToken);
+            } else {
+                console.log("JWT Token is not available.");
+            }
         }
     }["AdminDashboard.useEffect"], []);
-    // Fetch all warehouses
-    const fetchWarehouses = async ()=>{
-        try {
-            const response = await fetch("/api/v1/warehouse");
-            if (!response.ok) throw new Error("Failed to fetch warehouses");
-            const data = await response.json();
-            setWarehouses(data);
-        } catch (error) {
-            console.error("Error fetching warehouses:", error);
-        } finally{
-            setLoading(false);
-        }
-    };
-    // Create Warehouse
-    const createWarehouse = async ()=>{
-        try {
-            const response = await fetch("/api/v1/warehouse", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newWarehouse)
-            });
-            if (!response.ok) throw new Error("Failed to create warehouse");
-            fetchWarehouses(); // Refresh list
-        } catch (error) {
-            console.error("Error creating warehouse:", error);
-        }
-    };
-    // Update Warehouse
-    const updateWarehouse = async ()=>{
-        if (!selectedWarehouse) return;
-        try {
-            const response = await fetch(`/api/v1/warehouse/${selectedWarehouse.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(selectedWarehouse)
-            });
-            if (!response.ok) throw new Error("Failed to update warehouse");
-            fetchWarehouses(); // Refresh list
-            setSelectedWarehouse(null);
-        } catch (error) {
-            console.error("Error updating warehouse:", error);
-        }
-    };
-    // Delete Warehouse
-    const deleteWarehouse = async (id)=>{
-        try {
-            await fetch(`/api/v1/warehouse/${id}`, {
-                method: "DELETE"
-            });
-            fetchWarehouses(); // Refresh list
-        } catch (error) {
-            console.error("Error deleting warehouse:", error);
-        }
-    };
-    // Assign Admin to Warehouse
-    const assignWarehouseAdmin = async ()=>{
-        try {
-            const response = await fetch("/api/v1/warehouse/assign-admin", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    warehouseId: selectedWarehouse?.id,
-                    userId: adminUserId
-                })
-            });
-            if (!response.ok) throw new Error("Failed to assign admin");
-            alert("Admin assigned successfully!");
-        } catch (error) {
-            console.error("Error assigning warehouse admin:", error);
-        }
-    };
-    // Remove Admin from Warehouse
-    const removeWarehouseAdmin = async (warehouseAdminId)=>{
-        try {
-            await fetch(`/api/v1/warehouse/remove-admin/${warehouseAdminId}`, {
-                method: "DELETE"
-            });
-            alert("Admin removed successfully!");
-        } catch (error) {
-            console.error("Error removing warehouse admin:", error);
-        }
-    };
-    // Proteksi: hanya Super Admin yang bisa akses fitur ini
-    if ("TURBOPACK compile-time falsy", 0) {
-        "TURBOPACK unreachable";
-    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col bg-gray-100 text-black",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                lineNumber: 124,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                lineNumber: 125,
+                lineNumber: 30,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1364,7 +1261,7 @@ const AdminDashboard = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                        lineNumber: 127,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1372,174 +1269,230 @@ const AdminDashboard = ()=>{
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                 className: "text-2xl font-bold mb-4",
-                                children: "📊 Admin Dashboard"
-                            }, void 0, false, {
+                                children: [
+                                    "👋 Welcome, ",
+                                    fullname,
+                                    "!"
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                lineNumber: 129,
+                                lineNumber: 34,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-6 p-4 bg-gray-50 rounded shadow",
+                                className: "grid grid-cols-1 md:grid-cols-3 gap-6",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-lg font-semibold mb-2",
-                                        children: "➕ Add Warehouse"
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-blue-100 shadow rounded-lg",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: "text-lg font-semibold",
+                                                children: "💰 Total Sales"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 38,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-2xl font-bold",
+                                                children: "$25,230"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 39,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-gray-600",
+                                                children: "Last 30 days"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 40,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 133,
+                                        lineNumber: 37,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Name",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                name: e.target.value
-                                            })
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-green-100 shadow rounded-lg",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: "text-lg font-semibold",
+                                                children: "📦 Total Orders"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 45,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-2xl font-bold",
+                                                children: "1,340"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 46,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-gray-600",
+                                                children: "Pending: 120 | Completed: 1,100"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 47,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 134,
+                                        lineNumber: 44,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Address",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                address: e.target.value
-                                            })
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-yellow-100 shadow rounded-lg",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: "text-lg font-semibold",
+                                                children: "👥 New Customers"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 52,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-2xl font-bold",
+                                                children: "320"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 53,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                className: "text-sm text-gray-600",
+                                                children: "Last 30 days"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 54,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 135,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Longitude",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                longitude: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 136,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Latitude",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                latitude: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 137,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: createWarehouse,
-                                        className: "p-2 bg-blue-600 text-white rounded",
-                                        children: "Save"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 51,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                lineNumber: 132,
+                                lineNumber: 35,
                                 columnNumber: 11
                             }, this),
-                            loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                children: "Loading warehouses..."
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                lineNumber: 143,
-                                columnNumber: 13
-                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
-                                children: warehouses.map((warehouse)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-gray-50 shadow rounded-lg",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-1 md:grid-cols-2 gap-6 mt-6",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-white shadow rounded-lg",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                                 className: "text-lg font-semibold",
-                                                children: warehouse.name
+                                                children: "📈 Sales Performance"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                                lineNumber: 148,
-                                                columnNumber: 19
+                                                lineNumber: 61,
+                                                columnNumber: 15
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-gray-600",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "h-40 bg-gray-200 flex items-center justify-center text-gray-600",
+                                                children: "Chart Placeholder"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 62,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                        lineNumber: 60,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-white shadow rounded-lg",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                                className: "text-lg font-semibold",
+                                                children: "🔥 Best Selling Products"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                lineNumber: 66,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                                className: "mt-2 space-y-2",
                                                 children: [
-                                                    "📍 ",
-                                                    warehouse.address
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        children: "1. Product A - 500 sold"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                        lineNumber: 68,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        children: "2. Product B - 450 sold"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                        lineNumber: 69,
+                                                        columnNumber: 17
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                        children: "3. Product C - 400 sold"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/admin/page.tsx",
+                                                        lineNumber: 70,
+                                                        columnNumber: 17
+                                                    }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                                lineNumber: 149,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>deleteWarehouse(warehouse.id),
-                                                className: "mt-2 p-2 bg-red-600 text-white rounded",
-                                                children: "Delete"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                                lineNumber: 150,
-                                                columnNumber: 19
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                onClick: ()=>setSelectedWarehouse(warehouse),
-                                                className: "mt-2 p-2 bg-yellow-600 text-white rounded",
-                                                children: "Edit"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                                lineNumber: 151,
-                                                columnNumber: 19
+                                                lineNumber: 67,
+                                                columnNumber: 15
                                             }, this)
                                         ]
-                                    }, warehouse.id, true, {
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                        lineNumber: 147,
-                                        columnNumber: 17
-                                    }, this))
-                            }, void 0, false, {
+                                        lineNumber: 65,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                                lineNumber: 145,
-                                columnNumber: 13
+                                lineNumber: 59,
+                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                        lineNumber: 128,
+                        lineNumber: 33,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                lineNumber: 126,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/page.tsx",
-                lineNumber: 158,
+                lineNumber: 76,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/page.tsx",
-        lineNumber: 123,
+        lineNumber: 28,
         columnNumber: 5
     }, this);
 };
-_s(AdminDashboard, "zHJfTYuiOnzuCuSjrkVRXgwNsoU=");
+_s(AdminDashboard, "k8Rm4cxQV6T8iddZrCmZelcYgzk=");
 _c = AdminDashboard;
 const __TURBOPACK__default__export__ = AdminDashboard;
 var _c;

@@ -10,10 +10,37 @@ const UserDashboard = () => {
   const [fullname, setFullname] = useState<string | null>(null);
 
   useEffect(() => {
+    // Mengambil fullname yang disimpan
     const storedFullname = localStorage.getItem("fullname");
     setFullname(storedFullname || "User");
+
+    // Mengambil JWT token jika ada di localStorage
+    const jwtToken = localStorage.getItem("jwt_token");
+
+    if (jwtToken) {
+      console.log("JWT Token is available:", jwtToken);
+    } else {
+      console.log("JWT Token is not available.");
+    }
   }, []);
-  
+
+  const handleLogin = (token: string, fullname: string) => {
+    // Menyimpan JWT token dan fullname ke localStorage
+    localStorage.setItem("jwt_token", token);
+    localStorage.setItem("fullname", fullname);
+
+    // Setelah menyimpan token dan fullname, bisa lanjutkan ke dashboard atau hal lainnya
+    setFullname(fullname);
+  };
+
+  // Fungsi login ini hanya contoh, pastikan disesuaikan dengan alur login yang kamu miliki
+  const simulateLogin = () => {
+    // Simulasi login dan penyimpanan token
+    const fakeToken = "sample-jwt-token"; // Biasanya kamu dapatkan token dari backend
+    const fakeFullname = "John Doe"; // Ambil fullname dari hasil login
+
+    handleLogin(fakeToken, fakeFullname);
+  };
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-black">
@@ -66,6 +93,7 @@ const UserDashboard = () => {
               </ul>
             </div>
           </div>
+
         </main>
       </div>
       <Footer />

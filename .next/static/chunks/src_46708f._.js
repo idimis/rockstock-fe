@@ -1039,12 +1039,8 @@ const UserSidebar = ()=>{
                         title: "❓ Help",
                         links: [
                             {
-                                name: "Customer Support",
+                                name: "Support & FAQ",
                                 path: "/dashboard/user/help"
-                            },
-                            {
-                                name: "FAQ",
-                                path: "/dashboard/user/help/faq"
                             }
                         ]
                     }, void 0, false, {
@@ -1059,12 +1055,12 @@ const UserSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 44,
+                            lineNumber: 43,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 43,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1074,12 +1070,12 @@ const UserSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 47,
+                            lineNumber: 46,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 46,
+                        lineNumber: 45,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1103,7 +1099,7 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 57,
+                lineNumber: 56,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1115,23 +1111,23 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 61,
+                            lineNumber: 60,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 60,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 58,
+                lineNumber: 57,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/UserSidebar.tsx",
-        lineNumber: 56,
+        lineNumber: 55,
         columnNumber: 3
     }, this);
 _c1 = SidebarMenu;
@@ -1153,11 +1149,11 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Header.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Navbar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$UserSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/UserSidebar.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
@@ -1168,85 +1164,105 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-;
-const AddressManagement = ()=>{
+const BACKEND_URL = ("TURBOPACK compile-time value", "http://localhost:8080");
+const AddressPage = ()=>{
     _s();
+    const [userId, setUserId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [addresses, setAddresses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [selectedAddress, setSelectedAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [isEditing, setIsEditing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [newAddress, setNewAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        street: "",
-        city: "",
-        province: "",
-        isPrimary: false,
-        id: 0
-    });
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
-    // Fetch addresses from the backend
+    const [editModalOpen, setEditModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "AddressManagement.useEffect": ()=>{
-            const fetchAddresses = {
-                "AddressManagement.useEffect.fetchAddresses": async ()=>{
-                    try {
-                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/api/v1/addresses");
-                        setAddresses(response.data);
-                        if (response.data.length > 0) {
-                            setSelectedAddress(response.data[0]);
-                        }
-                    } catch (error) {
-                        console.error("Error fetching addresses:", error);
-                    }
+        "AddressPage.useEffect": ()=>{
+            const storedUserId = localStorage.getItem("userId");
+            if (storedUserId) {
+                setUserId(storedUserId);
+            }
+        }
+    }["AddressPage.useEffect"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AddressPage.useEffect": ()=>{
+            if (userId) {
+                fetchUserAddresses();
+            }
+        }
+    }["AddressPage.useEffect"], [
+        userId
+    ]);
+    const fetchUserAddresses = async ()=>{
+        setLoading(true);
+        setError(null);
+        const token = localStorage.getItem("accessToken");
+        if (!userId || !token) {
+            setError("You are not logged in");
+            setLoading(false);
+            return;
+        }
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/addresses/users`, {
+                params: {
+                    userId
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-            }["AddressManagement.useEffect.fetchAddresses"];
-            fetchAddresses();
-        }
-    }["AddressManagement.useEffect"], []);
-    const handleAddressChange = (event)=>{
-        const { name, value } = event.target;
-        setNewAddress((prev)=>({
-                ...prev,
-                [name]: value
-            }));
-    };
-    // Add new address
-    const addAddress = async ()=>{
-        try {
-            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/api/v1/addresses", newAddress);
-            setAddresses((prev)=>[
-                    ...prev,
-                    {
-                        ...newAddress,
-                        id: Date.now()
-                    }
-                ]);
-            setNewAddress({
-                street: "",
-                city: "",
-                province: "",
-                isPrimary: false,
-                id: 0
             });
-        } catch (error) {
-            console.error("Error adding new address:", error);
+            if (response.data.success && response.data.data) {
+                setAddresses(response.data.data);
+            } else {
+                setError("Failed to retrieve address data");
+            }
+        } catch (err) {
+            setError("Error fetching addresses");
+            console.error(err);
+        } finally{
+            setLoading(false);
         }
     };
-    // Mark address as primary
-    const setPrimaryAddress = (id)=>{
-        setAddresses((prev)=>prev.map((address)=>address.id === id ? {
-                    ...address,
-                    isPrimary: true
-                } : {
-                    ...address,
-                    isPrimary: false
-                }));
-    };
-    // Delete address
-    const deleteAddress = async (id)=>{
+    const setMainAddress = async (addressId)=>{
+        const token = localStorage.getItem("accessToken");
+        if (!userId || !token) return;
         try {
-            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(`/api/v1/addresses/${id}`);
-            setAddresses((prev)=>prev.filter((address)=>address.id !== id));
-        } catch (error) {
-            console.error("Error deleting address:", error);
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/addresses/user/${userId}/main`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            fetchUserAddresses();
+        } catch (err) {
+            console.error("Failed to set main address", err);
+        }
+    };
+    // Update Address
+    const updateAddress = async ()=>{
+        if (!selectedAddress) return;
+        const token = localStorage.getItem("accessToken");
+        try {
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${BACKEND_URL}/api/v1/addresses/${selectedAddress.id}/user/${userId}`, selectedAddress, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setEditModalOpen(false);
+            fetchUserAddresses();
+        } catch (err) {
+            console.error("Failed to update address", err);
+        }
+    };
+    // Delete Address
+    const deleteAddress = async (addressId)=>{
+        const token = localStorage.getItem("accessToken");
+        if (!userId || !token) return;
+        try {
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${BACKEND_URL}/api/v1/addresses/soft-delete/${addressId}/user/${userId}`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            fetchUserAddresses();
+        } catch (err) {
+            console.error("Failed to delete address", err);
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1254,20 +1270,20 @@ const AddressManagement = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                lineNumber: 95,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                lineNumber: 96,
+                lineNumber: 126,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex text-black",
+                className: "flex flex-grow",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$UserSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                        lineNumber: 98,
+                        lineNumber: 128,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1275,272 +1291,250 @@ const AddressManagement = ()=>{
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                 className: "text-2xl font-bold mb-4",
-                                children: "📍 Manage Addresses"
+                                children: "📍 My Addresses"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                lineNumber: 100,
+                                lineNumber: 130,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 bg-gray-100 shadow rounded-lg",
-                                children: [
-                                    addresses.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        className: "w-full p-2 border rounded-lg mt-2",
-                                        value: selectedAddress?.id || "",
-                                        onChange: (e)=>{
-                                            const selected = addresses.find((a)=>a.id === Number(e.target.value));
-                                            if (selected) setSelectedAddress(selected);
-                                        },
-                                        children: addresses.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: address.id,
-                                                children: [
-                                                    address.street,
-                                                    ", ",
-                                                    address.city,
-                                                    ", ",
-                                                    address.province,
-                                                    " (",
-                                                    address.isPrimary ? "Primary" : "",
-                                                    ")"
-                                                ]
-                                            }, address.id, true, {
-                                                fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                lineNumber: 112,
-                                                columnNumber: 19
-                                            }, this))
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 103,
-                                        columnNumber: 15
-                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-red-500",
-                                        children: "No address found. Please add a new address."
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 118,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500",
-                                        onClick: ()=>setIsEditing(true),
-                                        children: "Add New Address"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 120,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
+                            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-red-500 mb-4",
+                                children: error
+                            }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                lineNumber: 101,
-                                columnNumber: 11
-                            }, this),
-                            isEditing && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-6 p-4 bg-gray-100 shadow rounded-lg",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "text-xl font-bold mb-4",
-                                        children: "Add New Address"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 130,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        name: "street",
-                                        value: newAddress.street,
-                                        onChange: handleAddressChange,
-                                        placeholder: "Street",
-                                        className: "w-full p-2 mb-2 border rounded-lg"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 131,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        name: "city",
-                                        value: newAddress.city,
-                                        onChange: handleAddressChange,
-                                        placeholder: "City",
-                                        className: "w-full p-2 mb-2 border rounded-lg"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 139,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        name: "province",
-                                        value: newAddress.province,
-                                        onChange: handleAddressChange,
-                                        placeholder: "Province",
-                                        className: "w-full p-2 mb-2 border rounded-lg"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 147,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center mb-4",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "checkbox",
-                                                name: "isPrimary",
-                                                checked: newAddress.isPrimary,
-                                                onChange: ()=>setNewAddress((prev)=>({
-                                                            ...prev,
-                                                            isPrimary: !prev.isPrimary
-                                                        }))
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                lineNumber: 156,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "ml-2",
-                                                children: "Set as Primary Address"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                lineNumber: 164,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 155,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500",
-                                        onClick: addAddress,
-                                        children: "Add Address"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 166,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                lineNumber: 129,
-                                columnNumber: 13
+                                lineNumber: 132,
+                                columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-6",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "text-xl font-bold mb-4",
-                                        children: "Your Addresses"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                        lineNumber: 176,
-                                        columnNumber: 13
-                                    }, this),
-                                    addresses.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex items-center justify-between p-4 bg-gray-200 mb-2 rounded-lg",
+                                className: "p-4 bg-blue-100 shadow rounded-lg",
+                                children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    children: "Loading..."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                    lineNumber: 136,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                    children: addresses.length > 0 ? addresses.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                            className: "mt-2 p-3 bg-white rounded-lg shadow",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            children: [
-                                                                address.street,
-                                                                ", ",
-                                                                address.city,
-                                                                ", ",
-                                                                address.province
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                            lineNumber: 180,
-                                                            columnNumber: 19
-                                                        }, this),
-                                                        address.isPrimary && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-green-500",
-                                                            children: "Primary"
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                            className: "font-semibold",
+                                                            children: address.label
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                            lineNumber: 181,
-                                                            columnNumber: 41
+                                                            lineNumber: 143,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            children: address.addressDetail
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                                            lineNumber: 144,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            children: address.isMain ? "✅ Main Address" : "Secondary Address"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                                            lineNumber: 145,
+                                                            columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                    lineNumber: 179,
-                                                    columnNumber: 17
+                                                    lineNumber: 142,
+                                                    columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "mt-2 flex gap-2",
                                                     children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            className: "mr-2 text-blue-500",
-                                                            onClick: ()=>setPrimaryAddress(address.id),
-                                                            children: "Set as Primary"
+                                                        !address.isMain && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            className: "px-4 py-2 bg-green-500 text-white rounded",
+                                                            onClick: ()=>setMainAddress(address.id),
+                                                            children: "Set as Main"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                            lineNumber: 184,
-                                                            columnNumber: 19
+                                                            lineNumber: 149,
+                                                            columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                            className: "text-red-500",
+                                                            className: "px-4 py-2 bg-yellow-500 text-white rounded",
+                                                            onClick: ()=>{
+                                                                setSelectedAddress(address);
+                                                                setEditModalOpen(true);
+                                                            },
+                                                            children: "Edit"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                                            lineNumber: 156,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            className: "px-4 py-2 bg-red-500 text-white rounded",
                                                             onClick: ()=>deleteAddress(address.id),
                                                             children: "Delete"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                            lineNumber: 190,
-                                                            columnNumber: 19
+                                                            lineNumber: 165,
+                                                            columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                                    lineNumber: 183,
-                                                    columnNumber: 17
+                                                    lineNumber: 147,
+                                                    columnNumber: 23
                                                 }, this)
                                             ]
                                         }, address.id, true, {
                                             fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                            lineNumber: 178,
-                                            columnNumber: 15
-                                        }, this))
-                                ]
-                            }, void 0, true, {
+                                            lineNumber: 141,
+                                            columnNumber: 21
+                                        }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        children: "No addresses found"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                        lineNumber: 175,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                                    lineNumber: 138,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                                lineNumber: 175,
+                                lineNumber: 134,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                        lineNumber: 99,
+                        lineNumber: 129,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                lineNumber: 97,
+                lineNumber: 127,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-                lineNumber: 202,
+                lineNumber: 182,
                 columnNumber: 7
+            }, this),
+            editModalOpen && selectedAddress && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-white p-6 rounded-lg shadow-lg w-96",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "text-xl font-semibold mb-4",
+                            children: "Edit Address"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 188,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            className: "border p-2 w-full mb-2",
+                            placeholder: "Label",
+                            value: selectedAddress.label,
+                            onChange: (e)=>setSelectedAddress({
+                                    ...selectedAddress,
+                                    label: e.target.value
+                                })
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 189,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            className: "border p-2 w-full mb-2",
+                            placeholder: "Address Detail",
+                            value: selectedAddress.addressDetail,
+                            onChange: (e)=>setSelectedAddress({
+                                    ...selectedAddress,
+                                    addressDetail: e.target.value
+                                })
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 196,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            className: "border p-2 w-full mb-2",
+                            placeholder: "Longitude",
+                            value: selectedAddress.longitude,
+                            onChange: (e)=>setSelectedAddress({
+                                    ...selectedAddress,
+                                    longitude: parseFloat(e.target.value)
+                                })
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 205,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            className: "border p-2 w-full mb-2",
+                            placeholder: "Latitude",
+                            value: selectedAddress.latitude,
+                            onChange: (e)=>setSelectedAddress({
+                                    ...selectedAddress,
+                                    latitude: parseFloat(e.target.value)
+                                })
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 214,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: "bg-blue-500 text-white px-4 py-2 rounded mr-2",
+                            onClick: updateAddress,
+                            children: "Save"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 223,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            className: "bg-gray-500 text-white px-4 py-2 rounded",
+                            onClick: ()=>setEditModalOpen(false),
+                            children: "Cancel"
+                        }, void 0, false, {
+                            fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                            lineNumber: 226,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                    lineNumber: 187,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/app/dashboard/user/address/page.tsx",
+                lineNumber: 186,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/user/address/page.tsx",
-        lineNumber: 94,
+        lineNumber: 124,
         columnNumber: 5
     }, this);
 };
-_s(AddressManagement, "RlwsWXT9wZxaZ1ZPIABBOGfbHDM=", false, function() {
-    return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
-    ];
-});
-_c = AddressManagement;
-const __TURBOPACK__default__export__ = AddressManagement;
+_s(AddressPage, "RZ4HKTMoKkwJL+VJO09v5lzY7P4=");
+_c = AddressPage;
+const __TURBOPACK__default__export__ = AddressPage;
 var _c;
-__turbopack_refresh__.register(_c, "AddressManagement");
+__turbopack_refresh__.register(_c, "AddressPage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }

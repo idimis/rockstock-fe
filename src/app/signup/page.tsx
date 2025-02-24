@@ -14,8 +14,6 @@ import { signIn } from "next-auth/react";
 
 const SignupContent: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [fullname, setFullname] = useState("");
   const [gender, setGender] = useState("");
   const [birthdate, setBirthdate] = useState("");
@@ -27,31 +25,20 @@ const SignupContent: React.FC = () => {
     setLoading(true);
     setError(null);
 
-    if (password !== confirmPassword) {
-      setLoading(false);
-      setError("Passwords do not match!");
-      return;
-    }
-
     try {
       const formattedBirthdate = new Date(birthdate).toISOString();
-
-      const response = await axios.post("http://localhost:8080/api/v1/user/register", {
+      
+      const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
         fullname,
         email,
-        password,
         gender,
         birthdate: formattedBirthdate,
       });
 
       console.log("Signup successful:", response.data);
-
-     
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("fullname", fullname);
-
-      
       window.location.href = "/dashboard/user";
     } catch (err: any) {
       console.error("Signup error:", err.response?.data || err.message);
@@ -88,10 +75,6 @@ const SignupContent: React.FC = () => {
             
             <input type="email" placeholder="Email Address" className="border border-gray-300 text-gray-600 rounded-lg p-2 w-full mb-4" value={email} onChange={(e) => setEmail(e.target.value)} required aria-label="Email Address" />
             
-            <input type="password" placeholder="Password" className="border border-gray-300 text-gray-600 rounded-lg p-2 w-full mb-4" value={password} onChange={(e) => setPassword(e.target.value)} required aria-label="Password" />
-            
-            <input type="password" placeholder="Confirm Password" className="border border-gray-300 text-gray-600 rounded-lg p-2 w-full mb-4" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required aria-label="Confirm Password" />
-            
             <button type="submit" className="bg-rockstock-primary text-gray-600 font-semibold py-2 px-4 rounded-full hover:bg-rockstock-primary-dark transition duration-300 w-full mb-4" disabled={loading}>
               {loading ? "Signing Up..." : "Sign Up"}
             </button>
@@ -105,7 +88,7 @@ const SignupContent: React.FC = () => {
           </button>
 
           <button className="flex items-center bg-white text-gray-600 border border-gray-300 rounded-full py-2 px-4 hover:bg-gray-100 transition duration-300 w-full max-w-xs mb-4" onClick={() => signIn("google")} aria-label="Sign up with Google">
-            <Image src={FacebookIcon} alt="Google Icon" width={20} height={20} className="mr-2" />
+            <Image src={FacebookIcon} alt="Facebook Icon" width={20} height={20} className="mr-2" />
             Sign up with Facebook
           </button>
 

@@ -36,8 +36,7 @@ const UserSidebar = () => {
         <SidebarMenu 
           title="❓ Help" 
           links={[
-            { name: "Customer Support", path: "/dashboard/user/help" },
-            { name: "FAQ", path: "/dashboard/user/help/faq" }
+            { name: "Support & FAQ", path: "/dashboard/user/help" },
           ]}
         />
         <li className="p-2 rounded-lg cursor-pointer hover:bg-gray-200 active:bg-gray-300 transition">

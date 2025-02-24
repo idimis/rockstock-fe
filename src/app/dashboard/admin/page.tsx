@@ -1,9 +1,29 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Sidebar from "@/components/common/AdminSidebar";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 
 const AdminDashboard = () => {
+  const [fullname, setFullname] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Mengambil fullname yang disimpan
+    const storedFullname = localStorage.getItem("fullname");
+    setFullname(storedFullname || "Admin");
+
+    // Mengambil JWT token jika ada di localStorage
+    const jwtToken = localStorage.getItem("jwt_token");
+
+    if (jwtToken) {
+      console.log("JWT Token is available:", jwtToken);
+    } else {
+      console.log("JWT Token is not available.");
+    }
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-black">
       <Header />
@@ -11,7 +31,7 @@ const AdminDashboard = () => {
       <div className="flex flex-grow">
         <Sidebar />
         <main className="flex-grow p-6 bg-white shadow-md">
-          <h1 className="text-2xl font-bold mb-4">📊 Admin Dashboard Overview</h1>
+          <h1 className="text-2xl font-bold mb-4">👋 Welcome, {fullname}!</h1>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Sales Summary */}
             <div className="p-4 bg-blue-100 shadow rounded-lg">

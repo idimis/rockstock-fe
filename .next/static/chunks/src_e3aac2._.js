@@ -1076,24 +1076,15 @@ const AdminSidebar = ()=>{
                             {
                                 name: "All Admins",
                                 path: "/dashboard/admin/admin-management"
+                            },
+                            {
+                                name: "Assign Admins",
+                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
                         lineNumber: 44,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
-                        title: "🚛 Shipping & Logistics",
-                        links: [
-                            {
-                                name: "Shipping Costs",
-                                path: "/dashboard/admin/shipping"
-                            }
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1106,7 +1097,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 56,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1119,7 +1110,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1129,12 +1120,12 @@ const AdminSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 69,
+                            lineNumber: 70,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 68,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1144,12 +1135,12 @@ const AdminSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 72,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 71,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1173,7 +1164,7 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 86,
+                lineNumber: 87,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1185,23 +1176,23 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 87,
+                lineNumber: 88,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-        lineNumber: 85,
+        lineNumber: 86,
         columnNumber: 3
     }, this);
 _c1 = SidebarSection;
@@ -1223,13 +1214,16 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jwt$2d$decode$2f$build$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/jwt-decode/build/esm/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Header.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Navbar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/AdminSidebar.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -1246,8 +1240,32 @@ const AdminWarehouse = ()=>{
         latitude: ""
     });
     const [selectedWarehouse, setSelectedWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    // Simulasi role user (ganti dengan auth JWT dari backend)
-    const userRole = "SUPER_ADMIN";
+    const token = localStorage.getItem("jwt_token");
+    let userRole = "";
+    if (token) {
+        const decodedToken = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jwt$2d$decode$2f$build$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jwtDecode"])(token);
+        userRole = decodedToken?.role || "";
+    }
+    if (!token) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "text-center mt-10 text-red-600",
+            children: "❌ Access Denied: Please login to access this page."
+        }, void 0, false, {
+            fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+            lineNumber: 41,
+            columnNumber: 12
+        }, this);
+    }
+    if (userRole !== "SUPER_ADMIN") {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+            className: "text-center mt-10 text-red-600",
+            children: "❌ Access Denied: Only Super Admin can manage warehouses."
+        }, void 0, false, {
+            fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+            lineNumber: 46,
+            columnNumber: 10
+        }, this);
+    }
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AdminWarehouse.useEffect": ()=>{
             fetchWarehouses();
@@ -1256,7 +1274,13 @@ const AdminWarehouse = ()=>{
     // Fetch all warehouses
     const fetchWarehouses = async ()=>{
         try {
-            const response = await fetch("/api/v1/warehouse");
+            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
             if (!response.ok) throw new Error("Failed to fetch warehouses");
             const data = await response.json();
             setWarehouses(data);
@@ -1269,10 +1293,11 @@ const AdminWarehouse = ()=>{
     // Create Warehouse
     const createWarehouse = async ()=>{
         try {
-            const response = await fetch("/api/v1/warehouse", {
+            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(newWarehouse)
             });
@@ -1286,10 +1311,11 @@ const AdminWarehouse = ()=>{
     const updateWarehouse = async ()=>{
         if (!selectedWarehouse) return;
         try {
-            const response = await fetch(`/api/v1/warehouse/${selectedWarehouse.id}`, {
+            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse/${selectedWarehouse.id}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(selectedWarehouse)
             });
@@ -1303,29 +1329,28 @@ const AdminWarehouse = ()=>{
     // Delete Warehouse
     const deleteWarehouse = async (id)=>{
         try {
-            await fetch(`/api/v1/warehouse/${id}`, {
-                method: "DELETE"
+            await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
             });
             fetchWarehouses();
         } catch (error) {
             console.error("Error deleting warehouse:", error);
         }
     };
-    // Proteksi: hanya Super Admin yang bisa akses fitur ini
-    if ("TURBOPACK compile-time falsy", 0) {
-        "TURBOPACK unreachable";
-    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col bg-gray-100 text-black",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 93,
+                lineNumber: 129,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 94,
+                lineNumber: 130,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1333,7 +1358,7 @@ const AdminWarehouse = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                        lineNumber: 96,
+                        lineNumber: 132,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1344,7 +1369,7 @@ const AdminWarehouse = ()=>{
                                 children: "Warehouse Management"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 98,
+                                lineNumber: 134,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1355,7 +1380,7 @@ const AdminWarehouse = ()=>{
                                         children: "➕ Add Warehouse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 102,
+                                        lineNumber: 138,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1368,7 +1393,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 103,
+                                        lineNumber: 139,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1381,7 +1406,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 104,
+                                        lineNumber: 140,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1394,7 +1419,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 141,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1407,7 +1432,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 142,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1416,20 +1441,20 @@ const AdminWarehouse = ()=>{
                                         children: "Save"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 143,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 101,
+                                lineNumber: 137,
                                 columnNumber: 11
                             }, this),
                             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 children: "Loading warehouses..."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 148,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                                 className: "w-full border border-gray-300",
@@ -1443,7 +1468,7 @@ const AdminWarehouse = ()=>{
                                                     children: "Warehouse ID"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 117,
+                                                    lineNumber: 153,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1451,7 +1476,7 @@ const AdminWarehouse = ()=>{
                                                     children: "Name"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 118,
+                                                    lineNumber: 154,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1459,7 +1484,7 @@ const AdminWarehouse = ()=>{
                                                     children: "Location"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 119,
+                                                    lineNumber: 155,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1467,18 +1492,18 @@ const AdminWarehouse = ()=>{
                                                     children: "Actions"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 156,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                            lineNumber: 116,
+                                            lineNumber: 152,
                                             columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 151,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1489,7 +1514,7 @@ const AdminWarehouse = ()=>{
                                                         children: warehouse.id
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 126,
+                                                        lineNumber: 162,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1497,7 +1522,7 @@ const AdminWarehouse = ()=>{
                                                         children: warehouse.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 127,
+                                                        lineNumber: 163,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1505,7 +1530,7 @@ const AdminWarehouse = ()=>{
                                                         children: warehouse.address
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 128,
+                                                        lineNumber: 164,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1517,7 +1542,7 @@ const AdminWarehouse = ()=>{
                                                                 children: "Edit"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                                lineNumber: 130,
+                                                                lineNumber: 166,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1526,30 +1551,30 @@ const AdminWarehouse = ()=>{
                                                                 children: "Delete"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                                lineNumber: 131,
+                                                                lineNumber: 167,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 129,
+                                                        lineNumber: 165,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, warehouse.id, true, {
                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                lineNumber: 125,
+                                                lineNumber: 161,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 123,
+                                        lineNumber: 159,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 114,
+                                lineNumber: 150,
                                 columnNumber: 13
                             }, this),
                             selectedWarehouse && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1560,7 +1585,7 @@ const AdminWarehouse = ()=>{
                                         children: "✏️ Edit Warehouse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 178,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1573,7 +1598,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 179,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1586,7 +1611,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1599,7 +1624,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 145,
+                                        lineNumber: 181,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1612,7 +1637,7 @@ const AdminWarehouse = ()=>{
                                             })
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 182,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1621,36 +1646,36 @@ const AdminWarehouse = ()=>{
                                         children: "Update"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 183,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 141,
+                                lineNumber: 177,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                        lineNumber: 97,
+                        lineNumber: 133,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 95,
+                lineNumber: 131,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 152,
+                lineNumber: 188,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-        lineNumber: 92,
+        lineNumber: 128,
         columnNumber: 5
     }, this);
 };
