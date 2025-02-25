@@ -565,12 +565,8 @@ const UserSidebar = ()=>{
                         title: "❓ Help",
                         links: [
                             {
-                                name: "Customer Support",
+                                name: "Support & FAQ",
                                 path: "/dashboard/user/help"
-                            },
-                            {
-                                name: "FAQ",
-                                path: "/dashboard/user/help/faq"
                             }
                         ]
                     }, void 0, false, {
@@ -585,12 +581,12 @@ const UserSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 44,
+                            lineNumber: 43,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 43,
+                        lineNumber: 42,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -600,12 +596,12 @@ const UserSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 47,
+                            lineNumber: 46,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 46,
+                        lineNumber: 45,
                         columnNumber: 9
                     }, this)
                 ]
@@ -629,7 +625,7 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 57,
+                lineNumber: 56,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -641,23 +637,23 @@ const SidebarMenu = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__imported_
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/UserSidebar.tsx",
-                            lineNumber: 61,
+                            lineNumber: 60,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/UserSidebar.tsx",
-                        lineNumber: 60,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/UserSidebar.tsx",
-                lineNumber: 58,
+                lineNumber: 57,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/UserSidebar.tsx",
-        lineNumber: 56,
+        lineNumber: 55,
         columnNumber: 3
     }, this);
 _c1 = SidebarMenu;

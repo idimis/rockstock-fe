@@ -6,12 +6,12 @@ import { Pool } from "pg";
 import { JWT } from "next-auth/jwt";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Koneksi Database
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || "",
 });
 
-// Konfigurasi NextAuth
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+
 const authOptions = {
   providers: [
     CredentialsProvider({
@@ -34,7 +34,6 @@ const authOptions = {
             throw new Error("Invalid credentials");
           }
 
-          
           return {
             id: user.id,
             email: user.email,
@@ -62,28 +61,68 @@ const authOptions = {
     async jwt({ token, account, user }: { token: JWT; account?: any; user?: any }) {
       console.log("JWT CALLBACK:", { token, account, user });
 
-      // Jika user login pertama kali, tambahkan role ke token
-      if (user) {
-        token.role = user.role;
+      // Jika user login pertama kali dengan Google
+      if (account?.provider === "google" && account.id_token && account.access_token) {
+        try {
+          // Step 9: Ambil user info dari Google API
+          const googleUserInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: {
+              Authorization: `Bearer ${account.access_token}`,
+            },
+          }).then((res) => res.json());
+
+          console.log("GOOGLE USER INFO:", googleUserInfo);
+
+          // Step 10 & 11: Kirim data ke backend untuk dicek di database
+          const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/google`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              idToken: account.id_token,
+              accessToken: account.access_token,
+              email: googleUserInfo.email,
+              name: googleUserInfo.name,
+              photoProfileUrl: googleUserInfo.picture,
+            }),
+          });
+
+          if (!backendResponse.ok) {
+            const errorText = await backendResponse.text();
+            console.error("Backend Authentication Error:", backendResponse.status, errorText);
+            throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
+          }
+          
+
+          const backendData = await backendResponse.json();
+          console.log("BACKEND RESPONSE:", backendData);
+
+          // Step 12: Assign role, access token & refresh token dari backend
+          token.id = backendData.id;
+          token.email = backendData.email;
+          token.role = backendData.role;
+          token.accessToken = backendData.accessToken;
+          token.refreshToken = backendData.refreshToken;
+          token.scope = backendData.scope; 
+        } catch (error) {
+          console.error("Error processing Google login:", error);
+        }
       }
 
       return token;
     },
 
     async session({ session, token }: { session: any; token: JWT }) {
-      session.user.id = token.sub;
-      session.user.role = token.role; 
+      session.user.id = token.id;
+      session.user.email = token.email;
+      session.user.role = token.role;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
+      session.scope = token.scope; 
       return session;
     },
 
-    async redirect({ url, baseUrl, token }: { url: string; baseUrl: string; token?: JWT }) {
-      if (token?.role === "admin") {
-        return `${baseUrl}/dashboard/admin`;
-      } else {
-        return `${baseUrl}/dashboard/user`;
-      }
+    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 

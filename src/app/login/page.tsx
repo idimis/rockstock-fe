@@ -1,6 +1,5 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import axios from "axios";
 import Footer from "@/components/common/Footer";
@@ -11,6 +10,8 @@ import darkImage from "@/public/darkacademia.webp";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import { signIn, getSession } from "next-auth/react"; 
+
 
 const LoginContent: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -71,20 +72,45 @@ const LoginContent: React.FC = () => {
   };
   
 
+  
   const handleSocialLogin = async (provider: string) => {
     setLoading(true);
     try {
-      if (provider === "Google") {
-        await signIn("google", { callbackUrl: "/dashboard" });
-      } else {
-        console.log(`Logging in with ${provider}`);
-        router.push("/dashboard");
+      // Step 1: Login dengan NextAuth
+      await signIn(provider.toLowerCase(), { callbackUrl: "/dashboard/user" });
+  
+      // Step 2: Tunggu sesi NextAuth diperbarui
+      const session = await getSession();
+  
+      if (!session || !session.accessToken) {
+        throw new Error("Failed to retrieve access token from session");
       }
+  
+      // Step 3: Decode JWT
+      const decodedToken = jwtDecode<{ userId: number; scope: string }>(session.accessToken);
+      console.log("Decoded Token:", decodedToken);
+  
+      // Step 4: Simpan ke localStorage (opsional)
+      localStorage.setItem("accessToken", session.accessToken);
+      localStorage.setItem("refreshToken", session.refreshToken || "");
+      localStorage.setItem("userId", decodedToken.userId.toString());
+      console.log ("scope = ", decodedToken.scope)
+      // Step 5: Redirect berdasarkan role/scope
+      alert(decodedToken.scope)
+      if (decodedToken.scope === "Customer") {
+        router.push("/dashboard/user");
+      } else {
+        router.push("/dashboard/admin");
+      }
+  
     } catch (error) {
+      console.error("Social Login Error:", error);
       setError(`Failed to log in with ${provider}`);
     }
     setLoading(false);
   };
+  
+  
 
   return (
     <>

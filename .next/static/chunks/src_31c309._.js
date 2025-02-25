@@ -1076,24 +1076,15 @@ const AdminSidebar = ()=>{
                             {
                                 name: "All Admins",
                                 path: "/dashboard/admin/admin-management"
+                            },
+                            {
+                                name: "Assign Admins",
+                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
                         lineNumber: 44,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
-                        title: "🚛 Shipping & Logistics",
-                        links: [
-                            {
-                                name: "Shipping Costs",
-                                path: "/dashboard/admin/shipping"
-                            }
-                        ]
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 50,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1106,7 +1097,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 56,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SidebarSection, {
@@ -1119,7 +1110,7 @@ const AdminSidebar = ()=>{
                         ]
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1129,12 +1120,12 @@ const AdminSidebar = ()=>{
                             children: "🏠 Back to Homepage"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 69,
+                            lineNumber: 70,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 68,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -1144,12 +1135,12 @@ const AdminSidebar = ()=>{
                             children: "🚪 Logout"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 72,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 71,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1173,7 +1164,7 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 86,
+                lineNumber: 87,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1185,23 +1176,23 @@ const SidebarSection = ({ title, links })=>/*#__PURE__*/ (0, __TURBOPACK__import
                             children: link.name
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                            lineNumber: 90,
+                            lineNumber: 91,
                             columnNumber: 11
                         }, this)
                     }, index, false, {
                         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 90,
                         columnNumber: 9
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/common/AdminSidebar.tsx",
-                lineNumber: 87,
+                lineNumber: 88,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/AdminSidebar.tsx",
-        lineNumber: 85,
+        lineNumber: 86,
         columnNumber: 3
     }, this);
 _c1 = SidebarSection;

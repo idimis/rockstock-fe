@@ -155,11 +155,10 @@ var __TURBOPACK__imported__module__$5b$externals$5d2f$pg__$5b$external$5d$__$28$
 ;
 ;
 ;
-// Koneksi Database
 const pool = new __TURBOPACK__imported__module__$5b$externals$5d2f$pg__$5b$external$5d$__$28$pg$2c$__cjs$29$__["Pool"]({
     connectionString: process.env.DATABASE_URL || ""
 });
-// Konfigurasi NextAuth
+const BACKEND_URL = ("TURBOPACK compile-time value", "http://localhost:8080");
 const authOptions = {
     providers: [
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2d$auth$2f$providers$2f$credentials$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])({
@@ -218,25 +217,61 @@ const authOptions = {
                 account,
                 user
             });
-            // Jika user login pertama kali, tambahkan role ke token
-            if (user) {
-                token.role = user.role;
+            // Jika user login pertama kali dengan Google
+            if (account?.provider === "google" && account.id_token && account.access_token) {
+                try {
+                    // Step 9: Ambil user info dari Google API
+                    const googleUserInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                        headers: {
+                            Authorization: `Bearer ${account.access_token}`
+                        }
+                    }).then((res)=>res.json());
+                    console.log("GOOGLE USER INFO:", googleUserInfo);
+                    // Step 10 & 11: Kirim data ke backend untuk dicek di database
+                    const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/google`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            idToken: account.id_token,
+                            accessToken: account.access_token,
+                            email: googleUserInfo.email,
+                            name: googleUserInfo.name,
+                            photoProfileUrl: googleUserInfo.picture
+                        })
+                    });
+                    if (!backendResponse.ok) {
+                        const errorText = await backendResponse.text();
+                        console.error("Backend Authentication Error:", backendResponse.status, errorText);
+                        throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
+                    }
+                    const backendData = await backendResponse.json();
+                    console.log("BACKEND RESPONSE:", backendData);
+                    // Step 12: Assign role, access token & refresh token dari backend
+                    token.id = backendData.id;
+                    token.email = backendData.email;
+                    token.role = backendData.role;
+                    token.accessToken = backendData.accessToken;
+                    token.refreshToken = backendData.refreshToken;
+                    token.scope = backendData.scope;
+                } catch (error) {
+                    console.error("Error processing Google login:", error);
+                }
             }
             return token;
         },
         async session ({ session, token }) {
-            session.user.id = token.sub;
+            session.user.id = token.id;
+            session.user.email = token.email;
             session.user.role = token.role;
             session.accessToken = token.accessToken;
             session.refreshToken = token.refreshToken;
+            session.scope = token.scope;
             return session;
         },
-        async redirect ({ url, baseUrl, token }) {
-            if (token?.role === "admin") {
-                return `${baseUrl}/dashboard/admin`;
-            } else {
-                return `${baseUrl}/dashboard/user`;
-            }
+        async redirect ({ url, baseUrl }) {
+            return url.startsWith(baseUrl) ? url : baseUrl;
         }
     },
     secret: process.env.NEXTAUTH_SECRET,
