@@ -8,6 +8,9 @@ import Navbar from "@/components/common/Navbar";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  console.log("Product ID:", id); // Log the product ID
+  const productId = Number(id); // Ensure it's a valid number
+  
   const { product, loading } = useProductDetail(Number(id));
 
   if (loading) return <p>Loading...</p>;
@@ -31,7 +34,8 @@ const ProductDetail = () => {
 
       {/* Right: Stock Selection */}
       <div className="w-1/3">
-        <QuantitySelector totalStock={product.totalStock} price={product.price} />
+      <QuantitySelector productId={product.productId} totalStock={product.totalStock} price={product.price} />
+
       </div>
     </div></>
   );
