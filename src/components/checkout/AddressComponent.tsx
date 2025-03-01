@@ -23,9 +23,14 @@ interface NearestWarehouse {
   longitude: string;
 }
 
-const AddressComponent = () => {
+interface AddressComponentProps {
+  addressId: number | null;
+  setAddressId: (id: number) => void;
+}
+
+const AddressComponent: React.FC<AddressComponentProps> = ({ addressId, setAddressId }) => {
   const [defaultAddress, setDefaultAddress] = useState<Address | null>(null);
-  const [nearestWarejouse, setNearestWarehouse] = useState<NearestWarehouse | null>(null);
+  const [nearestWarehouse, setNearestWarehouse] = useState<NearestWarehouse | null>(null);
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -46,6 +51,7 @@ const AddressComponent = () => {
         if (Array.isArray(addressList)) {
           const mainAddress = addressList.find((addr: Address) => addr.isMain) || addressList[0];
           setDefaultAddress(mainAddress);
+          setAddressId(mainAddress.id)
           setAddresses(addressList);
         } else {
           throw new Error("Invalid API response format: 'data' is not an array");
@@ -59,7 +65,7 @@ const AddressComponent = () => {
     };
 
     fetchAddresses();
-  }, [accessToken]);
+  }, [setAddressId]);
 
   const handleChangeAddress = () => {
     setShowPopup(true);
@@ -67,6 +73,7 @@ const AddressComponent = () => {
 
   const handleSelectAddress = (address: Address) => {
     setDefaultAddress(address);
+    setAddressId(address.id)
     setShowPopup(false);
   };
 

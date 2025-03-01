@@ -9,14 +9,27 @@ interface DetailPaymentProps {
   shippingFee: number;
   totalPrice: number;
   onShowPopup: () => void;
+  paymentMethods: { id: number; name: string }[];
+  setPaymentMethods: React.Dispatch<React.SetStateAction<{ id: number; name: string }[]>>;
+  selectedMethod: number | null;
+  setSelectedMethod: (id: number) => void;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const accessToken = getAccessToken();
 
-const DetailPayment: React.FC<DetailPaymentProps> = ({ subtotal, shippingFee, totalPrice, onShowPopup }) => {
-  const [paymentMethods, setPaymentMethods] = useState<{ id: number; name: string }[]>([]);
-  const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
+const DetailPayment: React.FC<DetailPaymentProps> = ({ 
+  subtotal, 
+  shippingFee, 
+  totalPrice, 
+  onShowPopup,
+  paymentMethods,
+  setPaymentMethods,
+  selectedMethod, 
+  setSelectedMethod 
+}) => {
+  // const [paymentMethods, setPaymentMethods] = useState<{ id: number; name: string }[]>([]);
+  // const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchPaymentMethods = async () => {

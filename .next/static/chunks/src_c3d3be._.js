@@ -653,10 +653,10 @@ var _s = __turbopack_refresh__.signature();
 ;
 const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:8080/api/v1");
 const accessToken = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getAccessToken"])();
-const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
+const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup, paymentMethods, setPaymentMethods, selectedMethod, setSelectedMethod })=>{
     _s();
-    const [paymentMethods, setPaymentMethods] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [selectedMethod, setSelectedMethod] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    // const [paymentMethods, setPaymentMethods] = useState<{ id: number; name: string }[]>([]);
+    // const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "DetailPayment.useEffect": ()=>{
             const fetchPaymentMethods = {
@@ -696,7 +696,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                 children: "Payment Methods"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 50,
+                                lineNumber: 63,
                                 columnNumber: 11
                             }, this),
                             paymentMethods.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -713,7 +713,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                                 className: "form-radio text-red-600"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                                lineNumber: 55,
+                                                lineNumber: 68,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -721,31 +721,31 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                                 children: method.name
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                                lineNumber: 63,
+                                                lineNumber: 76,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, method.id, true, {
                                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                        lineNumber: 54,
+                                        lineNumber: 67,
                                         columnNumber: 17
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 52,
+                                lineNumber: 65,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                 className: "text-gray-500",
                                 children: "Loading payment methods..."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 68,
+                                lineNumber: 81,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                        lineNumber: 49,
+                        lineNumber: 62,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -753,7 +753,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                         children: "Payment Details"
                     }, void 0, false, {
                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                        lineNumber: 72,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -766,7 +766,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                         children: "Subtotal"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 88,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -774,7 +774,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 74,
+                                lineNumber: 87,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -784,7 +784,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                         children: "Shipping Fee"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 91,
                                         columnNumber: 13
                                     }, this),
                                     " ",
@@ -792,19 +792,19 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 77,
+                                lineNumber: 90,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                        lineNumber: 73,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                lineNumber: 48,
+                lineNumber: 61,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -816,7 +816,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                                 children: "Total"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                                lineNumber: 85,
+                                lineNumber: 98,
                                 columnNumber: 11
                             }, this),
                             " ",
@@ -824,7 +824,7 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                        lineNumber: 84,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -833,23 +833,23 @@ const DetailPayment = ({ subtotal, shippingFee, totalPrice, onShowPopup })=>{
                         children: "Pay Now"
                     }, void 0, false, {
                         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                        lineNumber: 87,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-                lineNumber: 83,
+                lineNumber: 96,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/checkout/DetailPayment.tsx",
-        lineNumber: 47,
+        lineNumber: 60,
         columnNumber: 5
     }, this);
 };
-_s(DetailPayment, "CxCGl3A7FJ7v/GssGZtkKChfejM=");
+_s(DetailPayment, "OD7bBpZva5O2jO+Puf00hKivP7c=");
 _c = DetailPayment;
 const __TURBOPACK__default__export__ = DetailPayment;
 var _c;
@@ -953,10 +953,10 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:8080/api/v1");
-const AddressComponent = ()=>{
+const AddressComponent = ({ addressId, setAddressId })=>{
     _s();
     const [defaultAddress, setDefaultAddress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [nearestWarejouse, setNearestWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [nearestWarehouse, setNearestWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [addresses, setAddresses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [showPopup, setShowPopup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
@@ -979,6 +979,7 @@ const AddressComponent = ()=>{
                                 "AddressComponent.useEffect.fetchAddresses": (addr)=>addr.isMain
                             }["AddressComponent.useEffect.fetchAddresses"]) || addressList[0];
                             setDefaultAddress(mainAddress);
+                            setAddressId(mainAddress.id);
                             setAddresses(addressList);
                         } else {
                             throw new Error("Invalid API response format: 'data' is not an array");
@@ -994,13 +995,14 @@ const AddressComponent = ()=>{
             fetchAddresses();
         }
     }["AddressComponent.useEffect"], [
-        accessToken
+        setAddressId
     ]);
     const handleChangeAddress = ()=>{
         setShowPopup(true);
     };
     const handleSelectAddress = (address)=>{
         setDefaultAddress(address);
+        setAddressId(address.id);
         setShowPopup(false);
     };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1008,7 +1010,7 @@ const AddressComponent = ()=>{
         children: "Loading address..."
     }, void 0, false, {
         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-        lineNumber: 73,
+        lineNumber: 80,
         columnNumber: 23
     }, this);
     if (error) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1016,7 +1018,7 @@ const AddressComponent = ()=>{
         children: error
     }, void 0, false, {
         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-        lineNumber: 74,
+        lineNumber: 81,
         columnNumber: 21
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1027,7 +1029,7 @@ const AddressComponent = ()=>{
                 children: "Shipping Address"
             }, void 0, false, {
                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                lineNumber: 78,
+                lineNumber: 85,
                 columnNumber: 7
             }, this),
             defaultAddress ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1043,7 +1045,7 @@ const AddressComponent = ()=>{
                                         color: "red"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                        lineNumber: 83,
+                                        lineNumber: 90,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1051,13 +1053,13 @@ const AddressComponent = ()=>{
                                         children: defaultAddress.label
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                        lineNumber: 84,
+                                        lineNumber: 91,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                lineNumber: 82,
+                                lineNumber: 89,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1065,7 +1067,7 @@ const AddressComponent = ()=>{
                                 children: defaultAddress.addressDetail
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                lineNumber: 86,
+                                lineNumber: 93,
                                 columnNumber: 13
                             }, this),
                             defaultAddress.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1073,13 +1075,13 @@ const AddressComponent = ()=>{
                                 children: defaultAddress.note
                             }, void 0, false, {
                                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                lineNumber: 87,
+                                lineNumber: 94,
                                 columnNumber: 37
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                        lineNumber: 81,
+                        lineNumber: 88,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1088,20 +1090,20 @@ const AddressComponent = ()=>{
                         children: "Change"
                     }, void 0, false, {
                         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                        lineNumber: 89,
+                        lineNumber: 96,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                lineNumber: 80,
+                lineNumber: 87,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 className: "text-gray-800",
                 children: "No address found."
             }, void 0, false, {
                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                lineNumber: 97,
+                lineNumber: 104,
                 columnNumber: 9
             }, this),
             showPopup && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1114,7 +1116,7 @@ const AddressComponent = ()=>{
                             children: "Select Address"
                         }, void 0, false, {
                             fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                            lineNumber: 103,
+                            lineNumber: 110,
                             columnNumber: 13
                         }, this),
                         addresses.map((address)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1130,7 +1132,7 @@ const AddressComponent = ()=>{
                                                     children: address.label
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                                    lineNumber: 108,
+                                                    lineNumber: 115,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1138,7 +1140,7 @@ const AddressComponent = ()=>{
                                                     children: address.addressDetail
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                                    lineNumber: 109,
+                                                    lineNumber: 116,
                                                     columnNumber: 21
                                                 }, this),
                                                 address.note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1146,13 +1148,13 @@ const AddressComponent = ()=>{
                                                     children: address.note
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                                    lineNumber: 110,
+                                                    lineNumber: 117,
                                                     columnNumber: 38
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                            lineNumber: 107,
+                                            lineNumber: 114,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1161,18 +1163,18 @@ const AddressComponent = ()=>{
                                             children: "Choose"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                            lineNumber: 112,
+                                            lineNumber: 119,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                    lineNumber: 106,
+                                    lineNumber: 113,
                                     columnNumber: 17
                                 }, this)
                             }, address.id, false, {
                                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                                lineNumber: 105,
+                                lineNumber: 112,
                                 columnNumber: 15
                             }, this)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1181,28 +1183,28 @@ const AddressComponent = ()=>{
                             children: "Cancel"
                         }, void 0, false, {
                             fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                            lineNumber: 121,
+                            lineNumber: 128,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                    lineNumber: 102,
+                    lineNumber: 109,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-                lineNumber: 101,
+                lineNumber: 108,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/checkout/AddressComponent.tsx",
-        lineNumber: 77,
+        lineNumber: 84,
         columnNumber: 5
     }, this);
 };
-_s(AddressComponent, "+nKvtq9SXpE/sllEBanNeCgKHfA=");
+_s(AddressComponent, "+o47PDCOWlbE7KhJE4X1G/Oc12E=");
 _c = AddressComponent;
 const __TURBOPACK__default__export__ = AddressComponent;
 var _c;
@@ -1292,6 +1294,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkou
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$services$2f$cartService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/services/cartService.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkout$2f$AddressComponent$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/checkout/AddressComponent.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$SimpleNavbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/SimpleNavbar.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/lib/utils/auth.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
@@ -1303,6 +1308,9 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
+;
+;
+const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:8080/api/v1");
 const CheckoutPage = ()=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
@@ -1310,7 +1318,10 @@ const CheckoutPage = ()=>{
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [showPopup, setShowPopup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const accessToken = ("TURBOPACK compile-time truthy", 1) ? localStorage.getItem("token") : ("TURBOPACK unreachable", undefined);
+    const [paymentMethods, setPaymentMethods] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [selectedMethod, setSelectedMethod] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [addressId, setAddressId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const accessToken = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2f$auth$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getAccessToken"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CheckoutPage.useEffect": ()=>{
             const getCartData = {
@@ -1339,16 +1350,40 @@ const CheckoutPage = ()=>{
     const subtotal = cartItems.reduce((total, item)=>total + item.productPrice * item.quantity, 0);
     const shippingFee = 10000;
     const totalPrice = subtotal + shippingFee;
-    const handleConfirmPayment = ()=>{
-        setShowPopup(false);
-        router.push("/checkout/payment");
+    const handleConfirmPayment = async ()=>{
+        setLoading(true);
+        try {
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${API_BASE_URL}/orders`, {
+                deliveryCost: shippingFee,
+                addressId,
+                paymentMethodId: selectedMethod
+            }, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            const orderId = response.data?.data.id;
+            const selectedPayment = paymentMethods.find((method)=>method.id === selectedMethod);
+            if (!selectedPayment) return;
+            if (selectedPayment.name === "Manual Bank Transfer") {
+                router.push(`/payments/manual/${orderId}`);
+            } else {
+                router.push(`/payments/gateway/${orderId}`);
+            }
+            setShowPopup(false);
+        } catch (error) {
+            console.error("Error placing order:", error);
+            alert("Failed to place order. Please try again.");
+        } finally{
+            setLoading(false);
+        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen flex flex-col",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$SimpleNavbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/checkout/page.tsx",
-                lineNumber: 59,
+                lineNumber: 100,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1359,14 +1394,14 @@ const CheckoutPage = ()=>{
                         children: "Checkout"
                     }, void 0, false, {
                         fileName: "[project]/src/app/checkout/page.tsx",
-                        lineNumber: 61,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this),
                     loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: "Loading cart items..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/checkout/page.tsx",
-                        lineNumber: 62,
+                        lineNumber: 103,
                         columnNumber: 21
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1374,14 +1409,14 @@ const CheckoutPage = ()=>{
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/src/app/checkout/page.tsx",
-                        lineNumber: 63,
+                        lineNumber: 104,
                         columnNumber: 19
                     }, this),
                     !loading && !error && cartItems.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         children: "Your cart is empty."
                     }, void 0, false, {
                         fileName: "[project]/src/app/checkout/page.tsx",
-                        lineNumber: 64,
+                        lineNumber: 105,
                         columnNumber: 58
                     }, this),
                     !loading && !error && cartItems.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1390,49 +1425,56 @@ const CheckoutPage = ()=>{
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex flex-col md:col-span-2",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkout$2f$AddressComponent$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkout$2f$AddressComponent$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        addressId: addressId,
+                                        setAddressId: setAddressId
+                                    }, void 0, false, {
                                         fileName: "[project]/src/app/checkout/page.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 109,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkout$2f$OrderSummary$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         cartItems: cartItems
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/checkout/page.tsx",
-                                        lineNumber: 69,
+                                        lineNumber: 110,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/checkout/page.tsx",
-                                lineNumber: 67,
+                                lineNumber: 108,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$checkout$2f$DetailPayment$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 subtotal: subtotal,
                                 shippingFee: shippingFee,
                                 totalPrice: totalPrice,
-                                onShowPopup: ()=>setShowPopup(true)
+                                onShowPopup: ()=>setShowPopup(true),
+                                paymentMethods: paymentMethods,
+                                setPaymentMethods: setPaymentMethods,
+                                selectedMethod: selectedMethod,
+                                setSelectedMethod: setSelectedMethod
                             }, void 0, false, {
                                 fileName: "[project]/src/app/checkout/page.tsx",
-                                lineNumber: 71,
+                                lineNumber: 112,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/checkout/page.tsx",
-                        lineNumber: 66,
+                        lineNumber: 107,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/checkout/page.tsx",
-                lineNumber: 60,
+                lineNumber: 101,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/checkout/page.tsx",
-                lineNumber: 80,
+                lineNumber: 125,
                 columnNumber: 7
             }, this),
             showPopup && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1445,7 +1487,7 @@ const CheckoutPage = ()=>{
                             children: "Confirm Payment"
                         }, void 0, false, {
                             fileName: "[project]/src/app/checkout/page.tsx",
-                            lineNumber: 86,
+                            lineNumber: 131,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1456,7 +1498,7 @@ const CheckoutPage = ()=>{
                                     children: "cannot change"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/checkout/page.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 133,
                                     columnNumber: 37
                                 }, this),
                                 ", add, or remove items, and you also",
@@ -1464,14 +1506,14 @@ const CheckoutPage = ()=>{
                                     children: " cannot change the address"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/checkout/page.tsx",
-                                    lineNumber: 89,
+                                    lineNumber: 134,
                                     columnNumber: 15
                                 }, this),
                                 " or payment method. Are you sure you want to continue?"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/checkout/page.tsx",
-                            lineNumber: 87,
+                            lineNumber: 132,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1483,43 +1525,44 @@ const CheckoutPage = ()=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/checkout/page.tsx",
-                                    lineNumber: 92,
+                                    lineNumber: 137,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    className: "px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500",
+                                    className: `px-4 py-2 text-white font-bold rounded-lg w-full transition ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-500"}`,
                                     onClick: handleConfirmPayment,
-                                    children: "Confirm & Pay"
+                                    disabled: loading,
+                                    children: loading ? "Processing..." : "Confirm & Pay"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/checkout/page.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 143,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/checkout/page.tsx",
-                            lineNumber: 91,
+                            lineNumber: 136,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/checkout/page.tsx",
-                    lineNumber: 85,
+                    lineNumber: 130,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/checkout/page.tsx",
-                lineNumber: 84,
+                lineNumber: 129,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/checkout/page.tsx",
-        lineNumber: 58,
+        lineNumber: 99,
         columnNumber: 5
     }, this);
 };
-_s(CheckoutPage, "8fY7nh8QHnJsNJ6ODZReD1UsEnA=", false, function() {
+_s(CheckoutPage, "/GvBEVb6yYVYzThNXqIlBICo4n8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

@@ -8,6 +8,8 @@ import DetailPayment from "@/components/checkout/DetailPayment";
 import { fetchCartItems } from "@/services/cartService";
 import AddressComponent from "@/components/checkout/AddressComponent";
 import SimpleNavbar from "@/components/common/SimpleNavbar";
+import { getAccessToken } from "@/lib/utils/auth";
+import axios from "axios";
 
 interface CartItem {
   cartItemId: number;
@@ -17,13 +19,18 @@ interface CartItem {
   quantity: number;
 }
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 const CheckoutPage = () => {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const [paymentMethods, setPaymentMethods] = useState<{ id: number; name: string }[]>([]);
+  const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
+  const [addressId, setAddressId] = useState<number | null>(null);
+  const accessToken = getAccessToken();
 
   useEffect(() => {
     const getCartData = async () => {
@@ -49,9 +56,43 @@ const CheckoutPage = () => {
   const shippingFee = 10000;
   const totalPrice = subtotal + shippingFee;
 
-  const handleConfirmPayment = () => {
-    setShowPopup(false);
-    router.push("/checkout/payment");
+  const handleConfirmPayment = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/orders`,
+        {
+          deliveryCost: shippingFee,
+          addressId,
+          paymentMethodId: selectedMethod,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      const orderId = response.data?.data.id;
+
+      const selectedPayment = paymentMethods.find((method) => method.id === selectedMethod);
+      if (!selectedPayment) return;
+
+      if (selectedPayment.name === "Manual Bank Transfer") {
+        router.push(`/payments/manual/${orderId}`);
+      } else {
+        router.push(`/payments/gateway/${orderId}`);
+      }
+
+      setShowPopup(false);
+
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Failed to place order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,14 +106,18 @@ const CheckoutPage = () => {
         {!loading && !error && cartItems.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col md:col-span-2">
-              <AddressComponent />
+              <AddressComponent addressId={addressId} setAddressId={setAddressId} />
               <OrderSummary cartItems={cartItems} />
             </div>
             <DetailPayment
               subtotal={subtotal}
               shippingFee={shippingFee}
               totalPrice={totalPrice}
-              onShowPopup={() => setShowPopup(true)} // Pass function to show pop-up
+              onShowPopup={() => setShowPopup(true)}
+              paymentMethods={paymentMethods}
+              setPaymentMethods={setPaymentMethods}
+              selectedMethod= {selectedMethod}
+              setSelectedMethod={setSelectedMethod}
             />
           </div>
         )}
@@ -96,10 +141,13 @@ const CheckoutPage = () => {
                 Cancel
               </button>
               <button
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500"
+                className={`px-4 py-2 text-white font-bold rounded-lg w-full transition ${
+                  loading ? "bg-gray-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-500"
+                }`}
                 onClick={handleConfirmPayment}
+                disabled={loading}
               >
-                Confirm & Pay
+                {loading ? "Processing..." : "Confirm & Pay"}
               </button>
             </div>
           </div>
