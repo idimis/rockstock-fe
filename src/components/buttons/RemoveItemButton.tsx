@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { IoTrashBin } from "react-icons/io5";
 
 interface RemoveItemButtonProps {
   onClick: () => void;
@@ -8,8 +9,8 @@ interface RemoveItemButtonProps {
 
 const RemoveItemButton: React.FC<RemoveItemButtonProps> = ({ onClick }) => {
   return (
-    <button onClick={onClick} className="ml-4 text-red-500 hover:text-red-700">
-      Remove
+    <button onClick={onClick}>
+      <IoTrashBin color="red" size={30} />
     </button>
   );
 };

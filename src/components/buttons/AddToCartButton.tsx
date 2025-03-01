@@ -63,8 +63,8 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productId, quantity }
       <button
         onClick={handleAddToCart}
         disabled={loading || !accessToken}
-        className={`mt-3 px-4 py-2 rounded-md transition ${
-          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white"
+        className={`mt-3 px-4 py-2 w-full rounded-md transition ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-red-500 hover:bg-red-600 active:bg-red-700 text-white"
         }`}
       >
         {loading ? "Adding..." : "Add to Cart"}

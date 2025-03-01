@@ -11,6 +11,8 @@ import IncreaseQuantityButton from "@/components/buttons/IncreaseQuantityButton"
 import DecreaseQuantityButton from "@/components/buttons/DecreaseQuantityButton";
 import RemoveItemButton from "@/components/buttons/RemoveItemButton";
 import { fetchCartItems, increaseCartItemQuantity, decreaseCartItemQuantity, removeCartItem } from "@/services/cartService";
+import CartSummary from "@/components/cart/CartSummary";
+import { getAccessToken } from "@/lib/utils/auth";
 
 interface CartItem {
   cartItemId: number;
@@ -28,7 +30,8 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  const [totalPrice, setTotalPrice] = useState(0);
+  const accessToken = getAccessToken();
 
   useEffect(() => {
     const getCartData = async () => {
@@ -70,53 +73,55 @@ const Cart = () => {
     window.dispatchEvent(new Event("storage"));
   };
 
-  const totalPrice = cartItems.reduce((total, item) => total + (item.totalAmount || 0), 0);
+  useEffect(() => {
+    const newTotalPrice = cartItems.reduce((total, item) => total + item.productPrice * item.quantity, 0);
+    setTotalPrice(newTotalPrice);
+  }, [cartItems]); 
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <Navbar />
-      <main className="flex-grow text-black container mx-auto p-6 mt-8 mb-8 bg-white shadow-lg rounded-lg">
-        <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
-        {loading && <p>Loading cart items...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {!loading && !error && cartItems.length === 0 && <p>Your cart is empty.</p>}
-        <div className="space-y-6">
-          {cartItems.map((item) => (
-            <div key={item.cartItemId} className="flex items-center border-b border-gray-300 pb-4">
-              <Image
-                src={item.productImage || "/images/default-product.jpg"}
-                alt={item.productName}
-                width={80}
-                height={80}
-                className="rounded-lg"
-              />
-              <div className="ml-4 flex-1">
-                <h3 className="text-lg font-semibold">{item.productName}</h3>
-                <p className="text-gray-600">{formatCurrency(item.productPrice)}</p>
-                <div className="mt-2 flex items-center space-x-2">
-                  <DecreaseQuantityButton onClick={() => decreaseQuantity(item.productId, item.quantity)} disabled={item.quantity <= 1} />
-                  <span className="px-4 py-1 bg-gray-100 rounded-lg">{item.quantity}</span>
-                  <IncreaseQuantityButton onClick={() => increaseQuantity(item.productId)} />
+      <main className="flex-1 container mx-auto p-6 mt-8 mb-8">
+        <h2 className="text-3xl font-bold mb-4 text-black">Shopping Cart</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex-grow w-full text-black mx-auto p-6 bg-white shadow-lg rounded-lg md:col-span-2">
+            {loading && <p>Loading cart items...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            {!loading && !error && cartItems.length === 0 && <p>Your cart is empty.</p>}
+            <div className="space-y-4 w-full">
+              {cartItems.map((item) => (
+                <div key={item.cartItemId} className="flex flex-col items-center w-full border-b border-gray-300 pb-2">
+                  <div className="flex justify-between items-center w-full">
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={item.productImage || "/images/default-product.jpg"}
+                        alt={item.productName}
+                        width={80}
+                        height={80}
+                        className="rounded-lg"
+                      />
+                      <h3 className="text-lg text-black">{item.productName}</h3>
+                    </div>
+                    <p className="text-black font-semibold">{formatCurrency(item.productPrice)}</p>
+                  </div>
+                  <div className="flex gap-4 items-center ml-auto">
+                    <div className="flex items-center space-x-1 border border-red-600 px-2 py-0.5 rounded-full">
+                      <DecreaseQuantityButton onClick={() => decreaseQuantity(item.productId, item.quantity)}/>
+                      <span className="px-4 py-1">{item.quantity}</span>
+                      <IncreaseQuantityButton onClick={() => increaseQuantity(item.productId)} />
+                    </div>
+                    <RemoveItemButton onClick={() => handleRemoveItem(item.cartItemId)} />
+                  </div>
                 </div>
-              </div>
-              <RemoveItemButton onClick={() => handleRemoveItem(item.cartItemId)} />
+              ))}
             </div>
-          ))}
+          </div>
+          <div>
+            {cartItems.length > 0 && <CartSummary totalPrice={totalPrice} />}
+          </div>
         </div>
 
-        {/* Total Price & Checkout */}
-        {cartItems.length > 0 && (
-          <div className="flex justify-between items-center mt-8 p-4 border-t border-gray-300">
-            <h3 className="text-xl font-bold">Total: {formatCurrency(totalPrice)}</h3>
-            <button
-              className="mt-4 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 transition"
-              onClick={() => router.push("/checkout")}
-            >
-              Checkout
-            </button>
-          </div>
-        )}
       </main>
       <Footer />
     </div>

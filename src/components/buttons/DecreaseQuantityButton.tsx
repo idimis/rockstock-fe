@@ -4,15 +4,13 @@ import React from "react";
 
 interface DecreaseQuantityButtonProps {
   onClick: () => void;
-  disabled: boolean;
 }
 
-const DecreaseQuantityButton: React.FC<DecreaseQuantityButtonProps> = ({ onClick, disabled }) => {
+const DecreaseQuantityButton: React.FC<DecreaseQuantityButtonProps> = ({ onClick }) => {
   return (
     <button
       onClick={onClick}
-      disabled={disabled}
-      className="px-3 py-1 bg-gray-200 text-black rounded-lg disabled:opacity-50"
+      className="px-3 py-1 text-red-600 hover:bg-gray-200 rounded-full"
     >
       -
     </button>
