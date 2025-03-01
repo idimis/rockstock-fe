@@ -64,9 +64,9 @@ const AddressPage = () => {
   }, []);
 
   const handleMapClick = (lat: number, lng: number) => {
-    setUserLocation({ lat, lng });
+    setNewAddress((prev) => ({ ...prev, latitude: lat, longitude: lng }));
   };
-
+  
 
   const fetchUserAddresses = async () => {
     setLoading(true);
@@ -101,18 +101,23 @@ const AddressPage = () => {
   }
 
   const addNewAddress = async () => {
-    if (!newAddress.label || !newAddress.addressDetail || !newAddress.longitude || !newAddress.latitude || !newAddress.cityId) {
+    if (!newAddress.label || !newAddress.addressDetail || !userLocation || !newAddress.cityId) {
       setError("All fields are required");
       return;
     }
-
+  
     const token = localStorage.getItem("accessToken");
     if (!userId || !token) return;
-
+  
     try {
       await axios.post(
         `${BACKEND_URL}/api/v1/addresses`,
-        { ...newAddress, userId },
+        { 
+          ...newAddress, 
+          userId, 
+          latitude: userLocation.lat, 
+          longitude: userLocation.lng 
+        },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       fetchUserAddresses();
@@ -120,6 +125,7 @@ const AddressPage = () => {
       console.error("Failed to add new address", err);
     }
   };
+  
   
   const setMainAddress = async (addressId: number) => {
     const token = localStorage.getItem("accessToken");
@@ -199,18 +205,6 @@ const AddressPage = () => {
       <input
         type="text"
         className="border p-2 w-full mb-2"
-        placeholder="Longitude"
-        onChange={(e) => setNewAddress({ ...newAddress, longitude: parseFloat(e.target.value) })}
-      />
-      <input
-        type="text"
-        className="border p-2 w-full mb-2"
-        placeholder="Latitude"
-        onChange={(e) => setNewAddress({ ...newAddress, latitude: parseFloat(e.target.value) })}
-      />
-      <input
-        type="text"
-        className="border p-2 w-full mb-2"
         placeholder="City ID"
         onChange={(e) => setNewAddress({ ...newAddress, cityId: parseInt(e.target.value) })}
       />
@@ -227,13 +221,12 @@ const AddressPage = () => {
               <p>Loading...</p>
             ) : (
               <ul>
-                <Map
-                  latitude={userLocation?.lat || 0}
-                  longitude={userLocation?.lng || 0}
-                  setCoordinates={(lat, lng) =>
-                    setAddresses((prev) => ({ ...prev, latitude: lat.toString(), longitude: lng.toString() }))
-                  }
-                />
+                <Map 
+  latitude={userLocation?.lat || 0} 
+  longitude={userLocation?.lng || 0} 
+  setCoordinates={handleMapClick} 
+/>
+
                 {addresses.length > 0 ? (
                   addresses.map((address) => (
                     <li
