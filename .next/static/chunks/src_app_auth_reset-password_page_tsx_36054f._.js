@@ -5,7 +5,7 @@
 (globalThis.TURBOPACK_CHUNK_LISTS = globalThis.TURBOPACK_CHUNK_LISTS || []).push({
   "path": "static/chunks/src_app_auth_reset-password_page_tsx_36054f._.js",
   "chunks": [
-    "static/chunks/node_modules_next_fc9ee3._.js",
+    "static/chunks/node_modules_a607e4._.js",
     "static/chunks/src_2cbd48._.js"
   ],
   "source": "dynamic"

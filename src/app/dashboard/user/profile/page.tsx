@@ -90,7 +90,7 @@ const UserProfilePage = () => {
   
   const handleResetPassword = async () => {
     try {
-      await fetch(`${BACKEND_URL}/api/v1/auth/reset-password`, {
+      await fetch(`${BACKEND_URL}/api/v1/user/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email }),
@@ -123,6 +123,11 @@ const UserProfilePage = () => {
         body: formData,
       });
       const data = await response.json();
+
+      if (file.size > 1024 * 1024) {
+        alert("File size must be under 1MB.");
+        return;
+      }      
   
       setUser((prev) => ({ ...prev, photoProfileUrl: data.data.secureUrl }));
       setPreviewImage(URL.createObjectURL(file));
@@ -135,52 +140,107 @@ const UserProfilePage = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  const handleResendVerificationEmail = async () => {
+    try {
+      await fetch(`${BACKEND_URL}/api/v1/user/resend-verification`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: user.email }),
+      });
+      alert("Verification email sent!");
+    } catch (error) {
+      console.error("Failed to resend verification email:", error);
+    }
+  };
+  
   
   return (
     <>
       <Header />
       <Navbar />
-      <div className="flex text-black">
+      <div className="flex text-black min-h-screen bg-gray-100">
         <UserSidebar />
-        <div className="container mx-auto p-6 text-black">
-          <h1 className="text-2xl font-bold mb-4">User Profile</h1>
-
+        <div className="container mx-auto p-6">
+          <h1 className="text-2xl font-bold mb-6">👤 User Profile</h1>
+  
           {loading ? (
-            <p className="text-center text-gray-500">Loading...</p>
+            <p className="text-center text-gray-500 animate-pulse">Loading...</p>
           ) : (
             <>
-              <div className="mb-6 p-4 border rounded-lg shadow-md bg-gray-100">
+              {/* User Information */}
+              <div className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                 <h2 className="text-xl font-semibold mb-2">User Information</h2>
                 <p><strong>Name:</strong> {user.fullname}</p>
                 <p><strong>Email:</strong> {user.email}</p>
                 <p><strong>Birth Date:</strong> {user.birthDate || "N/A"}</p>
                 <p><strong>Gender:</strong> {user.gender || "N/A"}</p>
-                <p><strong>Status:</strong> {user.isVerified ? "Verified" : "Unverified"}</p>
+                <p><strong>Status:</strong> {user.isVerified ? "✅ Verified" : "❌ Unverified"}</p>
               </div>
-              
-              <section className="mb-6 p-4 border rounded-lg shadow-md">
-                <h2 className="text-xl font-semibold mb-2">Reset Password</h2>
+  
+              {/* Verify Email Button */}
+              {!user.isVerified && (
                 <button 
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                  onClick={handleResetPassword}
+                  className="px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+                  onClick={handleResendVerificationEmail}
                 >
-                  Send Reset Link
+                  Verify Email
                 </button>
-              </section>
-
-              <section className="p-4 border rounded-lg shadow-md">
+              )}
+  
+              {/* Reset Password */}
+              {user.id && !user.email.includes("google.com") && (
+                <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
+                  <h2 className="text-xl font-semibold mb-2">Reset Password</h2>
+                  <button 
+                    className="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+                    onClick={handleResetPassword}
+                  >
+                    Send Reset Link
+                  </button>
+                </section>
+              )}
+  
+              {/* Profile Picture */}
+              <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                 <h2 className="text-xl font-semibold mb-2">Profile Picture</h2>
                 <img
-                   src={previewImage || user.photoProfileUrl || "/default-avatar.png"}
-                   alt="Profile"
-                   className="w-24 h-24 rounded-full mb-4 object-cover border"
-                  />
+                  src={previewImage || user.photoProfileUrl || "/default-avatar.png"}
+                  alt="Profile"
+                  className="w-24 h-24 rounded-full mb-4 object-cover border border-gray-300 shadow-sm"
+                />
                 <input 
                   type="file" 
                   accept=".jpg,.jpeg,.png,.gif" 
-                  className="border p-2 w-full rounded mb-2"
+                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
                   onChange={handleUploadPhoto}
                 />
+              </section>
+  
+              {/* Update Profile */}
+              <section className="p-6 border border-gray-200 rounded-xl shadow-md bg-white">
+                <h2 className="text-xl font-semibold mb-2">Update Profile</h2>
+                <input 
+                  type="text" 
+                  name="fullname"
+                  value={user.fullname}
+                  onChange={handleChange}
+                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
+                  placeholder="Full Name"
+                />
+                <input 
+                  type="date" 
+                  name="birthDate"
+                  value={user.birthDate}
+                  onChange={handleChange}
+                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
+                />
+                <button 
+                  className="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+                  onClick={handleUpdateProfile}
+                >
+                  Save Changes
+                </button>
               </section>
             </>
           )}

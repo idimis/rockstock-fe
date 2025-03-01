@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 23, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/src/middleware.ts"],"sourcesContent":["import { NextRequest, NextResponse } from \"next/server\";\r\nimport { getToken } from \"next-auth/jwt\";\r\n\r\nexport async function middleware(req: NextRequest) {\r\n  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });\r\n\r\n  if (!token) {\r\n    return NextResponse.redirect(new URL(\"/dashboard\", req.url));\r\n  }\r\n\r\n\r\n  if (token.role !== \"admin\" && token.role !== \"super_admin\") {\r\n    return NextResponse.redirect(new URL(\"/dashboard\", req.url));\r\n  }\r\n\r\n  return NextResponse.next();\r\n}\r\n\r\nexport const config = {\r\n  matcher: [\"/admin/:path*\"],\r\n};\r\n"],"names":[],"mappings":";;;;AAAA;AACA;AADA;;;AAGO,eAAe,WAAW,GAAgB;IAC/C,MAAM,QAAQ,MAAM,CAAA,GAAA,4IAAA,CAAA,WAAQ,AAAD,EAAE;QAAE;QAAK,QAAQ,QAAQ,GAAG,CAAC,eAAe;IAAC;IAExE,IAAI,CAAC,OAAO;QACV,OAAO,qLAAA,CAAA,eAAY,CAAC,QAAQ,CAAC,IAAI,IAAI,cAAc,IAAI,GAAG;IAC5D;IAGA,IAAI,MAAM,IAAI,KAAK,WAAW,MAAM,IAAI,KAAK,eAAe;QAC1D,OAAO,qLAAA,CAAA,eAAY,CAAC,QAAQ,CAAC,IAAI,IAAI,cAAc,IAAI,GAAG;IAC5D;IAEA,OAAO,qLAAA,CAAA,eAAY,CAAC,IAAI;AAC1B;AAEO,MAAM,SAAS;IACpB,SAAS;QAAC;KAAgB;AAC5B"}},
+    {"offset": {"line": 50, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

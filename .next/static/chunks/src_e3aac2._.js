@@ -1074,12 +1074,8 @@ const AdminSidebar = ()=>{
                         title: "👥 Admin Management",
                         links: [
                             {
-                                name: "All Admins",
+                                name: "Data & Setting",
                                 path: "/dashboard/admin/admin-management"
-                            },
-                            {
-                                name: "Assign Admins",
-                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {
@@ -1214,12 +1210,14 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jwt$2d$decode$2f$build$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/jwt-decode/build/esm/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Header.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Navbar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/src/components/common/AdminSidebar.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/shared/lib/app-dynamic.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@headlessui/react/dist/components/combobox/combobox.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 "use client";
@@ -1229,128 +1227,191 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-const AdminWarehouse = ()=>{
+;
+;
+;
+const Map = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(()=>__turbopack_require__("[project]/src/components/common/Map.tsx [app-client] (ecmascript, async loader)")(__turbopack_import__), {
+    loadableGenerated: {
+        modules: [
+            "src/app/dashboard/admin/warehouse/page.tsx -> " + "@/components/common/Map"
+        ]
+    },
+    ssr: false
+});
+_c = Map;
+const BACKEND_URL = ("TURBOPACK compile-time value", "http://localhost:8080");
+const WarehousePage = ()=>{
     _s();
     const [warehouses, setWarehouses] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [newWarehouse, setNewWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         name: "",
         address: "",
         longitude: "",
-        latitude: ""
+        latitude: "",
+        cityId: ""
     });
+    const [editingWarehouse, setEditingWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [adminWarehouseId, setAdminWarehouseId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [adminId, setAdminId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [isModalOpen, setIsModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [userLocation, setUserLocation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [adminSearchResults, setAdminSearchResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [warehouseSearchResults, setWarehouseSearchResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [selectedAdmin, setSelectedAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [selectedWarehouse, setSelectedWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const token = localStorage.getItem("jwt_token");
-    let userRole = "";
-    if (token) {
-        const decodedToken = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$jwt$2d$decode$2f$build$2f$esm$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jwtDecode"])(token);
-        userRole = decodedToken?.role || "";
-    }
-    if (!token) {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-            className: "text-center mt-10 text-red-600",
-            children: "❌ Access Denied: Please login to access this page."
-        }, void 0, false, {
-            fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-            lineNumber: 41,
-            columnNumber: 12
-        }, this);
-    }
-    if (userRole !== "SUPER_ADMIN") {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-            className: "text-center mt-10 text-red-600",
-            children: "❌ Access Denied: Only Super Admin can manage warehouses."
-        }, void 0, false, {
-            fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-            lineNumber: 46,
-            columnNumber: 10
-        }, this);
-    }
+    const [queryAdmin, setQueryAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [queryWarehouse, setQueryWarehouse] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "AdminWarehouse.useEffect": ()=>{
+        "WarehousePage.useEffect": ()=>{
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition({
+                    "WarehousePage.useEffect": (position)=>{
+                        setUserLocation({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        });
+                    }
+                }["WarehousePage.useEffect"], {
+                    "WarehousePage.useEffect": (error)=>{
+                        console.error("Error fetching location:", error);
+                    }
+                }["WarehousePage.useEffect"]);
+            }
+        }
+    }["WarehousePage.useEffect"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WarehousePage.useEffect": ()=>{
             fetchWarehouses();
         }
-    }["AdminWarehouse.useEffect"], []);
-    // Fetch all warehouses
+    }["WarehousePage.useEffect"], []);
     const fetchWarehouses = async ()=>{
+        setLoading(true);
+        setError(null);
         try {
-            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            });
-            if (!response.ok) throw new Error("Failed to fetch warehouses");
-            const data = await response.json();
-            setWarehouses(data);
-        } catch (error) {
-            console.error("Error fetching warehouses:", error);
+            const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/warehouse`);
+            setWarehouses(response.data);
+        } catch (err) {
+            setError("Failed to fetch warehouses");
         } finally{
             setLoading(false);
         }
     };
-    // Create Warehouse
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WarehousePage.useEffect": ()=>{
+            const fetchUserProfile = {
+                "WarehousePage.useEffect.fetchUserProfile": async ()=>{
+                    try {
+                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/user/profile`, {
+                            withCredentials: true
+                        });
+                        if (response.data && response.data.data) {
+                            setAdminId(response.data.data.id);
+                        } else {
+                            console.error("User data is missing:", response.data);
+                        }
+                    } catch (error) {
+                        console.error("Failed to fetch user profile", error);
+                    }
+                }
+            }["WarehousePage.useEffect.fetchUserProfile"];
+            fetchUserProfile();
+        }
+    }["WarehousePage.useEffect"], []);
     const createWarehouse = async ()=>{
         try {
-            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(newWarehouse)
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${BACKEND_URL}/api/v1/warehouse`, newWarehouse);
+            setNewWarehouse({
+                name: "",
+                address: "",
+                longitude: "",
+                latitude: "",
+                cityId: ""
             });
-            if (!response.ok) throw new Error("Failed to create warehouse");
             fetchWarehouses();
-        } catch (error) {
-            console.error("Error creating warehouse:", error);
+        } catch (err) {
+            console.error("Failed to create warehouse", err);
         }
     };
-    // Update Warehouse
     const updateWarehouse = async ()=>{
-        if (!selectedWarehouse) return;
         try {
-            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse/${selectedWarehouse.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(selectedWarehouse)
-            });
-            if (!response.ok) throw new Error("Failed to update warehouse");
+            if (editingWarehouse) {
+                await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].put(`${BACKEND_URL}/api/v1/warehouse/${editingWarehouse.id}`, editingWarehouse);
+                setEditingWarehouse(null);
+            }
             fetchWarehouses();
-            setSelectedWarehouse(null);
-        } catch (error) {
-            console.error("Error updating warehouse:", error);
+        } catch (err) {
+            console.error("Failed to update warehouse", err);
         }
     };
-    // Delete Warehouse
     const deleteWarehouse = async (id)=>{
         try {
-            await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/warehouse/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            });
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(`${BACKEND_URL}/api/v1/warehouse/${id}`);
             fetchWarehouses();
-        } catch (error) {
-            console.error("Error deleting warehouse:", error);
+        } catch (err) {
+            console.error("Failed to delete warehouse", err);
         }
     };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WarehousePage.useEffect": ()=>{
+            if (queryAdmin) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/users?search=${queryAdmin}`).then({
+                    "WarehousePage.useEffect": (res)=>{
+                        setAdminSearchResults(res.data);
+                    }
+                }["WarehousePage.useEffect"]);
+            }
+        }
+    }["WarehousePage.useEffect"], [
+        queryAdmin
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WarehousePage.useEffect": ()=>{
+            if (queryWarehouse) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get(`${BACKEND_URL}/api/v1/warehouse?search=${queryWarehouse}`).then({
+                    "WarehousePage.useEffect": (res)=>{
+                        setWarehouseSearchResults(res.data);
+                    }
+                }["WarehousePage.useEffect"]);
+            }
+        }
+    }["WarehousePage.useEffect"], [
+        queryWarehouse
+    ]);
+    const assignAdmin = async ()=>{
+        if (!selectedWarehouse || !selectedAdmin) return;
+        try {
+            await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`${BACKEND_URL}/api/v1/warehouse-admins/assign`, {
+                warehouseId: selectedWarehouse.id,
+                adminId: selectedAdmin.user_id
+            });
+            setSelectedWarehouse(null);
+            setSelectedAdmin(null);
+        } catch (err) {
+            console.error("Failed to assign admin", err);
+        }
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WarehousePage.useEffect": ()=>{
+            if (selectedWarehouse) {
+                setQueryWarehouse(selectedWarehouse.name);
+            }
+        }
+    }["WarehousePage.useEffect"], [
+        selectedWarehouse
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col bg-gray-100 text-black",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 129,
+                lineNumber: 183,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 130,
+                lineNumber: 184,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1358,332 +1419,354 @@ const AdminWarehouse = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                        lineNumber: 132,
+                        lineNumber: 186,
                         columnNumber: 9
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                        className: "flex-grow p-6 bg-white shadow-md",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-grow p-6 bg-white shadow-lg rounded-xl",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-xl font-bold mb-4",
-                                children: "Warehouse Management"
+                                className: "text-2xl font-bold mb-6",
+                                children: "🏭 Warehouse Management"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 134,
+                                lineNumber: 188,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mb-6 p-4 bg-gray-50 rounded shadow",
+                            error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-red-500 mb-4",
+                                children: error
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                lineNumber: 190,
+                                columnNumber: 21
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                                className: "mb-6 p-6 border border-gray-200 rounded-lg shadow-md bg-white",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-lg font-semibold mb-2",
-                                        children: "➕ Add Warehouse"
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-xl font-semibold mb-4",
+                                        children: editingWarehouse ? "✏️ Edit Warehouse" : "➕ Add Warehouse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 194,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Name",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                name: e.target.value
-                                            })
-                                    }, void 0, false, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "text",
+                                                placeholder: "Warehouse Name",
+                                                className: "border p-3 rounded-lg",
+                                                value: editingWarehouse ? editingWarehouse.name : newWarehouse.name,
+                                                onChange: (e)=>editingWarehouse ? setEditingWarehouse({
+                                                        ...editingWarehouse,
+                                                        name: e.target.value
+                                                    }) : setNewWarehouse({
+                                                        ...newWarehouse,
+                                                        name: e.target.value
+                                                    })
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 198,
+                                                columnNumber: 13
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "text",
+                                                placeholder: "Address",
+                                                className: "border p-3 rounded-lg focus:ring-2 focus:ring-blue-400",
+                                                value: editingWarehouse ? editingWarehouse.address : newWarehouse.address,
+                                                onChange: (e)=>editingWarehouse ? setEditingWarehouse({
+                                                        ...editingWarehouse,
+                                                        address: e.target.value
+                                                    }) : setNewWarehouse({
+                                                        ...newWarehouse,
+                                                        address: e.target.value
+                                                    })
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 210,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "text",
+                                                placeholder: "City ID",
+                                                className: "border p-3 rounded-lg focus:ring-2 focus:ring-blue-400",
+                                                value: editingWarehouse ? editingWarehouse.cityId : newWarehouse.cityId,
+                                                onChange: (e)=>editingWarehouse ? setEditingWarehouse({
+                                                        ...editingWarehouse,
+                                                        cityId: e.target.value
+                                                    }) : setNewWarehouse({
+                                                        ...newWarehouse,
+                                                        cityId: e.target.value
+                                                    })
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 221,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 139,
+                                        lineNumber: 197,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Address",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                address: e.target.value
-                                            })
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-lg font-semibold mt-6",
+                                        children: "📍 Select Location"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 140,
+                                        lineNumber: 234,
                                         columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Longitude",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                longitude: e.target.value
-                                            })
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(Map, {
+                                        latitude: parseFloat(newWarehouse.latitude) || userLocation?.lat || 0,
+                                        longitude: parseFloat(newWarehouse.longitude) || userLocation?.lng || 0,
+                                        setCoordinates: (lat, lng)=>setNewWarehouse((prev)=>({
+                                                    ...prev,
+                                                    latitude: lat.toString(),
+                                                    longitude: lng.toString()
+                                                }))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 141,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Latitude",
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setNewWarehouse({
-                                                ...newWarehouse,
-                                                latitude: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 236,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: createWarehouse,
-                                        className: "p-2 bg-blue-600 text-white rounded",
-                                        children: "Save"
+                                        className: "mt-4 px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95",
+                                        onClick: editingWarehouse ? updateWarehouse : createWarehouse,
+                                        children: editingWarehouse ? "Update Warehouse" : "Add Warehouse"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 246,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 137,
+                                lineNumber: 193,
                                 columnNumber: 11
                             }, this),
-                            loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                children: "Loading warehouses..."
-                            }, void 0, false, {
-                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 148,
-                                columnNumber: 13
-                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                className: "w-full border border-gray-300",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                                className: "mb-6 p-6 border border-gray-200 rounded-lg shadow-md bg-white",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                            className: "bg-gray-200",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "border p-2",
-                                                    children: "Warehouse ID"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 153,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "border p-2",
-                                                    children: "Name"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 154,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "border p-2",
-                                                    children: "Location"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 155,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                    className: "border p-2",
-                                                    children: "Actions"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                    lineNumber: 156,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                            lineNumber: 152,
-                                            columnNumber: 17
-                                        }, this)
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-xl font-semibold mb-4",
+                                        children: "👤 Assign Warehouse Admin"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 151,
-                                        columnNumber: 15
+                                        lineNumber: 256,
+                                        columnNumber: 13
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                        children: warehouses.map((warehouse)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"], {
+                                        value: selectedWarehouse,
+                                        onChange: setSelectedWarehouse,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Input, {
+                                                className: "border p-3 rounded-lg w-full",
+                                                placeholder: "Search Warehouse",
+                                                value: queryWarehouse,
+                                                onChange: (event)=>setQueryWarehouse(event.target.value)
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 260,
+                                                columnNumber: 3
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Options, {
+                                                className: "bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto",
+                                                children: warehouseSearchResults.map((wh)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Option, {
+                                                        value: wh,
+                                                        className: "p-2 cursor-pointer hover:bg-gray-200",
+                                                        children: wh.name
+                                                    }, wh.id, false, {
+                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                        lineNumber: 268,
+                                                        columnNumber: 7
+                                                    }, this))
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 266,
+                                                columnNumber: 3
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                        lineNumber: 259,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"], {
+                                        value: selectedAdmin,
+                                        onChange: setSelectedAdmin,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Input, {
+                                                className: "border p-3 rounded-lg w-full mt-4",
+                                                placeholder: "Search Admin",
+                                                onChange: (event)=>setQueryAdmin(event.target.value)
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 278,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Options, {
+                                                className: "bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto",
+                                                children: adminSearchResults.map((admin)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$headlessui$2f$react$2f$dist$2f$components$2f$combobox$2f$combobox$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Combobox"].Option, {
+                                                        value: admin,
+                                                        className: "p-2 cursor-pointer hover:bg-gray-200",
+                                                        children: admin.fullName
+                                                    }, admin.user_id, false, {
+                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                        lineNumber: 285,
+                                                        columnNumber: 19
+                                                    }, this))
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                lineNumber: 283,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                        lineNumber: 277,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        className: "mt-4 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600",
+                                        onClick: assignAdmin,
+                                        children: "Assign Admin"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                        lineNumber: 292,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                lineNumber: 255,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                                className: "p-6 border border-gray-200 rounded-lg shadow-md bg-white",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                        className: "text-xl font-semibold mb-4",
+                                        children: "📋 Warehouse List"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                        lineNumber: 302,
+                                        columnNumber: 13
+                                    }, this),
+                                    loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-center text-gray-500 animate-pulse",
+                                        children: "Loading..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                        lineNumber: 304,
+                                        columnNumber: 15
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                        children: warehouses.map((warehouse)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                                className: "p-4 bg-white rounded-lg shadow mb-2 flex justify-between items-center",
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "border p-2",
-                                                        children: warehouse.id
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 162,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "border p-2",
-                                                        children: warehouse.name
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 163,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "border p-2",
-                                                        children: warehouse.address
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 164,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "border p-2",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: ()=>setSelectedWarehouse(warehouse),
-                                                                className: "bg-yellow-500 text-white px-3 py-1 rounded mr-2",
-                                                                children: "Edit"
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                                className: "font-semibold",
+                                                                children: warehouse.name
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                                lineNumber: 166,
+                                                                lineNumber: 313,
                                                                 columnNumber: 23
                                                             }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                onClick: ()=>deleteWarehouse(warehouse.id),
-                                                                className: "bg-red-600 text-white px-3 py-1 rounded",
-                                                                children: "Delete"
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                className: "text-gray-600",
+                                                                children: warehouse.address
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                                lineNumber: 167,
+                                                                lineNumber: 314,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                        lineNumber: 165,
+                                                        lineNumber: 312,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                className: "bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 mr-2",
+                                                                onClick: ()=>{
+                                                                    setEditingWarehouse(warehouse);
+                                                                    setIsModalOpen(true);
+                                                                },
+                                                                children: "Edit"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                                lineNumber: 317,
+                                                                columnNumber: 23
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                className: "bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95",
+                                                                onClick: ()=>deleteWarehouse(warehouse.id),
+                                                                children: "Delete"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                                lineNumber: 323,
+                                                                columnNumber: 23
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
+                                                        lineNumber: 316,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, warehouse.id, true, {
                                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                                lineNumber: 161,
+                                                lineNumber: 308,
                                                 columnNumber: 19
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 306,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 150,
-                                columnNumber: 13
-                            }, this),
-                            selectedWarehouse && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-6 p-4 bg-gray-50 rounded shadow",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-lg font-semibold mb-2",
-                                        children: "✏️ Edit Warehouse"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 178,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        value: selectedWarehouse.name,
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setSelectedWarehouse({
-                                                ...selectedWarehouse,
-                                                name: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 179,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        value: selectedWarehouse.address,
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setSelectedWarehouse({
-                                                ...selectedWarehouse,
-                                                address: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 180,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        value: selectedWarehouse.longitude,
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setSelectedWarehouse({
-                                                ...selectedWarehouse,
-                                                longitude: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 181,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        value: selectedWarehouse.latitude,
-                                        className: "p-2 border rounded w-full mb-2",
-                                        onChange: (e)=>setSelectedWarehouse({
-                                                ...selectedWarehouse,
-                                                latitude: e.target.value
-                                            })
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 182,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: updateWarehouse,
-                                        className: "p-2 bg-green-600 text-white rounded",
-                                        children: "Update"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                        lineNumber: 183,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                                lineNumber: 177,
-                                columnNumber: 13
+                                lineNumber: 301,
+                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                        lineNumber: 133,
+                        lineNumber: 187,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 131,
+                lineNumber: 185,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-                lineNumber: 188,
+                lineNumber: 337,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/warehouse/page.tsx",
-        lineNumber: 128,
+        lineNumber: 182,
         columnNumber: 5
     }, this);
 };
-_s(AdminWarehouse, "0ZJmZY+GUh7SbFJLHJ4bUZLQ18Q=");
-_c = AdminWarehouse;
-const __TURBOPACK__default__export__ = AdminWarehouse;
-var _c;
-__turbopack_refresh__.register(_c, "AdminWarehouse");
+_s(WarehousePage, "tBl1wVvwCK3RFqrbs439U/Pastw=");
+_c1 = WarehousePage;
+const __TURBOPACK__default__export__ = WarehousePage;
+var _c, _c1;
+__turbopack_refresh__.register(_c, "Map");
+__turbopack_refresh__.register(_c1, "WarehousePage");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }

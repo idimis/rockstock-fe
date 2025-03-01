@@ -127,12 +127,8 @@ const AdminSidebar = ()=>{
                         title: "👥 Admin Management",
                         links: [
                             {
-                                name: "All Admins",
+                                name: "Data & Setting",
                                 path: "/dashboard/admin/admin-management"
-                            },
-                            {
-                                name: "Assign Admins",
-                                path: "/dashboard/admin/admin-management/assign-admin"
                             }
                         ]
                     }, void 0, false, {

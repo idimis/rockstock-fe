@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import UserSidebarPanel from "@/components/common/UserSidebar";
+import "leaflet/dist/leaflet.css";
 import axios from "axios";
 
 interface Address {
@@ -15,7 +17,10 @@ interface Address {
   latitude: number;
   note: string;
   isMain: boolean;
+  cityId?: number
 }
+
+const Map = dynamic(() => import("@/components/common/Map"), { ssr: false });
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -26,6 +31,8 @@ const AddressPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [newAddress, setNewAddress] = useState<Partial<Address>>({});
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
@@ -39,6 +46,27 @@ const AddressPage = () => {
       fetchUserAddresses();
     }
   }, [userId]);
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+        }
+      );
+    }
+  }, []);
+
+  const handleMapClick = (lat: number, lng: number) => {
+    setUserLocation({ lat, lng });
+  };
+
 
   const fetchUserAddresses = async () => {
     setLoading(true);
@@ -56,9 +84,11 @@ const AddressPage = () => {
         params: { userId },
         headers: { Authorization: `Bearer ${token}` },
       });
-
+    
       if (response.data.success && response.data.data) {
-        setAddresses(response.data.data);
+        setAddresses(
+          response.data.data.sort((a: Address, b: Address) => Number(b.isMain) - Number(a.isMain))
+        );
       } else {
         setError("Failed to retrieve address data");
       }
@@ -68,22 +98,45 @@ const AddressPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  
-  const setMainAddress = async (addressId: number) => {
+  const addNewAddress = async () => {
+    if (!newAddress.label || !newAddress.addressDetail || !newAddress.longitude || !newAddress.latitude || !newAddress.cityId) {
+      setError("All fields are required");
+      return;
+    }
+
     const token = localStorage.getItem("accessToken");
     if (!userId || !token) return;
 
     try {
-      await axios.get(`${BACKEND_URL}/api/v1/addresses/user/${userId}/main`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.post(
+        `${BACKEND_URL}/api/v1/addresses`,
+        { ...newAddress, userId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      fetchUserAddresses();
+    } catch (err) {
+      console.error("Failed to add new address", err);
+    }
+  };
+  
+  const setMainAddress = async (addressId: number) => {
+    const token = localStorage.getItem("accessToken");
+    if (!userId || !token) return;
+  
+    try {
+      await axios.patch(
+        `${BACKEND_URL}/api/v1/addresses/${addressId}/user/${userId}/set-main`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       fetchUserAddresses();
     } catch (err) {
       console.error("Failed to set main address", err);
     }
   };
+  
 
   // Update Address
   const updateAddress = async () => {
@@ -128,33 +181,85 @@ const AddressPage = () => {
         <UserSidebarPanel />
         <main className="flex-grow p-6 bg-white shadow-md">
           <h1 className="text-2xl font-bold mb-4">📍 My Addresses</h1>
-
+          <div className="p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-xl font-semibold mb-4">Add New Address</h2>
+      {error && <p className="text-red-500">{error}</p>}
+      <input
+        type="text"
+        className="border p-2 w-full mb-2"
+        placeholder="Label"
+        onChange={(e) => setNewAddress({ ...newAddress, label: e.target.value })}
+      />
+      <input
+        type="text"
+        className="border p-2 w-full mb-2"
+        placeholder="Address Detail"
+        onChange={(e) => setNewAddress({ ...newAddress, addressDetail: e.target.value })}
+      />
+      <input
+        type="text"
+        className="border p-2 w-full mb-2"
+        placeholder="Longitude"
+        onChange={(e) => setNewAddress({ ...newAddress, longitude: parseFloat(e.target.value) })}
+      />
+      <input
+        type="text"
+        className="border p-2 w-full mb-2"
+        placeholder="Latitude"
+        onChange={(e) => setNewAddress({ ...newAddress, latitude: parseFloat(e.target.value) })}
+      />
+      <input
+        type="text"
+        className="border p-2 w-full mb-2"
+        placeholder="City ID"
+        onChange={(e) => setNewAddress({ ...newAddress, cityId: parseInt(e.target.value) })}
+      />
+      <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={addNewAddress}>
+        Save
+      </button>
+    </div>
+          
+  
           {error && <div className="text-red-500 mb-4">{error}</div>}
-
-          <div className="p-4 bg-blue-100 shadow rounded-lg">
+  
+          <div className="p-4 bg-gray-50 shadow-md rounded-xl border border-gray-200">
             {loading ? (
               <p>Loading...</p>
             ) : (
               <ul>
+                <Map
+                  latitude={userLocation?.lat || 0}
+                  longitude={userLocation?.lng || 0}
+                  setCoordinates={(lat, lng) =>
+                    setAddresses((prev) => ({ ...prev, latitude: lat.toString(), longitude: lng.toString() }))
+                  }
+                />
                 {addresses.length > 0 ? (
                   addresses.map((address) => (
-                    <li key={address.id} className="mt-2 p-3 bg-white rounded-lg shadow">
+                    <li
+                      key={address.id}
+                      className={`mt-2 p-4 rounded-xl border shadow-sm hover:shadow-md transition ${
+                        address.isMain ? "bg-yellow-50 border-yellow-400" : "bg-white border-gray-300"
+                      }`}
+                    >
                       <div>
-                        <h3 className="font-semibold">{address.label}</h3>
-                        <p>{address.addressDetail}</p>
-                        <p>{address.isMain ? "✅ Main Address" : "Secondary Address"}</p>
+                        <h3 className="font-semibold text-lg text-gray-900">{address.label}</h3>
+                        <p className="text-gray-700 text-md">{address.addressDetail}</p>
+                        <p className="text-sm font-medium text-gray-600">
+                          {address.isMain ? "✅ Main Address" : "Secondary Address"}
+                        </p>
                       </div>
-                      <div className="mt-2 flex gap-2">
+                      <div className="mt-3 flex gap-3">
                         {!address.isMain && (
                           <button
-                            className="px-4 py-2 bg-green-500 text-white rounded"
+                            className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition hover:scale-105"
                             onClick={() => setMainAddress(address.id)}
                           >
                             Set as Main
                           </button>
                         )}
                         <button
-                          className="px-4 py-2 bg-yellow-500 text-white rounded"
+                          className="px-5 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition hover:scale-105"
                           onClick={() => {
                             setSelectedAddress(address);
                             setEditModalOpen(true);
@@ -163,7 +268,7 @@ const AddressPage = () => {
                           Edit
                         </button>
                         <button
-                          className="px-4 py-2 bg-red-500 text-white rounded"
+                          className="px-5 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition hover:scale-105"
                           onClick={() => deleteAddress(address.id)}
                         >
                           Delete
@@ -180,8 +285,7 @@ const AddressPage = () => {
         </main>
       </div>
       <Footer />
-
-      {/* Edit Modal */}
+  
       {editModalOpen && selectedAddress && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -198,27 +302,21 @@ const AddressPage = () => {
               className="border p-2 w-full mb-2"
               placeholder="Address Detail"
               value={selectedAddress.addressDetail}
-              onChange={(e) =>
-                setSelectedAddress({ ...selectedAddress, addressDetail: e.target.value })
-              }
+              onChange={(e) => setSelectedAddress({ ...selectedAddress, addressDetail: e.target.value })}
             />
             <input
               type="text"
               className="border p-2 w-full mb-2"
               placeholder="Longitude"
               value={selectedAddress.longitude}
-              onChange={(e) =>
-                setSelectedAddress({ ...selectedAddress, longitude: parseFloat(e.target.value) })
-              }
+              onChange={(e) => setSelectedAddress({ ...selectedAddress, longitude: parseFloat(e.target.value) })}
             />
             <input
               type="text"
               className="border p-2 w-full mb-2"
               placeholder="Latitude"
               value={selectedAddress.latitude}
-              onChange={(e) =>
-                setSelectedAddress({ ...selectedAddress, latitude: parseFloat(e.target.value) })
-              }
+              onChange={(e) => setSelectedAddress({ ...selectedAddress, latitude: parseFloat(e.target.value) })}
             />
             <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2" onClick={updateAddress}>
               Save

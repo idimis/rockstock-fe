@@ -15,28 +15,36 @@ const SetupPassword = () => {
 
   const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log("Form submitted!");
+    console.log("Password:", password);
+    console.log("Confirm Password:", confirmPassword);
+    console.log("Token:", token);
+  
+  
     if (password !== confirmPassword) {
       setStatus("error");
       return;
     }
-
+  
+    console.log("Token yang dikirim ke backend:", token);
+    console.log("Password yang dikirim:", password);
+  
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/setup-password?token=${token}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ password }),
-        }
-      );
-
+      const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/setup-password?token=${token}`;
+      console.log("URL request:", url);
+  
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }), 
+      });
+  
       console.log("Response status:", response.status);
       const data = await response.json();
       console.log("Response data:", data);
-
+  
       if (response.ok) {
         setStatus("success");
         setTimeout(() => router.push("/dashboard/user"), 2000);
@@ -48,6 +56,7 @@ const SetupPassword = () => {
       setStatus("error");
     }
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">

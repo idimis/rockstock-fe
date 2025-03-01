@@ -8,12 +8,7 @@ import AdminSidebarPanel from "@/components/common/AdminSidebar";
 import axios from "axios";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
-import Dialog from "@/components/ui/Dialog";
-
-
-const Map = dynamic(() => import("@/components/common/Map"), { ssr: false });
-
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+import { Combobox } from "@headlessui/react"; 
 
 interface Warehouse {
   id: number;
@@ -23,6 +18,17 @@ interface Warehouse {
   latitude: string;
   cityId: string;
 }
+
+interface AdminUser {
+  id: number;
+  user_id: number; 
+  fullName: string;
+}
+
+
+const Map = dynamic(() => import("@/components/common/Map"), { ssr: false });
+
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 const WarehousePage = () => {
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
@@ -37,8 +43,33 @@ const WarehousePage = () => {
   });
   const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | null>(null);
   const [adminWarehouseId, setAdminWarehouseId] = useState<number | null>(null);
-  const [adminId, setAdminId] = useState<number | "">("");
+const [adminId, setAdminId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [adminSearchResults, setAdminSearchResults] = useState<AdminUser[]>([]);
+  const [warehouseSearchResults, setWarehouseSearchResults] = useState<Warehouse[]>([]);
+  const [selectedAdmin, setSelectedAdmin] = useState<AdminUser | null>(null);
+  const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null);
+  const [queryAdmin, setQueryAdmin] = useState("");
+  const [queryWarehouse, setQueryWarehouse] = useState("");
+  
+
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error("Error fetching location:", error);
+        }
+      );
+    }
+  }, []);
 
   useEffect(() => {
     fetchWarehouses();
@@ -56,6 +87,25 @@ const WarehousePage = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/user/profile`, { withCredentials: true });
+        if (response.data && response.data.data) {
+          setAdminId(response.data.data.id);
+        } else {
+          console.error("User data is missing:", response.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user profile", error);
+      }
+    };
+  
+    fetchUserProfile();
+  }, []);
+  
+  
 
   const createWarehouse = async () => {
     try {
@@ -79,7 +129,6 @@ const WarehousePage = () => {
     }
   };
 
-
   const deleteWarehouse = async (id: number) => {
     try {
       await axios.delete(`${BACKEND_URL}/api/v1/warehouse/${id}`);
@@ -89,120 +138,201 @@ const WarehousePage = () => {
     }
   };
 
-  const assignAdmin = async () => {
-    if (!adminWarehouseId || !adminId) return;
-    try {
-      await axios.post(`${BACKEND_URL}/api/v1/warehouse/assign-admin`, {
-        warehouseId: adminWarehouseId,
-        adminId: adminId,
+  useEffect(() => {
+    if (queryAdmin) {
+      axios.get(`${BACKEND_URL}/api/v1/users?search=${queryAdmin}`).then((res) => {
+        setAdminSearchResults(res.data);
       });
-      setAdminWarehouseId(null);
-      setAdminId("");
+    }
+  }, [queryAdmin]);
+
+  useEffect(() => {
+    if (queryWarehouse) {
+      axios.get(`${BACKEND_URL}/api/v1/warehouse?search=${queryWarehouse}`).then((res) => {
+        setWarehouseSearchResults(res.data);
+      });
+    }
+  }, [queryWarehouse]);
+
+  const assignAdmin = async () => {
+    if (!selectedWarehouse || !selectedAdmin) return;
+    try {
+      await axios.post(`${BACKEND_URL}/api/v1/warehouse-admins/assign`, {
+        warehouseId: selectedWarehouse.id,
+        adminId: selectedAdmin.user_id,
+      });
+      setSelectedWarehouse(null);
+      setSelectedAdmin(null);
     } catch (err) {
       console.error("Failed to assign admin", err);
     }
   };
+
+  useEffect(() => {
+    if (selectedWarehouse) {
+      setQueryWarehouse(selectedWarehouse.name);
+    }
+  }, [selectedWarehouse]);
+
+  
+  
+
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-black">
       <Header />
       <Navbar />
       <div className="flex flex-grow">
-      <AdminSidebarPanel />
-      <div className="flex-grow p-6 bg-white shadow-md">
-        <h1 className="text-2xl font-bold mb-4">🏭 Warehouses</h1>
+        <AdminSidebarPanel />
+        <div className="flex-grow p-6 bg-white shadow-lg rounded-xl">
+          <h1 className="text-2xl font-bold mb-6">🏭 Warehouse Management</h1>
+  
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+  
+          {/* Add/Edit Warehouse */}
+          <section className="mb-6 p-6 border border-gray-200 rounded-lg shadow-md bg-white">
+            <h2 className="text-xl font-semibold mb-4">
+              {editingWarehouse ? "✏️ Edit Warehouse" : "➕ Add Warehouse"}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+  type="text"
+  placeholder="Warehouse Name"
+  className="border p-3 rounded-lg"
+  value={editingWarehouse ? editingWarehouse.name : newWarehouse.name}
+  onChange={(e) =>
+    editingWarehouse
+      ? setEditingWarehouse({ ...editingWarehouse, name: e.target.value })
+      : setNewWarehouse({ ...newWarehouse, name: e.target.value })
+  }
+/>
 
-        {error && <div className="text-red-500 mb-4">{error}</div>}
-
-        {/* Add/Edit Warehouse */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold">{editingWarehouse ? "✏️ Edit Warehouse" : "➕ Add Warehouse"}</h2>
-          <input
-            type="text"
-            placeholder="Warehouse Name"
-            className="border p-2 mr-2"
-            value={editingWarehouse ? editingWarehouse.name : newWarehouse.name}
-            onChange={(e) =>
-              editingWarehouse
-                ? setEditingWarehouse({ ...editingWarehouse, name: e.target.value })
-                : setNewWarehouse({ ...newWarehouse, name: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="Address"
-            className="border p-2 mr-2"
-            value={editingWarehouse ? editingWarehouse.address : newWarehouse.address}
-            onChange={(e) =>
-              editingWarehouse
-                ? setEditingWarehouse({ ...editingWarehouse, address: e.target.value })
-                : setNewWarehouse({ ...newWarehouse, address: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            placeholder="City ID"
-            className="border p-2 mr-2"
-            value={editingWarehouse ? editingWarehouse.cityId : newWarehouse.cityId}
-            onChange={(e) =>
-              editingWarehouse
-                ? setEditingWarehouse({ ...editingWarehouse, cityId: e.target.value })
-                : setNewWarehouse({ ...newWarehouse, cityId: e.target.value })
-            }
-          />
-
-          <div className="mt-4">
-            <h2 className="text-lg font-semibold">📍 Select Location</h2>
+              <input
+                type="text"
+                placeholder="Address"
+                className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-400"
+                value={editingWarehouse ? editingWarehouse.address : newWarehouse.address}
+                onChange={(e) =>
+                  editingWarehouse
+                    ? setEditingWarehouse({ ...editingWarehouse, address: e.target.value })
+                    : setNewWarehouse({ ...newWarehouse, address: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                placeholder="City ID"
+                className="border p-3 rounded-lg focus:ring-2 focus:ring-blue-400"
+                value={editingWarehouse ? editingWarehouse.cityId : newWarehouse.cityId}
+                onChange={(e) =>
+                  editingWarehouse
+                    ? setEditingWarehouse({ ...editingWarehouse, cityId: e.target.value })
+                    : setNewWarehouse({ ...newWarehouse, cityId: e.target.value })
+                }
+              />
+            </div>
+  
+            <h2 className="text-lg font-semibold mt-6">📍 Select Location</h2>
+            
             <Map
-              latitude={editingWarehouse ? parseFloat(editingWarehouse.latitude) : -7.5596}
-              longitude={editingWarehouse ? parseFloat(editingWarehouse.longitude) : 110.8253}
-              setCoordinates={(lat, lng) =>
-                editingWarehouse
-                  ? setEditingWarehouse({ ...editingWarehouse, latitude: lat.toString(), longitude: lng.toString() })
-                  : setNewWarehouse({ ...newWarehouse, latitude: lat.toString(), longitude: lng.toString() })
-              }
-            />
-          </div>
+  latitude={parseFloat(newWarehouse.latitude) || userLocation?.lat || 0}
+  longitude={parseFloat(newWarehouse.longitude) || userLocation?.lng || 0}
+  setCoordinates={(lat, lng) =>
+    setNewWarehouse((prev) => ({ ...prev, latitude: lat.toString(), longitude: lng.toString() }))
+  }
+/>
 
-          <button className="bg-green-500 text-white px-4 py-2 mt-4" onClick={createWarehouse}>
-            {editingWarehouse ? "Update Warehouse" : "Add Warehouse"}
-          </button>
+
+  
+            <button
+              className="mt-4 px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+              onClick={editingWarehouse ? updateWarehouse : createWarehouse}
+            >
+              {editingWarehouse ? "Update Warehouse" : "Add Warehouse"}
+            </button>
+          </section>
+  
+                   {/* Assign Admin Section */}
+          <section className="mb-6 p-6 border border-gray-200 rounded-lg shadow-md bg-white">
+            <h2 className="text-xl font-semibold mb-4">👤 Assign Warehouse Admin</h2>
+            
+            {/* Warehouse Selection */}
+            <Combobox value={selectedWarehouse} onChange={setSelectedWarehouse}>
+  <Combobox.Input
+    className="border p-3 rounded-lg w-full"
+    placeholder="Search Warehouse"
+    value={queryWarehouse} // Tambahkan ini
+    onChange={(event) => setQueryWarehouse(event.target.value)}
+  />
+  <Combobox.Options className="bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+    {warehouseSearchResults.map((wh) => (
+      <Combobox.Option key={wh.id} value={wh} className="p-2 cursor-pointer hover:bg-gray-200">
+        {wh.name}
+      </Combobox.Option>
+    ))}
+  </Combobox.Options>
+</Combobox>
+
+            
+            {/* Admin Selection */}
+            <Combobox value={selectedAdmin} onChange={setSelectedAdmin}>
+              <Combobox.Input
+                className="border p-3 rounded-lg w-full mt-4"
+                placeholder="Search Admin"
+                onChange={(event) => setQueryAdmin(event.target.value)}
+              />
+              <Combobox.Options className="bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {adminSearchResults.map((admin) => (
+                  <Combobox.Option key={admin.user_id} value={admin} className="p-2 cursor-pointer hover:bg-gray-200">
+                    {admin.fullName}
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            </Combobox>
+
+            <button
+              className="mt-4 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+              onClick={assignAdmin}
+            >
+              Assign Admin
+            </button>
+          </section>
+  
+          {/* Warehouse List */}
+          <section className="p-6 border border-gray-200 rounded-lg shadow-md bg-white">
+            <h2 className="text-xl font-semibold mb-4">📋 Warehouse List</h2>
+            {loading ? (
+              <p className="text-center text-gray-500 animate-pulse">Loading...</p>
+            ) : (
+              <ul>
+                {warehouses.map((warehouse) => (
+                  <li
+                    key={warehouse.id}
+                    className="p-4 bg-white rounded-lg shadow mb-2 flex justify-between items-center"
+                  >
+                    <div>
+                      <h3 className="font-semibold">{warehouse.name}</h3>
+                      <p className="text-gray-600">{warehouse.address}</p>
+                    </div>
+                    <div>
+                      <button
+                        className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 mr-2"
+                        onClick={() => { setEditingWarehouse(warehouse); setIsModalOpen(true); }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
+                        onClick={() => deleteWarehouse(warehouse.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
         </div>
-
-        {/* Assign Admin */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold">👤 Assign Admin</h2>
-          <input type="number" placeholder="Warehouse ID" className="border p-2 mr-2" value={adminWarehouseId || ""} onChange={(e) => setAdminWarehouseId(Number(e.target.value))} />
-          <input type="number" placeholder="Admin ID" className="border p-2 mr-2" value={adminId} onChange={(e) => setAdminId(Number(e.target.value))} />
-          <button className="bg-blue-500 text-white px-4 py-2" onClick={assignAdmin}>Assign Admin</button>
-        </div>
-
-                {/* Modal Edit Warehouse */}
-                {isModalOpen && (
-          <Dialog onClose={() => setIsModalOpen(false)}>
-            <h2 className="text-lg font-semibold">✏️ Edit Warehouse</h2>
-            <input type="text" placeholder="Warehouse Name" className="border p-2 mr-2" value={editingWarehouse?.name || ""} onChange={(e) => setEditingWarehouse({ ...editingWarehouse!, name: e.target.value })} />
-            <input type="text" placeholder="Address" className="border p-2 mr-2" value={editingWarehouse?.address || ""} onChange={(e) => setEditingWarehouse({ ...editingWarehouse!, address: e.target.value })} />
-            <button className="bg-green-500 text-white px-4 py-2 mt-4" onClick={updateWarehouse}>Save</button>
-          </Dialog>
-        )}
-
-        {/* Warehouse List */}
-        {loading ? (
-          <p>Loading...</p>
-        ) : (
-          <ul>
-            {warehouses.map((warehouse) => (
-              <li key={warehouse.id} className="p-3 bg-white rounded-lg shadow mb-2">
-                <h3 className="font-semibold">{warehouse.name}</h3>
-                <p>{warehouse.address}</p>
-                <button className="bg-yellow-500 text-white px-2 py-1 mr-2" onClick={() => { setEditingWarehouse(warehouse); setIsModalOpen(true); }}>Edit</button>
-                <button className="bg-red-500 text-white px-2 py-1" onClick={() => deleteWarehouse(warehouse.id)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-)}
-      </div>
       </div>
       <Footer />
     </div>

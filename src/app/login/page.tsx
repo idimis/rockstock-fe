@@ -20,6 +20,7 @@ const LoginContent: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
 
   interface CustomJwtPayload {
     userId: number;
@@ -136,14 +137,23 @@ const LoginContent: React.FC = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <input
-              type="password"
-              placeholder="Password"
-              className="border text-black border-gray-300 rounded-lg p-2 w-full mb-4"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
+                        <div className="relative w-full">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                className="border text-black border-gray-300 rounded-lg p-2 w-full mb-4 pr-10"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-3 text-gray-600"
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
+            </div> 
             <div className="flex items-center mb-4">
               <input type="checkbox" id="rememberMe" className="mr-2" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
               <label htmlFor="rememberMe" className="text-gray-700">Remember Me</label>

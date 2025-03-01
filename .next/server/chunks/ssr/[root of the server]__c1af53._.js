@@ -58,12 +58,20 @@ const SetupPassword = ()=>{
     const [showConfirmPassword, setShowConfirmPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const handlePasswordSubmit = async (e)=>{
         e.preventDefault();
+        console.log("Form submitted!");
+        console.log("Password:", password);
+        console.log("Confirm Password:", confirmPassword);
+        console.log("Token:", token);
         if (password !== confirmPassword) {
             setStatus("error");
             return;
         }
+        console.log("Token yang dikirim ke backend:", token);
+        console.log("Password yang dikirim:", password);
         try {
-            const response = await fetch(`${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/auth/setup-password?token=${token}`, {
+            const url = `${("TURBOPACK compile-time value", "http://localhost:8080")}/api/v1/auth/setup-password?token=${token}`;
+            console.log("URL request:", url);
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -94,7 +102,7 @@ const SetupPassword = ()=>{
                 children: "Set Your Password"
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                lineNumber: 54,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -113,7 +121,7 @@ const SetupPassword = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                                lineNumber: 58,
+                                lineNumber: 70,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -123,13 +131,13 @@ const SetupPassword = ()=>{
                                 children: showPassword ? "Hide" : "Show"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                                lineNumber: 66,
+                                lineNumber: 78,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                        lineNumber: 57,
+                        lineNumber: 69,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -144,7 +152,7 @@ const SetupPassword = ()=>{
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                                lineNumber: 76,
+                                lineNumber: 88,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -154,13 +162,13 @@ const SetupPassword = ()=>{
                                 children: showConfirmPassword ? "Hide" : "Show"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                                lineNumber: 84,
+                                lineNumber: 96,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                        lineNumber: 75,
+                        lineNumber: 87,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -169,13 +177,13 @@ const SetupPassword = ()=>{
                         children: "Submit"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                        lineNumber: 92,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                lineNumber: 55,
+                lineNumber: 67,
                 columnNumber: 7
             }, this),
             status === "loading" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -183,7 +191,7 @@ const SetupPassword = ()=>{
                 children: "Setting password..."
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                lineNumber: 99,
+                lineNumber: 111,
                 columnNumber: 32
             }, this),
             status === "success" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -191,7 +199,7 @@ const SetupPassword = ()=>{
                 children: "Password set successfully!"
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                lineNumber: 100,
+                lineNumber: 112,
                 columnNumber: 32
             }, this),
             status === "error" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -199,13 +207,13 @@ const SetupPassword = ()=>{
                 children: "There was an error. Please try again."
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/setup-password/page.tsx",
-                lineNumber: 101,
+                lineNumber: 113,
                 columnNumber: 30
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/auth/setup-password/page.tsx",
-        lineNumber: 53,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 };
