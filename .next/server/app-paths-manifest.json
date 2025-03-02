@@ -1,18 +1,15 @@
 {
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/page": "app/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/login/page": "app/login/page.js",
+  "/signup/page": "app/signup/page.js",
   "/dashboard/user/page": "app/dashboard/user/page.js",
+  "/auth/verify-email/page": "app/auth/verify-email/page.js",
+  "/auth/setup-password/page": "app/auth/setup-password/page.js",
   "/logout/page": "app/logout/page.js",
   "/dashboard/user/profile/page": "app/dashboard/user/profile/page.js",
-  "/dashboard/user/cart/page": "app/dashboard/user/cart/page.js",
-  "/dashboard/user/shipping/page": "app/dashboard/user/shipping/page.js",
-  "/dashboard/user/address/page": "app/dashboard/user/address/page.js",
-  "/dashboard/admin/page": "app/dashboard/admin/page.js",
   "/dashboard/user/profile/reset-password/page": "app/dashboard/user/profile/reset-password/page.js",
-  "/signup/page": "app/signup/page.js",
-  "/auth/verify-email/page": "app/auth/verify-email/page.js",
-  "/auth/setup-password/page": "app/auth/setup-password/page.js"
+  "/dashboard/user/profile/reset-password/confirm-reset-password/page": "app/dashboard/user/profile/reset-password/confirm-reset-password/page.js"
 }

@@ -234,7 +234,7 @@ useEffect(() => {
                 <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                   <h2 className="text-xl font-semibold mb-2">Reset Password</h2>
                   <button
-                    className="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    className="px-5 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                     onClick={() => window.location.href = "/dashboard/user/profile/reset-password"}
                   >
                     Reset Password

@@ -566,7 +566,7 @@ const ResetPasswordPage = ()=>{
         className: "flex flex-col items-center justify-center min-h-screen bg-gray-100 text-black",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-4xl font-bold text-blue-600 mb-4 text-center",
+                className: "text-4xl font-bold text-red-600 mb-4 text-center",
                 children: "Reset Password"
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/profile/reset-password/page.tsx",
@@ -582,7 +582,7 @@ const ResetPasswordPage = ()=>{
                 columnNumber: 7
             }, this),
             success ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-green-600 font-semibold",
+                className: "text-red-600 font-semibold",
                 children: "Password reset link sent! Check your email."
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/profile/reset-password/page.tsx",
@@ -606,7 +606,7 @@ const ResetPasswordPage = ()=>{
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         type: "submit",
-                        className: "bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300 w-full",
+                        className: "bg-red-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300 w-full",
                         disabled: loading,
                         children: loading ? "Sending..." : "Send Reset Link"
                     }, void 0, false, {
