@@ -59,21 +59,19 @@ const authOptions = {
 
   callbacks: {
     async jwt({ token, account, user }: { token: JWT; account?: any; user?: any }) {
-      console.log("JWT CALLBACK:", { token, account, user });
-
+      console.log("JWT CALLBACK START:", { token, account, user });
+  
       // Jika user login pertama kali dengan Google
       if (account?.provider === "google" && account.id_token && account.access_token) {
+        console.log("New Login - Processing Google Account");
         try {
-          // Step 9: Ambil user info dari Google API
           const googleUserInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-            headers: {
-              Authorization: `Bearer ${account.access_token}`,
-            },
+            headers: { Authorization: `Bearer ${account.access_token}` },
           }).then((res) => res.json());
-
+  
           console.log("GOOGLE USER INFO:", googleUserInfo);
-
-          // Step 10 & 11: Kirim data ke backend untuk dicek di database
+  
+          // Kirim data ke backend untuk verifikasi
           const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/google`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -85,46 +83,63 @@ const authOptions = {
               photoProfileUrl: googleUserInfo.picture,
             }),
           });
-
+  
           if (!backendResponse.ok) {
             const errorText = await backendResponse.text();
             console.error("Backend Authentication Error:", backendResponse.status, errorText);
             throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
           }
-          
-
+  
           const backendData = await backendResponse.json();
           console.log("BACKEND RESPONSE:", backendData);
-
-          // Step 12: Assign role, access token & refresh token dari backend
-          token.id = backendData.id;
+  
+          // Simpan data dari backend ke token
+          token.id = backendData.userId;
+          token.name = backendData.fullname;
           token.email = backendData.email;
           token.role = backendData.role;
           token.accessToken = backendData.accessToken;
           token.refreshToken = backendData.refreshToken;
-          token.scope = backendData.scope; 
+          token.scope = backendData.scope;
         } catch (error) {
           console.error("Error processing Google login:", error);
         }
       }
-
+  
+      // Jika login dengan email & password (Credentials)
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.fullname = user.name;
+        token.role = user.role;
+      }
+  
       return token;
     },
-
+  
     async session({ session, token }: { session: any; token: JWT }) {
+      console.log("SESSION CALLBACK:", { session, token });
+  
+      // Pastikan data session sesuai dengan token
       session.user.id = token.id;
       session.user.email = token.email;
+      session.user.fullname = token.fullname;
       session.user.role = token.role;
       session.accessToken = token.accessToken;
       session.refreshToken = token.refreshToken;
-      session.scope = token.scope; 
+      session.scope = token.scope;
+  
       return session;
     },
-
+  
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      if (url === baseUrl || url === `${baseUrl}/`) {
+        return `${baseUrl}/dashboard/user`;
+      }
+      return url.startsWith(baseUrl) ? url : `${baseUrl}/dashboard/user`;
     },
   },
+  
 
   secret: process.env.NEXTAUTH_SECRET,
   pages: {

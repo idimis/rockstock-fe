@@ -1,27 +1,33 @@
 "use client";
 
-import React, { useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-// import Logo from '@/public/logo2.png';
-import darkfurnitureImage from '@/public/darkfurniture.jpeg';
-
-import Footer from '@/components/common/Footer';
+import React, { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import darkfurnitureImage from "@/public/darkfurniture.jpeg";
+import Footer from "@/components/common/Footer";
 
 const Logout: React.FC = () => {
+  const { data: session } = useSession();
 
   useEffect(() => {
-    
-    localStorage.removeItem('user');
-    
-    setTimeout(() => {
-      window.location.href = '/'; 
-    }, 3000);
-  }, []);
+    // Hapus semua data terkait user
+    localStorage.removeItem("jwt_token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("fullname");
+    localStorage.removeItem("is_verified");
+
+    if (session) {
+          
+      signOut({ callbackUrl: "/" });
+    } else {
+      
+      window.location.href = "/";
+    }
+  }, [session]);
 
   return (
     <div className="flex flex-col min-h-screen bg-light-gray">
-     
       <div className="flex flex-col lg:flex-row flex-grow">
         <div className="relative w-full lg:w-1/2">
           <Image
@@ -34,7 +40,6 @@ const Logout: React.FC = () => {
         </div>
 
         <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8">
-          {/* <Image src={Logo} alt="Logo" width={120} height={120} className="mb-4" /> */}
           <h1 className="text-4xl font-bold text-red-600 mb-4 text-center">
             Thank You for Visiting!
           </h1>
@@ -42,7 +47,7 @@ const Logout: React.FC = () => {
             We hope to see you again soon. Your session has been logged out.
           </p>
           <p className="text-center text-gray-500">
-            You will be redirected shortly, or you can{' '}
+            You will be redirected shortly, or you can{" "}
             <Link href="/" className="text-blue-600 underline">click here</Link> to return home.
           </p>
 
@@ -52,7 +57,6 @@ const Logout: React.FC = () => {
         </div>
       </div>
 
-      
       <Footer />
     </div>
   );

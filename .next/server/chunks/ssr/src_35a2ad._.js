@@ -1120,13 +1120,15 @@ const UserProfilePage = ()=>{
         id: null,
         fullname: "",
         email: "",
-        photoProfileUrl: null,
+        photoProfileUrl: "",
         birthDate: "",
         gender: "",
-        isVerified: false
+        isVerified: false,
+        newAvatarFile: null
     });
     const [previewImage, setPreviewImage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [newAvatarFile, setNewAvatarFile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         fetchUserProfile();
     }, []);
@@ -1146,16 +1148,16 @@ const UserProfilePage = ()=>{
             });
             const data = await response.json();
             const userData = data.data;
-            const formattedUser = {
+            setUser({
                 id: userData.id,
                 fullname: userData.fullname,
                 email: userData.email,
                 photoProfileUrl: userData.photoProfileUrl || "/default-avatar.png",
                 birthDate: userData.birthDate ? userData.birthDate.split("T")[0] : "",
                 gender: userData.gender,
-                isVerified: userData.isVerified
-            };
-            setUser(formattedUser);
+                isVerified: userData.isVerified,
+                newAvatarFile: null
+            });
         } catch (error) {
             console.error("Error fetching user profile:", error);
         } finally{
@@ -1169,105 +1171,91 @@ const UserProfilePage = ()=>{
                 console.error("User not authenticated");
                 return;
             }
-            await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
+            let photoProfileUrl = user.photoProfileUrl;
+            if (newAvatarFile) {
+                const avatarFormData = new FormData();
+                avatarFormData.append("file", newAvatarFile);
+                const uploadResponse = await fetch(`${BACKEND_URL}/api/v1/user/upload-avatar`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: avatarFormData
+                });
+                const uploadData = await uploadResponse.json();
+                console.log("Upload Avatar Response:", uploadData);
+                console.log("Photo Profile URL:", uploadData?.data?.photo_profile_url);
+                console.log("Response Body:", uploadData.body);
+                if (uploadData?.data?.photo_profileUrl) {
+                    console.log("Photo Profile URL from response:", uploadData.data.photo_profileUrl);
+                    photoProfileUrl = uploadData.data.photo_profileUrl;
+                    alert("Upload photo successful!");
+                } else {
+                    console.error("Upload failed:", uploadData);
+                    alert("Upload photo successful!");
+                    return;
+                }
+            }
+            const formattedBirthDate = user.birthDate ? `${user.birthDate}T00:00:00Z` : null;
+            const requestBody = {
+                fullname: user.fullname,
+                birthDate: formattedBirthDate,
+                gender: user.gender,
+                photoProfileUrl
+            };
+            console.log("Updated User Data:", requestBody);
+            const response = await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    fullname: user.fullname,
-                    birthDate: user.birthDate,
-                    gender: user.gender
-                })
+                body: JSON.stringify(requestBody)
             });
+            const responseData = await response.json();
+            console.log("Update Profile Response:", responseData);
+            if (!response.ok) {
+                alert(`Error: ${responseData.message || "Profile update failed"}`);
+                return;
+            }
             alert("Profile updated successfully!");
             fetchUserProfile();
         } catch (error) {
             console.error("Failed to update profile:", error);
-        }
-    };
-    const handleResetPassword = async ()=>{
-        try {
-            await fetch(`${BACKEND_URL}/api/v1/user/reset-password`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: user.email
-                })
-            });
-            alert("Reset password link sent to email.");
-        } catch (error) {
-            console.error("Failed to send reset password link:", error);
+            alert("Error updating profile.");
         }
     };
     const handleUploadPhoto = async (e)=>{
         const file = e.target.files?.[0];
         if (!file) return;
-        const formData = new FormData();
-        formData.append("file", file);
-        try {
-            const token = localStorage.getItem("accessToken");
-            if (!token) {
-                console.error("User not authenticated");
-                return;
-            }
-            const response = await fetch(`${BACKEND_URL}/api/v1/user/upload-avatar`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
-                body: formData
-            });
-            const data = await response.json();
-            if (file.size > 1024 * 1024) {
-                alert("File size must be under 1MB.");
-                return;
-            }
-            setUser((prev)=>({
-                    ...prev,
-                    photoProfileUrl: data.data.secureUrl
-                }));
-            setPreviewImage(URL.createObjectURL(file));
-            alert("Profile picture updated!");
-        } catch (error) {
-            console.error("Failed to upload profile picture:", error);
+        if (file.size > 2 * 1024 * 1024) {
+            alert("File size must be under 2MB.");
+            return;
         }
+        setPreviewImage(URL.createObjectURL(file));
+        setNewAvatarFile(file);
     };
     const handleChange = (e)=>{
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value
-        });
+        setUser((prev)=>({
+                ...prev,
+                [e.target.name]: e.target.value
+            }));
     };
-    const handleResendVerificationEmail = async ()=>{
-        try {
-            await fetch(`${BACKEND_URL}/api/v1/user/resend-verification`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: user.email
-                })
-            });
-            alert("Verification email sent!");
-        } catch (error) {
-            console.error("Failed to resend verification email:", error);
-        }
-    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        console.log("Updated Avatar URL in State:", user.photoProfileUrl);
+    }, [
+        user.photoProfileUrl
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                lineNumber: 160,
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                lineNumber: 161,
+                lineNumber: 165,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1275,7 +1263,7 @@ const UserProfilePage = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$UserSidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                        lineNumber: 163,
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1286,7 +1274,7 @@ const UserProfilePage = ()=>{
                                 children: "👤 User Profile"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                lineNumber: 165,
+                                lineNumber: 169,
                                 columnNumber: 11
                             }, this),
                             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1294,11 +1282,11 @@ const UserProfilePage = ()=>{
                                 children: "Loading..."
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 172,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
                                         className: "mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1306,107 +1294,143 @@ const UserProfilePage = ()=>{
                                                 children: "User Information"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 173,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Name:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                        lineNumber: 174,
-                                                        columnNumber: 20
-                                                    }, this),
-                                                    " ",
-                                                    user.fullname
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 174,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Email:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                        lineNumber: 175,
-                                                        columnNumber: 20
-                                                    }, this),
-                                                    " ",
-                                                    user.email
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 175,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Birth Date:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                        lineNumber: 176,
-                                                        columnNumber: 20
-                                                    }, this),
-                                                    " ",
-                                                    user.birthDate || "N/A"
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
                                                 lineNumber: 176,
                                                 columnNumber: 17
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex flex-col gap-2",
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Gender:"
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        children: "Full Name"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                        lineNumber: 177,
-                                                        columnNumber: 20
+                                                        lineNumber: 178,
+                                                        columnNumber: 19
                                                     }, this),
-                                                    " ",
-                                                    user.gender || "N/A"
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        name: "fullname",
+                                                        value: user.fullname,
+                                                        onChange: handleChange,
+                                                        className: "border p-2 w-full rounded-lg",
+                                                        placeholder: "Full Name"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 179,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        children: "Email"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 188,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "text",
+                                                        value: user.email,
+                                                        disabled: true,
+                                                        className: "border p-2 w-full rounded-lg bg-gray-100"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 189,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        children: "Birth Date"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 196,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "date",
+                                                        name: "birthDate",
+                                                        value: user.birthDate,
+                                                        onChange: handleChange,
+                                                        className: "border p-2 w-full rounded-lg"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 197,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        children: "Gender"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 205,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                        name: "gender",
+                                                        value: user.gender,
+                                                        onChange: handleChange,
+                                                        className: "border p-2 w-full rounded-lg",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "",
+                                                                children: "Select Gender"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                                lineNumber: 212,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "Male",
+                                                                children: "Male"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                                lineNumber: 213,
+                                                                columnNumber: 21
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: "Female",
+                                                                children: "Female"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                                lineNumber: 214,
+                                                                columnNumber: 21
+                                                            }, this)
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 206,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                        children: "Status"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 217,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: user.isVerified ? "text-green-600" : "text-red-600",
+                                                        children: user.isVerified ? "✅ Verified" : "❌ Unverified"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
+                                                        lineNumber: 218,
+                                                        columnNumber: 19
+                                                    }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
                                                 lineNumber: 177,
                                                 columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                        children: "Status:"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                        lineNumber: 178,
-                                                        columnNumber: 20
-                                                    }, this),
-                                                    " ",
-                                                    user.isVerified ? "✅ Verified" : "❌ Unverified"
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 178,
-                                                columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                        lineNumber: 172,
+                                        lineNumber: 175,
                                         columnNumber: 15
                                     }, this),
                                     !user.isVerified && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95",
-                                        onClick: handleResendVerificationEmail,
+                                        className: "px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600",
+                                        onClick: ()=>alert("Verification email sent!"),
                                         children: "Verify Email"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                        lineNumber: 183,
+                                        lineNumber: 225,
                                         columnNumber: 17
                                     }, this),
                                     user.id && !user.email.includes("google.com") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1417,22 +1441,22 @@ const UserProfilePage = ()=>{
                                                 children: "Reset Password"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 194,
+                                                lineNumber: 235,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                className: "px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95",
-                                                onClick: handleResetPassword,
-                                                children: "Send Reset Link"
+                                                className: "px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600",
+                                                onClick: ()=>window.location.href = "/dashboard/user/profile/reset-password",
+                                                children: "Reset Password"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 195,
+                                                lineNumber: 236,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                        lineNumber: 193,
+                                        lineNumber: 234,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -1443,81 +1467,41 @@ const UserProfilePage = ()=>{
                                                 children: "Profile Picture"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 246,
                                                 columnNumber: 17
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                src: previewImage || user.photoProfileUrl || "/default-avatar.png",
+                                            (previewImage || user.photoProfileUrl) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                src: previewImage || user.photoProfileUrl,
                                                 alt: "Profile",
-                                                className: "w-24 h-24 rounded-full mb-4 object-cover border border-gray-300 shadow-sm"
+                                                className: "w-24 h-24 rounded-full mb-4 object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 207,
-                                                columnNumber: 17
+                                                lineNumber: 248,
+                                                columnNumber: 3
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 type: "file",
                                                 accept: ".jpg,.jpeg,.png,.gif",
-                                                className: "border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400",
+                                                className: "border p-2 w-full rounded-lg",
                                                 onChange: handleUploadPhoto
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 254,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                        lineNumber: 205,
+                                        lineNumber: 245,
                                         columnNumber: 15
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                                        className: "p-6 border border-gray-200 rounded-xl shadow-md bg-white",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: "text-xl font-semibold mb-2",
-                                                children: "Update Profile"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 222,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "text",
-                                                name: "fullname",
-                                                value: user.fullname,
-                                                onChange: handleChange,
-                                                className: "border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400",
-                                                placeholder: "Full Name"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 223,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "date",
-                                                name: "birthDate",
-                                                value: user.birthDate,
-                                                onChange: handleChange,
-                                                className: "border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 231,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                className: "px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95",
-                                                onClick: handleUpdateProfile,
-                                                children: "Save Changes"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                                lineNumber: 238,
-                                                columnNumber: 17
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        className: "px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600",
+                                        onClick: handleUpdateProfile,
+                                        children: "Confirm"
+                                    }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 257,
                                         columnNumber: 15
                                     }, this)
                                 ]
@@ -1525,18 +1509,18 @@ const UserProfilePage = ()=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                        lineNumber: 164,
+                        lineNumber: 168,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                lineNumber: 162,
+                lineNumber: 166,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/user/profile/page.tsx",
-                lineNumber: 249,
+                lineNumber: 267,
                 columnNumber: 7
             }, this)
         ]

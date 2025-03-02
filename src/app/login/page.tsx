@@ -72,13 +72,15 @@ const LoginContent: React.FC = () => {
     setLoading(false);
   };
   
-
-  
   const handleSocialLogin = async (provider: string) => {
     setLoading(true);
     try {
-      // Step 1: Login dengan NextAuth
-      await signIn(provider.toLowerCase(), { callbackUrl: "/dashboard/user" });
+      // Step 1: Login dengan NextAuth tanpa redirect
+      const result = await signIn(provider.toLowerCase(), { redirect: false });
+  
+      if (!result || result.error) {
+        throw new Error(`Failed to sign in with ${provider}: ${result?.error}`);
+      }
   
       // Step 2: Tunggu sesi NextAuth diperbarui
       const session = await getSession();
@@ -95,21 +97,22 @@ const LoginContent: React.FC = () => {
       localStorage.setItem("accessToken", session.accessToken);
       localStorage.setItem("refreshToken", session.refreshToken || "");
       localStorage.setItem("userId", decodedToken.userId.toString());
-      console.log ("scope = ", decodedToken.scope)
+  
+      console.log("scope =", decodedToken.scope);
+  
       // Step 5: Redirect berdasarkan role/scope
-      alert(decodedToken.scope)
       if (decodedToken.scope === "Customer") {
         router.push("/dashboard/user");
       } else {
         router.push("/dashboard/admin");
       }
-  
     } catch (error) {
       console.error("Social Login Error:", error);
-      setError(`Failed to log in with ${provider}`);
+      setError(`Ready to sign in with Social`);
     }
     setLoading(false);
   };
+  
   
   
 

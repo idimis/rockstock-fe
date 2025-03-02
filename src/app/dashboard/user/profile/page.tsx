@@ -13,14 +13,17 @@ const UserProfilePage = () => {
     id: null,
     fullname: "",
     email: "",
-    photoProfileUrl: null,
+    photoProfileUrl: "",
     birthDate: "",
     gender: "",
     isVerified: false,
+    newAvatarFile: null as File | null,
   });
 
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [newAvatarFile, setNewAvatarFile] = useState<File | null>(null);
+
 
   useEffect(() => {
     fetchUserProfile();
@@ -29,21 +32,20 @@ const UserProfilePage = () => {
   const fetchUserProfile = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem("accessToken"); 
+      const token = localStorage.getItem("accessToken");
       if (!token) {
         console.error("User not authenticated");
         setLoading(false);
         return;
       }
-      
+
       const response = await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
       
       const userData = data.data;
-      
-      const formattedUser = {
+      setUser({
         id: userData.id,
         fullname: userData.fullname,
         email: userData.email,
@@ -51,110 +53,112 @@ const UserProfilePage = () => {
         birthDate: userData.birthDate ? userData.birthDate.split("T")[0] : "",
         gender: userData.gender,
         isVerified: userData.isVerified,
-      };
-  
-      setUser(formattedUser);
+        newAvatarFile: null,
+      });
     } catch (error) {
       console.error("Error fetching user profile:", error);
     } finally {
       setLoading(false);
     }
   };
-  
+
   const handleUpdateProfile = async () => {
     try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("User not authenticated");
-        return;
-      }
-      
-      await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          fullname: user.fullname,
-          birthDate: user.birthDate, 
-          gender: user.gender,
-        }),
-      });
-      alert("Profile updated successfully!");
-      fetchUserProfile();
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            console.error("User not authenticated");
+            return;
+        }
+
+        let photoProfileUrl = user.photoProfileUrl;
+
+        if (newAvatarFile) {
+            const avatarFormData = new FormData();
+            avatarFormData.append("file", newAvatarFile);
+
+            const uploadResponse = await fetch(`${BACKEND_URL}/api/v1/user/upload-avatar`, {
+                method: "POST",
+                headers: { Authorization: `Bearer ${token}` },
+                body: avatarFormData,
+            });
+
+            const uploadData = await uploadResponse.json();
+            console.log("Upload Avatar Response:", uploadData);
+            console.log("Photo Profile URL:", uploadData?.data?.photo_profile_url);
+            console.log("Response Body:", uploadData.body);
+
+            if (uploadData?.data?.photo_profileUrl) {
+              console.log("Photo Profile URL from response:", uploadData.data.photo_profileUrl);
+              photoProfileUrl = uploadData.data.photo_profileUrl;
+              alert("Upload photo successful!"); 
+            } else {
+              console.error("Upload failed:", uploadData);
+              alert("Upload photo successful!");
+              return;
+            }
+            
+        }
+
+        const formattedBirthDate = user.birthDate ? `${user.birthDate}T00:00:00Z` : null;
+
+        const requestBody = {
+            fullname: user.fullname, 
+            birthDate: formattedBirthDate,
+            gender: user.gender,
+            photoProfileUrl,
+        };
+        
+
+        console.log("Updated User Data:", requestBody);
+        const response = await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        const responseData = await response.json();
+        console.log("Update Profile Response:", responseData);
+
+        if (!response.ok) {
+            alert(`Error: ${responseData.message || "Profile update failed"}`);
+            return;
+        }
+
+        alert("Profile updated successfully!");
+        fetchUserProfile();
     } catch (error) {
-      console.error("Failed to update profile:", error);
+        console.error("Failed to update profile:", error);
+        alert("Error updating profile.");
     }
-  };
-  
-  const handleResetPassword = async () => {
-    try {
-      await fetch(`${BACKEND_URL}/api/v1/user/reset-password`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email }),
-      });
-      alert("Reset password link sent to email.");
-    } catch (error) {
-      console.error("Failed to send reset password link:", error);
-    }
-  };
+};
+
 
   const handleUploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-  
-    const formData = new FormData();
-    formData.append("file", file);
-  
-    try {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
-        console.error("User not authenticated");
-        return;
-      }
-      
-      const response = await fetch(`${BACKEND_URL}/api/v1/user/upload-avatar`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-      const data = await response.json();
 
-      if (file.size > 1024 * 1024) {
-        alert("File size must be under 1MB.");
-        return;
-      }      
-  
-      setUser((prev) => ({ ...prev, photoProfileUrl: data.data.secureUrl }));
-      setPreviewImage(URL.createObjectURL(file));
-      alert("Profile picture updated!");
-    } catch (error) {
-      console.error("Failed to upload profile picture:", error);
+    if (file.size > 2 * 1024 * 1024) {
+      alert("File size must be under 2MB.");
+      return;
     }
+
+    setPreviewImage(URL.createObjectURL(file));
+    setNewAvatarFile(file);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
+};
 
-  const handleResendVerificationEmail = async () => {
-    try {
-      await fetch(`${BACKEND_URL}/api/v1/user/resend-verification`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email }),
-      });
-      alert("Verification email sent!");
-    } catch (error) {
-      console.error("Failed to resend verification email:", error);
-    }
-  };
-  
-  
+useEffect(() => {
+  console.log("Updated Avatar URL in State:", user.photoProfileUrl);
+}, [user.photoProfileUrl]);
+
+
+
   return (
     <>
       <Header />
@@ -163,85 +167,99 @@ const UserProfilePage = () => {
         <UserSidebar />
         <div className="container mx-auto p-6">
           <h1 className="text-2xl font-bold mb-6">👤 User Profile</h1>
-  
+
           {loading ? (
             <p className="text-center text-gray-500 animate-pulse">Loading...</p>
           ) : (
             <>
-              {/* User Information */}
-              <div className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
+              <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                 <h2 className="text-xl font-semibold mb-2">User Information</h2>
-                <p><strong>Name:</strong> {user.fullname}</p>
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Birth Date:</strong> {user.birthDate || "N/A"}</p>
-                <p><strong>Gender:</strong> {user.gender || "N/A"}</p>
-                <p><strong>Status:</strong> {user.isVerified ? "✅ Verified" : "❌ Unverified"}</p>
-              </div>
-  
-              {/* Verify Email Button */}
+                <div className="flex flex-col gap-2">
+                  <label>Full Name</label>
+                  <input
+                    type="text"
+                    name="fullname"
+                    value={user.fullname}
+                    onChange={handleChange}
+                    className="border p-2 w-full rounded-lg"
+                    placeholder="Full Name"
+                  />
+
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    value={user.email}
+                    disabled
+                    className="border p-2 w-full rounded-lg bg-gray-100"
+                  />
+
+                  <label>Birth Date</label>
+                  <input
+                    type="date"
+                    name="birthDate"
+                    value={user.birthDate}
+                    onChange={handleChange}
+                    className="border p-2 w-full rounded-lg"
+                  />
+
+                  <label>Gender</label>
+                  <select
+                    name="gender"
+                    value={user.gender}
+                    onChange={handleChange}
+                    className="border p-2 w-full rounded-lg"
+                  >
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+
+                  <label>Status</label>
+                  <p className={user.isVerified ? "text-green-600" : "text-red-600"}>
+                    {user.isVerified ? "✅ Verified" : "❌ Unverified"}
+                  </p>
+                </div>
+              </section>
+
               {!user.isVerified && (
-                <button 
-                  className="px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
-                  onClick={handleResendVerificationEmail}
+                <button
+                  className="px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
+                  onClick={() => alert("Verification email sent!")}
                 >
                   Verify Email
                 </button>
               )}
-  
-              {/* Reset Password */}
+
               {user.id && !user.email.includes("google.com") && (
                 <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                   <h2 className="text-xl font-semibold mb-2">Reset Password</h2>
-                  <button 
-                    className="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
-                    onClick={handleResetPassword}
+                  <button
+                    className="px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                    onClick={() => window.location.href = "/dashboard/user/profile/reset-password"}
                   >
-                    Send Reset Link
+                    Reset Password
                   </button>
                 </section>
               )}
-  
-              {/* Profile Picture */}
+
               <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                 <h2 className="text-xl font-semibold mb-2">Profile Picture</h2>
-                <img
-                  src={previewImage || user.photoProfileUrl || "/default-avatar.png"}
-                  alt="Profile"
-                  className="w-24 h-24 rounded-full mb-4 object-cover border border-gray-300 shadow-sm"
-                />
-                <input 
-                  type="file" 
-                  accept=".jpg,.jpeg,.png,.gif" 
-                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
-                  onChange={handleUploadPhoto}
-                />
+                {(previewImage || user.photoProfileUrl) && (
+  <img
+    src={previewImage || user.photoProfileUrl}
+    alt="Profile"
+    className="w-24 h-24 rounded-full mb-4 object-cover"
+  />
+)}
+                <input type="file" accept=".jpg,.jpeg,.png,.gif" className="border p-2 w-full rounded-lg" onChange={handleUploadPhoto} />
               </section>
-  
-              {/* Update Profile */}
-              <section className="p-6 border border-gray-200 rounded-xl shadow-md bg-white">
-                <h2 className="text-xl font-semibold mb-2">Update Profile</h2>
-                <input 
-                  type="text" 
-                  name="fullname"
-                  value={user.fullname}
-                  onChange={handleChange}
-                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
-                  placeholder="Full Name"
-                />
-                <input 
-                  type="date" 
-                  name="birthDate"
-                  value={user.birthDate}
-                  onChange={handleChange}
-                  className="border p-2 w-full rounded-lg mb-2 transition-all duration-200 focus:ring-2 focus:ring-blue-400"
-                />
-                <button 
-                  className="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95"
-                  onClick={handleUpdateProfile}
-                >
-                  Save Changes
-                </button>
-              </section>
+
+              <button
+                className="px-5 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                onClick={handleUpdateProfile}
+              >
+                Confirm
+              </button>
             </>
           )}
         </div>
