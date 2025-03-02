@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { Pool } from "pg";
@@ -51,6 +52,12 @@ const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: { params: { scope: "openid email profile" } },
     }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+      authorization: { params: { scope: "email" } },
+    }), 
+
   ],
 
   session: {
@@ -105,6 +112,49 @@ const authOptions = {
           console.error("Error processing Google login:", error);
         }
       }
+
+            // Handle Facebook login
+            if (account?.provider === "facebook" && account.access_token) {
+              console.log("New Login - Processing Facebook Account");
+              try {
+                const facebookUserInfo = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${account.access_token}`)
+                  .then((res) => res.json());
+        
+                console.log("FACEBOOK USER INFO:", facebookUserInfo);
+        
+                // Send data to the backend for verification
+                const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/facebook`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    accessToken: account.access_token,
+                    email: facebookUserInfo.email,
+                    name: facebookUserInfo.name,
+                    photoProfileUrl: facebookUserInfo.picture?.data?.url,
+                  }),
+                });
+        
+                if (!backendResponse.ok) {
+                  const errorText = await backendResponse.text();
+                  console.error("Backend Authentication Error:", backendResponse.status, errorText);
+                  throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
+                }
+        
+                const backendData = await backendResponse.json();
+                console.log("BACKEND RESPONSE:", backendData);
+        
+                token.id = backendData.userId;
+                token.name = backendData.fullname;
+                token.email = backendData.email;
+                token.role = backendData.role;
+                token.accessToken = backendData.accessToken;
+                token.refreshToken = backendData.refreshToken;
+                token.scope = backendData.scope;
+              } catch (error) {
+                console.error("Error processing Facebook login:", error);
+              }
+            }
+      
   
       // Jika login dengan email & password (Credentials)
       if (user) {
@@ -116,6 +166,8 @@ const authOptions = {
   
       return token;
     },
+
+
   
     async session({ session, token }: { session: any; token: JWT }) {
       console.log("SESSION CALLBACK:", { session, token });

@@ -71,15 +71,16 @@ const Navbar = () => {
 
           {/* Search bar */}
           <div className="relative flex-1 max-w-lg ml-6">
-            <input
-              type="text"
-              placeholder="Search furniture..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
-            />
-            <button className="absolute top-0 right-0 p-2 bg-red-600 rounded-md text-white">
-              <FiSearch className="h-5 w-5" />
-            </button>
-          </div>
+  <input
+    type="text"
+    placeholder="Search furniture..."
+    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+  />
+  <button className="absolute top-1/2 right-0 transform -translate-y-1/2 p-2 bg-red-600 rounded-md text-white">
+    <FiSearch className="h-5 w-5" />
+  </button>
+</div>
+
         </div>
       </div>
 

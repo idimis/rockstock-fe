@@ -44,6 +44,13 @@ Thumbs.db
 target/
 dist/
 build/
+.next/
+
+# Static files yang dihasilkan oleh build (biasanya di dalam .next/)
+static/
+
+# Manifest yang dihasilkan oleh Next.js (biasanya di dalam .next/)
+.next/manifest.json
 
 # Coverage directory used by tools like istanbul
 coverage/

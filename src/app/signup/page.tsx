@@ -87,7 +87,7 @@ const SignupContent: React.FC = () => {
             Sign up with Google
           </button>
 
-          <button className="flex items-center bg-white text-gray-600 border border-gray-300 rounded-full py-2 px-4 hover:bg-gray-100 transition duration-300 w-full max-w-xs mb-4" onClick={() => signIn("google")} aria-label="Sign up with Google">
+          <button className="flex items-center bg-white text-gray-600 border border-gray-300 rounded-full py-2 px-4 hover:bg-gray-100 transition duration-300 w-full max-w-xs mb-4" onClick={() => signIn("facebook")} aria-label="Sign up with Google">
             <Image src={FacebookIcon} alt="Facebook Icon" width={20} height={20} className="mr-2" />
             Sign up with Facebook
           </button>
