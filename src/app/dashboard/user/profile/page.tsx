@@ -23,6 +23,7 @@ const UserProfilePage = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [newAvatarFile, setNewAvatarFile] = useState<File | null>(null);
+  
 
 
   useEffect(() => {
@@ -204,11 +205,12 @@ useEffect(() => {
 
                   <label>Gender</label>
                   <select
-                    name="gender"
-                    value={user.gender}
-                    onChange={handleChange}
-                    className="border p-2 w-full rounded-lg"
-                  >
+   name="gender"
+  value={user.gender || ""}
+  onChange={handleChange}
+  className="border p-2 w-full rounded-lg"
+>
+
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>

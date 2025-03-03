@@ -24,21 +24,22 @@ const SignupContent: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
+  
     try {
       const formattedBirthdate = new Date(birthdate).toISOString();
-      
+  
       const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
         fullname,
         email,
         gender,
         birthdate: formattedBirthdate,
       });
-
+  
       console.log("Signup successful:", response.data);
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("fullname", fullname);
+      localStorage.setItem("newSignup", "true"); 
       window.location.href = "/dashboard/user";
     } catch (err: any) {
       console.error("Signup error:", err.response?.data || err.message);
@@ -47,6 +48,7 @@ const SignupContent: React.FC = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <>

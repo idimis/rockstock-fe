@@ -108,6 +108,7 @@ const authOptions = {
           token.accessToken = backendData.accessToken;
           token.refreshToken = backendData.refreshToken;
           token.scope = backendData.scope;
+          
         } catch (error) {
           console.error("Error processing Google login:", error);
         }

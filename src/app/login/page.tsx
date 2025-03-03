@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "@/components/common/Footer";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import darkImage from "@/public/darkacademia.webp";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { signIn, getSession } from "next-auth/react"; 
+import { signIn, getSession, useSession } from "next-auth/react"; 
 
 
 const LoginContent: React.FC = () => {
@@ -21,6 +21,26 @@ const LoginContent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      const scope = session?.scope;
+      const accessToken = session?.accessToken;
+		const refreshToken = session?.refreshToken;
+    const decodedToken = jwtDecode<CustomJwtPayload>(accessToken);
+
+		const fullname = decodedToken.fullname;
+		localStorage.setItem("accessToken", accessToken);
+		localStorage.setItem("refreshToken", refreshToken)
+    localStorage.setItem("fullname", fullname);
+
+
+      if (scope === "Super_Admin" || scope === "Warehouse_Admin")
+        router.push("/dashboard/admin");
+      else router.push("/dashboard/user");
+    }
+  }, [status, router, session]);
 
   interface CustomJwtPayload {
     userId: number;
@@ -77,7 +97,7 @@ const LoginContent: React.FC = () => {
     try {
       // Step 1: Login dengan NextAuth tanpa redirect
       const result = await signIn(provider.toLowerCase(), { redirect: false });
-  
+       alert(result); 
       if (!result || result.error) {
         throw new Error(`Failed to sign in with ${provider}: ${result?.error}`);
       }

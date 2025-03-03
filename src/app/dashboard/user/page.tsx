@@ -14,39 +14,61 @@ const UserDashboard = () => {
 
   const [fullname, setFullname] = useState<string | null>(null);
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
+  const [showSignupNotif, setShowSignupNotif] = useState(false);
+  const [showActivationNotif, setShowActivationNotif] = useState(false);
+  const [showPasswordSetupNotif, setShowPasswordSetupNotif] = useState(false);
 
   useEffect(() => {
     console.log("Session status:", status);
     console.log("Session data:", session);
-  
+
     if (status === "loading") return;
-  
+
     if (session?.user) {
       console.log("User logged in via social login:", session.user);
-  
-      // Simpan data sementara ke sessionStorage (bukan localStorage)
+
       sessionStorage.setItem("fullname", session.user.name ?? session.user.email ?? "User");
       sessionStorage.setItem("is_verified", "true");
-  
+
       setFullname(session.user.name ?? session.user.email ?? "User");
       setIsVerified(true);
     } else {
-      // Cek localStorage jika tidak ada session
       const storedFullname = localStorage.getItem("fullname");
       const verifiedStatus = localStorage.getItem("is_verified") === "true";
-  
-      console.log("Checking localStorage:", { storedFullname, verifiedStatus });
-  
+      const isNewSignup = localStorage.getItem("newSignup") === "true";
+      const isActivated = localStorage.getItem("accountActivated") === "true";
+      const isPasswordSet = localStorage.getItem("passwordSet") === "true";
+
+      console.log("Checking localStorage:", { storedFullname, verifiedStatus, isNewSignup, isActivated, isPasswordSet });
+
       if (storedFullname) {
         setFullname(storedFullname);
         setIsVerified(verifiedStatus);
+
+        if (isNewSignup) {
+          setShowSignupNotif(true);
+          localStorage.removeItem("newSignup");
+          setTimeout(() => setShowSignupNotif(false), 5000);
+        }
+
+        if (isActivated) {
+          setShowActivationNotif(true);
+          localStorage.removeItem("accountActivated");
+          setTimeout(() => setShowActivationNotif(false), 5000);
+        }
+
+        if (isPasswordSet) {
+          setShowPasswordSetupNotif(true);
+          localStorage.removeItem("passwordSet");
+          setTimeout(() => setShowPasswordSetupNotif(false), 5000);
+        }
       } else {
         console.log("Redirecting to /login...");
-        setTimeout(() => router.push("/login"), 500); 
+        setTimeout(() => router.push("/login"), 500);
       }
     }
   }, [session, status]);
-  
+
   if (status === "loading") return <p>Loading...</p>;
 
   return (
@@ -58,29 +80,37 @@ const UserDashboard = () => {
         <main className="flex-grow p-6 bg-white shadow-md">
           <h1 className="text-2xl font-bold mb-4">👋 Welcome, {fullname}!</h1>
 
-          {/* Notifikasi jika akun belum terverifikasi */}
-          {isVerified === false && (
-            <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-              <p>🚨 Email belum diverifikasi! Cek email kamu dan klik link verifikasi untuk mengaktifkan akun.</p>
+          {showSignupNotif && (
+            <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+              <p>✅ Your account has been created! Please check your email to verify your account.</p>
+            </div>
+          )}
+
+          {showActivationNotif && (
+            <div className="mb-4 p-4 bg-blue-100 border border-blue-400 text-blue-700 rounded-lg">
+              <p>🎉 Your account has been activated! You can now log in and start using your account.</p>
+            </div>
+          )}
+
+          {showPasswordSetupNotif && (
+            <div className="mb-4 p-4 bg-purple-100 border border-purple-400 text-purple-700 rounded-lg">
+              <p>🔐 Your password has been successfully set! You can now log in securely.</p>
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Order Summary */}
             <div className="p-4 bg-blue-100 shadow rounded-lg">
               <h2 className="text-lg font-semibold">📦 My Orders</h2>
               <p className="text-2xl font-bold">5 Active Orders</p>
               <p className="text-sm text-gray-600">Track your recent purchases</p>
             </div>
 
-            {/* Wishlist */}
             <div className="p-4 bg-green-100 shadow rounded-lg">
               <h2 className="text-lg font-semibold">💖 Wishlist</h2>
               <p className="text-2xl font-bold">12 Items</p>
               <p className="text-sm text-gray-600">Save items for later</p>
             </div>
 
-            {/* Account Balance */}
             <div className="p-4 bg-yellow-100 shadow rounded-lg">
               <h2 className="text-lg font-semibold">💳 Account Balance</h2>
               <p className="text-2xl font-bold">$120.50</p>

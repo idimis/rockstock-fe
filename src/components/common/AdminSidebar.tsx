@@ -44,7 +44,8 @@ const AdminSidebar = () => {
         <SidebarSection 
           title="👥 Admin Management" 
           links={[
-            { name: "Data & Setting", path: "/dashboard/admin/admin-management" },
+            { name: "Settings", path: "/dashboard/admin/admin-management" },
+            { name: "Assign Admin", path: "/dashboard/admin/admin-management/assign-admin" },
            
           ]}
         />

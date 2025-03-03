@@ -12,11 +12,11 @@
       "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
       "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
     ],
-    "[project]/src/app/signup/page": [
+    "[project]/src/app/dashboard/user/page": [
       "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
       "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
     ],
-    "[project]/src/app/dashboard/user/page": [
+    "[project]/src/app/dashboard/user/address/page": [
       "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
       "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
     ],
@@ -24,7 +24,51 @@
       "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
       "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
     ],
-    "[project]/src/app/dashboard/user/address/page": [
+    "[project]/src/app/logout/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/warehouse/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/admin-management/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/user/my-orders/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/settings/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/products/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/admin-management/assign-admin/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/signup/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/auth/verify-email/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/auth/setup-password/page": [
+      "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
+      "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
+    ],
+    "[project]/src/app/dashboard/admin/reports/page": [
       "static/media/gyByhwUxId8gMEwcGFWNOITd-s.p.da1ebef7.woff2",
       "static/media/or3nQ6H_1_WfwkMZI_qYFrcdmhHkjko-s.p.be19f591.woff2"
     ]

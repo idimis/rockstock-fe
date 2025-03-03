@@ -4,8 +4,19 @@
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/login/page": "app/login/page.js",
-  "/signup/page": "app/signup/page.js",
   "/dashboard/user/page": "app/dashboard/user/page.js",
+  "/dashboard/user/address/page": "app/dashboard/user/address/page.js",
   "/dashboard/user/profile/page": "app/dashboard/user/profile/page.js",
-  "/dashboard/user/address/page": "app/dashboard/user/address/page.js"
+  "/logout/page": "app/logout/page.js",
+  "/dashboard/admin/page": "app/dashboard/admin/page.js",
+  "/dashboard/admin/warehouse/page": "app/dashboard/admin/warehouse/page.js",
+  "/dashboard/admin/admin-management/page": "app/dashboard/admin/admin-management/page.js",
+  "/dashboard/user/my-orders/page": "app/dashboard/user/my-orders/page.js",
+  "/dashboard/admin/settings/page": "app/dashboard/admin/settings/page.js",
+  "/dashboard/admin/products/page": "app/dashboard/admin/products/page.js",
+  "/dashboard/admin/admin-management/assign-admin/page": "app/dashboard/admin/admin-management/assign-admin/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/auth/verify-email/page": "app/auth/verify-email/page.js",
+  "/auth/setup-password/page": "app/auth/setup-password/page.js",
+  "/dashboard/admin/reports/page": "app/dashboard/admin/reports/page.js"
 }

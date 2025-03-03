@@ -21,7 +21,7 @@ interface Admin {
 }
 
 const AdminPage = () => {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -34,15 +34,7 @@ const AdminPage = () => {
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
-
-  useEffect(() => {
-    if (status === "loading") return;
-    if (!session) {
-      router.push("/dashboard");
-    } else {
-      fetchAdmins();
-    }
-  }, [session, status]);
+  
 
   const fetchAdmins = async () => {
     setLoading(true);
@@ -93,14 +85,26 @@ const AdminPage = () => {
 
   const deleteAdmin = async (id: number) => {
     try {
-      await axios.delete(`${BACKEND_URL}/api/v1/admin/${id}`);
-      setAdmins((prev) => prev.filter((admin) => admin.id !== id)); // Hapus langsung dari state
+        const confirmDelete = window.confirm('Are you sure you want to delete this admin?');
+        if (confirmDelete) {
+            await axios.put(`${BACKEND_URL}/api/v1/admin/soft-delete/${id}`);
+            // Hapus admin dari state secara langsung
+            setAdmins(prevAdmins => prevAdmins.filter(admin => admin.id !== id));
+        }
     } catch (err) {
-      console.error("Failed to delete admin", err);
+        console.error('Failed to delete admin', err);
+        setError('Failed to delete admin');
     }
-  };
+};
+
+  
+   
+
   
   
+  useEffect(() => {
+    fetchAdmins();
+  }, []);
   
 
   return (
@@ -126,18 +130,28 @@ const AdminPage = () => {
             <p className="text-center text-gray-500">Loading...</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {admins.map((admin) => (
-                <div key={admin.id} className="p-4 bg-white rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold">{admin.fullname} ({admin.role})</h3>
-                  <p className="text-sm text-gray-600">{admin.email}</p>
-                  <div className="mt-2 flex gap-2">
-                    <button className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" onClick={() => { setEditingAdmin(admin); setIsModalOpen(true); }}>Edit</button>
-                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600" onClick={() => deleteAdmin(admin.id)}>Delete</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+  {admins.map((admin) => (
+    <div key={admin.id} className="p-4 bg-white rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold">{admin.fullname} ({admin.role})</h3>
+      <p className="text-sm text-gray-600">{admin.email}</p>
+      <div className="mt-2 flex gap-2">
+        <button 
+          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" 
+          onClick={() => { setEditingAdmin(admin); setIsModalOpen(true); }}
+        >
+          Edit
+        </button>
+        <button 
+          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600" 
+          onClick={() => deleteAdmin(admin.id)} // Panggil deleteAdmin saat tombol di-klik
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
+)}
 
 {isModalOpen && editingAdmin && (
             <Dialog onClose={() => setIsModalOpen(false)}>
