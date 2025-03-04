@@ -1,71 +1,109 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import heroImage from '@/public/goth.jpeg';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import heroImage1 from '@/public/hero1.webp';
+import heroImage2 from '@/public/hero2.jpg';
+import heroImage3 from '@/public/hero3.webp';
 
-const textArray = [
-  "Furnish Your Space with Attitude.",
-  "Create a Home as Unique as Your Sound.",
-  "Rock Your World with Custom Furniture.",
-  "Transform Your Living Space Into a Masterpiece."
+const slides = [
+  { image: heroImage1, text: "Furnish Your Space with Attitude." },
+  { image: heroImage2, text: "Create a Home as Unique as Your Sound." },
+  { image: heroImage3, text: "Rock Your World with Custom Furniture." },
 ];
 
 const HeroSection = () => {
-  const [currentText, setCurrentText] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % textArray.length);
-    }, 3000);
-
+      nextSlide();
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-                  <div className="relative flex items-center justify-between w-full overflow-hidden">
-      <div className="flex items-center justify-between z-10 w-full px-16 py-8">
-        <div className="flex flex-col items-start space-y-6 w-1/2">
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={currentText}
-              className="text-3xl md:text-4xl font-bold text-black"
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.5 }}
-            >
-              {textArray[currentText]}
-            </motion.h1>
-          </AnimatePresence>
+    <div className="relative w-full h-[600px] md:h-[700px] flex items-center justify-center overflow-hidden">
+      <div className="w-full h-full relative">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            className="absolute inset-0 w-full h-full"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+          >
+            <Image
+              src={slides[currentIndex].image}
+              alt="Hero Image"
+              className="w-full h-full object-cover"
+              priority
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
-          <p className="text-lg md:text-1xl text-black">
-            The ultimate furniture collection for those who lived and breathed the music of the 90s-00s. Rock your home with style and nostalgia.
-          </p>
+      {/* Teks Bisa di Luar Image */}
+      <div className="absolute bottom-12 w-full flex flex-col items-center text-center px-6">
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={currentIndex}
+            className="text-4xl md:text-6xl font-bold text-black drop-shadow-lg bg-white/90 px-6 py-3 rounded-lg"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6 }}
+          >
+            {slides[currentIndex].text}
+          </motion.h1>
+        </AnimatePresence>
 
-          <div className="flex space-x-4">
-            <a
-              href="/shop"
-              className="px-6 py-3 border border-black text-black font-semibold rounded-md hover:bg-black hover:text-white transition"
-            >
-              Shop Our Collection
-            </a>
-            <a
-              href="/about"
-              className="px-6 py-3 bg-transparent border border-black text-black font-semibold rounded-md hover:bg-black hover:text-white transition"
-            >
-              Learn More About Us
-            </a>
-          </div>
+        <p className="mt-4 text-lg md:text-xl text-black bg-white/80 px-4 py-2 rounded-lg">
+          The ultimate furniture collection for those who lived and breathed the music of the 90s-00s. Rock your home with style and nostalgia.
+        </p>
+
+        <div className="flex space-x-4 mt-6">
+          <a href="/shop" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
+            Shop Our Collection
+          </a>
+          <a href="/about" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
+            Learn More About Us
+          </a>
         </div>
+      </div>
 
-        <div className="w-1/2 hidden md:block">
-          <Image
-            src={heroImage}
-            alt="Hero Image"
-            className="object-cover w-full h-full"
-            loading="lazy"
+      {/* Navigation Buttons */}
+      <button
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/70 p-3 rounded-full text-black hover:bg-white transition"
+        onClick={prevSlide}
+      >
+        <ChevronLeft size={30} />
+      </button>
+      <button
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/70 p-3 rounded-full text-black hover:bg-white transition"
+        onClick={nextSlide}
+      >
+        <ChevronRight size={30} />
+      </button>
+
+      {/* Indicators */}
+      <div className="absolute bottom-6 flex space-x-2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            className={`w-3 h-3 rounded-full ${index === currentIndex ? 'bg-black' : 'bg-gray-400'} transition`}
+            onClick={() => setCurrentIndex(index)}
           />
-        </div>
+        ))}
       </div>
     </div>
   );

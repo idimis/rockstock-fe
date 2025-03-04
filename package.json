@@ -23,6 +23,7 @@
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
     "lottie-react": "^2.4.0",
+    "lucide-react": "^0.477.0",
     "mapbox-gl": "^3.9.3",
     "next": "^15.1.5",
     "next-auth": "^4.24.11",

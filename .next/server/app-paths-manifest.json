@@ -3,13 +3,15 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/signup/page": "app/signup/page.js",
+  "/sections/terms/page": "app/sections/terms/page.js",
+  "/sections/about/page": "app/sections/about/page.js",
+  "/sections/join-our-crew/page": "app/sections/join-our-crew/page.js",
+  "/sections/rock-partners/page": "app/sections/rock-partners/page.js",
+  "/sections/rockstock-blog/page": "app/sections/rockstock-blog/page.js",
+  "/sections/help-center/page": "app/sections/help-center/page.js",
+  "/sections/faq/page": "app/sections/faq/page.js",
+  "/sections/policy/page": "app/sections/policy/page.js",
   "/login/page": "app/login/page.js",
-  "/dashboard/admin/page": "app/dashboard/admin/page.js",
-  "/dashboard/admin/warehouse/page": "app/dashboard/admin/warehouse/page.js",
-  "/dashboard/admin/admin-management/page": "app/dashboard/admin/admin-management/page.js",
-  "/dashboard/admin/admin-management/assign-admin/page": "app/dashboard/admin/admin-management/assign-admin/page.js",
-  "/logout/page": "app/logout/page.js",
-  "/dashboard/admin/user-management/page": "app/dashboard/admin/user-management/page.js",
-  "/dashboard/admin/warehouse/assign-warehouse-admin/page": "app/dashboard/admin/warehouse/assign-warehouse-admin/page.js",
-  "/sections/warehouse-info/page": "app/sections/warehouse-info/page.js"
+  "/dashboard/admin/page": "app/dashboard/admin/page.js"
 }
