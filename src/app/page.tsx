@@ -11,6 +11,7 @@ import ProductCategories from '@/components/homepage/ProductCategories';
 import FeaturedProducts from '@/components/homepage/FeaturedProducts';
 import NewestProducts from '@/components/homepage/NewestProducts';
 
+
 // import Testimonials from '@/components/homepage/Testimonials';
 
 

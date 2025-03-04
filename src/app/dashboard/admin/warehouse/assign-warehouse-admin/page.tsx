@@ -144,7 +144,7 @@ const AssignAdminPage = () => {
             </Combobox>
 
             <button className="mt-4 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onClick={assignAdmin}>
-              Assign Admin
+              Assign Warehouse Admin
             </button>
           </section>
 

@@ -26,6 +26,7 @@ const AdminSidebar = () => {
           title="🏢 Warehouse Management" 
           links={[
             { name: "Manage Warehouse", path: "/dashboard/admin/warehouse" },
+            { name: "Assign Warehouse Admin", path: "/dashboard/admin/warehouse/assign-warehouse-admin" },
             { name: "Stock Transfer Requests", path: "/dashboard/admin/warehouse/transfers" }
           ]}
         />
@@ -42,10 +43,9 @@ const AdminSidebar = () => {
           ]}
         />
         <SidebarSection 
-          title="👥 Admin Management" 
+          title="👥 User Management" 
           links={[
-            { name: "Settings", path: "/dashboard/admin/admin-management" },
-            { name: "Assign Admin", path: "/dashboard/admin/admin-management/assign-admin" },
+            { name: "Manage Admins & Users", path: "/dashboard/admin/user-management" },
            
           ]}
         />

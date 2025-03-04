@@ -9,6 +9,8 @@ import AdminSidebarPanel from "@/components/common/AdminSidebar";
 import axios from "axios";
 import Dialog from "@/components/ui/Dialog";
 import { useSession } from "next-auth/react";
+import UserList from "@/components/common/user/UserList";
+   
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -34,6 +36,17 @@ const AdminPage = () => {
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
+  // const { data: session, status } = useSession();
+
+  // useEffect(() => {
+  //   if (status === "loading") return; 
+  //   if (!session || session.scope !== "Super_Admin") {
+  //     router.push("/unauthorized"); 
+  //   }
+  // }, [status, session, router]);
+
+  // if (status === "loading") return <p>Loading...</p>;
+  // if (!session || session.scope !== "Super_Admin") return null;
   
 
   const fetchAdmins = async () => {
@@ -114,7 +127,7 @@ const AdminPage = () => {
       <div className="flex flex-grow">
         <AdminSidebarPanel />
         <div className="flex-grow p-6 bg-white shadow-xl rounded-lg">
-          <h1 className="text-3xl font-bold mb-6">👤 Admin Management</h1>
+          <h1 className="text-3xl font-bold mb-6">👤 Manage Admin</h1>
           {error && <div className="text-red-500 mb-4">{error}</div>}
 
           <div className="mb-6 p-4 bg-gray-100 rounded-lg">
@@ -166,7 +179,12 @@ const AdminPage = () => {
               </div>
             </Dialog>
           )}
+
+<div className="p-6">
+      <h4 className="text-2xl font-bold mb-4">Manage Users</h4>
+      <UserList />
         </div>
+      </div>
       </div>
       <Footer />
     </div>
