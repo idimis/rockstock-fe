@@ -38,7 +38,8 @@ const AdminSidebar = () => {
         <SidebarSection 
           title="🛒 Product Management" 
           links={[
-            { name: "Manage Products", path: "/dashboard/admin/products" }
+            { name: "Manage Products", path: "/dashboard/admin/products" },
+            { name: "Manage Categories", path: "/dashboard/admin/categories" }
           ]}
         />
         <SidebarSection 

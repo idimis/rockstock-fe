@@ -15,16 +15,21 @@ var _s = __turbopack_refresh__.signature();
 const useProducts = ()=>{
     _s();
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [selectedCategory, setSelectedCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("createdAt");
+    const [sortOption, setSortOption] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("createdAt");
+    const [sortDirection, setSortDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("ASC");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useProducts.useEffect": ()=>{
             const fetchProducts = {
                 "useProducts.useEffect.fetchProducts": async ()=>{
                     setLoading(true);
                     try {
-                        const response = await fetch(`http://localhost:8080/api/v1/products?page=${currentPage - 1}`);
+                        const response = await fetch(`http://localhost:8080/api/v1/products?page=${currentPage - 1}&name=${searchQuery}&category=${selectedCategory}&sortField=${sortOption}&sortDirection=${sortDirection}`);
                         const data = await response.json();
                         setProducts(data.content);
                         setTotalPages(data.totalPages);
@@ -38,17 +43,46 @@ const useProducts = ()=>{
             fetchProducts();
         }
     }["useProducts.useEffect"], [
-        currentPage
+        currentPage,
+        searchQuery,
+        selectedCategory,
+        sortOption,
+        sortDirection
     ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "useProducts.useEffect": ()=>{
+            const fetchCategories = {
+                "useProducts.useEffect.fetchCategories": async ()=>{
+                    try {
+                        const response = await fetch("http://localhost:8080/api/v1/categories");
+                        const data = await response.json();
+                        setCategories(data.data);
+                    } catch (error) {
+                        console.error("Error fetching categories:", error);
+                    }
+                }
+            }["useProducts.useEffect.fetchCategories"];
+            fetchCategories();
+        }
+    }["useProducts.useEffect"], []);
     return {
         products,
+        categories,
         currentPage,
         setCurrentPage,
         totalPages,
-        loading
+        loading,
+        selectedCategory,
+        setSelectedCategory,
+        searchQuery,
+        setSearchQuery,
+        sortOption,
+        setSortOption,
+        sortDirection,
+        setSortDirection
     };
 };
-_s(useProducts, "IkZx2Oj7bT4BxXBMc3OfHJO4P1c=");
+_s(useProducts, "AfKcQR/FVkh0uV2zHwIol942wYw=");
 const __TURBOPACK__default__export__ = useProducts;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);

@@ -511,7 +511,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$ico
 ;
 ;
 ;
-const Navbar = ()=>{
+const Navbar = ({ searchQuery, setSearchQuery })=>{
     const [isActive, setIsActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     // Update active state based on current page link
     const handleLinkClick = (link)=>{
@@ -533,17 +533,17 @@ const Navbar = ()=>{
                                 height: 200
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 25,
+                                lineNumber: 30,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/Navbar.tsx",
-                            lineNumber: 24,
+                            lineNumber: 29,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 23,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -560,12 +560,12 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 46,
+                                            lineNumber: 51,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 39,
+                                        lineNumber: 44,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -576,12 +576,12 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 62,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 55,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -592,18 +592,18 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 68,
+                                            lineNumber: 73,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 61,
+                                        lineNumber: 66,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 37,
+                                lineNumber: 42,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -612,11 +612,13 @@ const Navbar = ()=>{
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "text",
                                         placeholder: "Search furniture...",
-                                        className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                                        className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600",
+                                        value: searchQuery,
+                                        onChange: (e)=>setSearchQuery(e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 74,
-                                        columnNumber: 13
+                                        lineNumber: 79,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         className: "absolute top-0 right-0 p-2 bg-red-600 rounded-md text-white",
@@ -624,30 +626,39 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 87,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 86,
                                         columnNumber: 13
+                                    }, this),
+                                    searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setSearchQuery(""),
+                                        className: "ml-2 text-gray-500",
+                                        children: "✕"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/common/Navbar.tsx",
+                                        lineNumber: 90,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 73,
+                                lineNumber: 78,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 35,
+                        lineNumber: 40,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/common/Navbar.tsx",
-                lineNumber: 21,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -664,12 +675,12 @@ const Navbar = ()=>{
                                     children: "Furniture Collections"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 106,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 90,
+                                lineNumber: 105,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -679,12 +690,12 @@ const Navbar = ()=>{
                                     children: "Spaces & Design Inspirations"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 99,
+                                    lineNumber: 114,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 98,
+                                lineNumber: 113,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -694,12 +705,12 @@ const Navbar = ()=>{
                                     children: "Special Offers & Discounts"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 122,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 106,
+                                lineNumber: 121,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -709,12 +720,12 @@ const Navbar = ()=>{
                                     children: "Last Chance Deals"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 130,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 114,
+                                lineNumber: 129,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -724,12 +735,12 @@ const Navbar = ()=>{
                                     children: "Everyday Essentials: 99-199k"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 138,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 122,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -739,12 +750,12 @@ const Navbar = ()=>{
                                     children: "Rockstock for Business"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 131,
+                                    lineNumber: 146,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 130,
+                                lineNumber: 145,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -754,34 +765,34 @@ const Navbar = ()=>{
                                     children: "Interior Design Services"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 154,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 138,
+                                lineNumber: 153,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 104,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/common/Navbar.tsx",
-                    lineNumber: 88,
+                    lineNumber: 103,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/common/Navbar.tsx",
-                lineNumber: 87,
+                lineNumber: 102,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/Navbar.tsx",
-        lineNumber: 20,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 };

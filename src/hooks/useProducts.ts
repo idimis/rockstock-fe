@@ -1,36 +1,34 @@
-"use client"; // Add this at the top
+"use client";
 
 import { useState, useEffect } from "react";
-
-interface Product {
-  productId: number;
-  productName: string;
-  detail: string;
-  price: number;
-  weight: number;
-  totalStock: number;
-  productCategory: string;
-  productPictures: { productPictureUrl: string; position: number } | null;
-}
-
-interface ApiResponse {
-  content: Product[];
-  totalPages: number;
-  number: number;
-}
+import axiosInstance from "@/utils/axiosInstance";
+import { Product, Category, ApiResponse } from "@/types/product"; // Import interfaces
 
 const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [sortOption, setSortOption] = useState<string>("createdAt");
+  const [sortDirection, setSortDirection] = useState<string>("ASC");
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:8080/api/v1/products?page=${currentPage - 1}`);
-        const data: ApiResponse = await response.json();
+        const { data } = await axiosInstance.get<ApiResponse>("/products", {
+          params: {
+            page: currentPage - 1,
+            size: 8,
+            name: searchQuery,
+            category: selectedCategory,
+            sortField: sortOption,
+            sortDirection,
+          },
+        });
         setProducts(data.content);
         setTotalPages(data.totalPages);
       } catch (error) {
@@ -41,9 +39,37 @@ const useProducts = () => {
     };
 
     fetchProducts();
-  }, [currentPage]);
+  }, [currentPage, searchQuery, selectedCategory, sortOption, sortDirection]);
 
-  return { products, currentPage, setCurrentPage, totalPages, loading };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axiosInstance.get<{ data: Category[] }>("/categories");
+        setCategories(data.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  return {
+    products,
+    categories,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    loading,
+    selectedCategory,
+    setSelectedCategory,
+    searchQuery,
+    setSearchQuery,
+    sortOption,
+    setSortOption,
+    sortDirection,
+    setSortDirection,
+  };
 };
 
 export default useProducts;

@@ -8,7 +8,12 @@ import { FaCartShopping } from 'react-icons/fa6';
 import { FiSearch } from 'react-icons/fi';
 import logoImage from "@/public/rockstock1.svg";
 
-const Navbar = () => {
+interface NavbarProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ searchQuery, setSearchQuery }) => {
   const [isActive, setIsActive] = useState<string>('');
 
   // Update active state based on current page link
@@ -69,16 +74,26 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Search bar */}
+          {/* Search bar */} 
           <div className="relative flex-1 max-w-lg ml-6">
-            <input
+          <input
               type="text"
               placeholder="Search furniture..."
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button className="absolute top-0 right-0 p-2 bg-red-600 rounded-md text-white">
               <FiSearch className="h-5 w-5" />
             </button>
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="ml-2 text-gray-500"
+              >
+                ✕
+              </button>
+            )}
           </div>
         </div>
       </div>

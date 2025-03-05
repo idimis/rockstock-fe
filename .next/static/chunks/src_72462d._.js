@@ -527,7 +527,7 @@ var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-const Navbar = ()=>{
+const Navbar = ({ searchQuery, setSearchQuery })=>{
     _s();
     const [isActive, setIsActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     // Update active state based on current page link
@@ -550,17 +550,17 @@ const Navbar = ()=>{
                                 height: 200
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 25,
+                                lineNumber: 30,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/Navbar.tsx",
-                            lineNumber: 24,
+                            lineNumber: 29,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 23,
+                        lineNumber: 28,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -577,12 +577,12 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 46,
+                                            lineNumber: 51,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 39,
+                                        lineNumber: 44,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -593,12 +593,12 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 62,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 50,
+                                        lineNumber: 55,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -609,18 +609,18 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 68,
+                                            lineNumber: 73,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 61,
+                                        lineNumber: 66,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 37,
+                                lineNumber: 42,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -629,11 +629,13 @@ const Navbar = ()=>{
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "text",
                                         placeholder: "Search furniture...",
-                                        className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+                                        className: "w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600",
+                                        value: searchQuery,
+                                        onChange: (e)=>setSearchQuery(e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 74,
-                                        columnNumber: 13
+                                        lineNumber: 79,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         className: "absolute top-0 right-0 p-2 bg-red-600 rounded-md text-white",
@@ -641,30 +643,39 @@ const Navbar = ()=>{
                                             className: "h-5 w-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/Navbar.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 87,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/Navbar.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 86,
                                         columnNumber: 13
+                                    }, this),
+                                    searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setSearchQuery(""),
+                                        className: "ml-2 text-gray-500",
+                                        children: "✕"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/common/Navbar.tsx",
+                                        lineNumber: 90,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 73,
+                                lineNumber: 78,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 35,
+                        lineNumber: 40,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/common/Navbar.tsx",
-                lineNumber: 21,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -681,12 +692,12 @@ const Navbar = ()=>{
                                     children: "Furniture Collections"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 91,
+                                    lineNumber: 106,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 90,
+                                lineNumber: 105,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -696,12 +707,12 @@ const Navbar = ()=>{
                                     children: "Spaces & Design Inspirations"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 99,
+                                    lineNumber: 114,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 98,
+                                lineNumber: 113,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -711,12 +722,12 @@ const Navbar = ()=>{
                                     children: "Special Offers & Discounts"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 107,
+                                    lineNumber: 122,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 106,
+                                lineNumber: 121,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -726,12 +737,12 @@ const Navbar = ()=>{
                                     children: "Last Chance Deals"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 115,
+                                    lineNumber: 130,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 114,
+                                lineNumber: 129,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -741,12 +752,12 @@ const Navbar = ()=>{
                                     children: "Everyday Essentials: 99-199k"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 138,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 122,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -756,12 +767,12 @@ const Navbar = ()=>{
                                     children: "Rockstock for Business"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 131,
+                                    lineNumber: 146,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 130,
+                                lineNumber: 145,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
@@ -771,34 +782,34 @@ const Navbar = ()=>{
                                     children: "Interior Design Services"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/Navbar.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 154,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/common/Navbar.tsx",
-                                lineNumber: 138,
+                                lineNumber: 153,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/common/Navbar.tsx",
-                        lineNumber: 89,
+                        lineNumber: 104,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/common/Navbar.tsx",
-                    lineNumber: 88,
+                    lineNumber: 103,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/common/Navbar.tsx",
-                lineNumber: 87,
+                lineNumber: 102,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/common/Navbar.tsx",
-        lineNumber: 20,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 };
@@ -1146,69 +1157,107 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/image.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@tanstack/react-query/build/modern/useQuery.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_refresh__.signature();
 ;
 ;
 ;
-// Dummy category data
-const categories = [
-    {
-        name: "Emo Vibes",
-        slug: "emo-vibes",
-        description: "Furniture inspired by the raw emotional energy of emo aesthetics.",
-        icon: "/icons/emo-vibes.png"
-    },
-    {
-        name: "Dark Academia",
-        slug: "dark-academia",
-        description: "Timeless, scholarly pieces with a dark, intellectual vibe.",
-        icon: "/icons/dark-academia.png"
-    },
-    {
-        name: "Gothic Minimalism",
-        slug: "gothic-minimalism",
-        description: "Sleek, dark, and simple minimalistic designs.",
-        icon: "/icons/gothic-minimalism.png"
-    },
-    {
-        name: "Victorian Revival",
-        slug: "victorian-revival",
-        description: "Bring back the elegance and opulence of the Victorian era.",
-        icon: "/icons/victorian-revival.png"
-    },
-    {
-        name: "Metal Aesthetic",
-        slug: "metal-aesthetic",
-        description: "Furniture with an industrial, gritty edge.",
-        icon: "/icons/metal-aesthetic.png"
-    },
-    {
-        name: "Steampunk Charm",
-        slug: "steampunk-charm",
-        description: "A mix of Victorian and industrial steampunk style.",
-        icon: "/icons/steampunk-charm.png"
-    }
-];
-const CategorySection = ()=>{
+;
+;
+;
+// Fetch categories from API
+const fetchCategories = async ()=>{
+    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8080/api/v1/categories?page=0&size=10");
+    return response.data.data.content; // Extract categories array
+};
+const ProductCategories = ()=>{
     _s();
-    const scrollContainerRef = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useRef(null);
-    const scrollLeft = ()=>{
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: -300,
-                behavior: "smooth"
-            });
+    const { data: categories, isLoading, isError } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            "categories"
+        ],
+        queryFn: fetchCategories
+    });
+    const itemsPerPage = 4;
+    const [index, setIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [isAnimating, setIsAnimating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [direction, setDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("right"); // Track scroll direction
+    // Memoized visible categories to avoid unnecessary re-renders
+    const visibleCategories = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ProductCategories.useMemo[visibleCategories]": ()=>{
+            if (!categories) return [];
+            return [
+                ...categories.slice(index, index + itemsPerPage),
+                ...categories.slice(0, Math.max(0, index + itemsPerPage - categories.length))
+            ];
         }
-    };
-    const scrollRight = ()=>{
-        if (scrollContainerRef.current) {
-            scrollContainerRef.current.scrollBy({
-                left: 300,
-                behavior: "smooth"
-            });
+    }["ProductCategories.useMemo[visibleCategories]"], [
+        categories,
+        index
+    ]);
+    // Smooth scroll effect with directional animation
+    const scroll = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "ProductCategories.useCallback[scroll]": (dir)=>{
+            if (isAnimating || !categories || categories.length <= itemsPerPage) return;
+            setIsAnimating(true);
+            setDirection(dir);
+            setIndex({
+                "ProductCategories.useCallback[scroll]": (prevIndex)=>dir === "right" ? (prevIndex + 1) % categories.length : (prevIndex - 1 + categories.length) % categories.length
+            }["ProductCategories.useCallback[scroll]"]);
+            setTimeout({
+                "ProductCategories.useCallback[scroll]": ()=>setIsAnimating(false)
+            }["ProductCategories.useCallback[scroll]"], 300); // Ensure animation completes before next click
         }
-    };
+    }["ProductCategories.useCallback[scroll]"], [
+        isAnimating,
+        categories
+    ]);
+    if (isLoading) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+            className: "max-w-[1440px] mx-auto px-8 py-12 my-8",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                    className: "text-2xl font-semibold text-center text-black mb-8",
+                    children: "Featured Categories"
+                }, void 0, false, {
+                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                    lineNumber: 55,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex justify-center gap-6",
+                    children: Array.from({
+                        length: 5
+                    }).map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "w-[240px] h-[320px] bg-gray-200 animate-pulse rounded-lg"
+                        }, i, false, {
+                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                            lineNumber: 60,
+                            columnNumber: 13
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                    lineNumber: 58,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+            lineNumber: 54,
+            columnNumber: 7
+        }, this);
+    }
+    if (isError) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+        className: "text-center",
+        children: "Failed to load categories."
+    }, void 0, false, {
+        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+        lineNumber: 67,
+        columnNumber: 23
+    }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         className: "max-w-[1440px] mx-auto px-8 py-12 my-8",
         children: [
@@ -1217,144 +1266,160 @@ const CategorySection = ()=>{
                 children: "Featured Categories"
             }, void 0, false, {
                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                lineNumber: 67,
+                lineNumber: 71,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative",
+                className: "relative flex items-center justify-center pl-16",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center space-x-4 absolute inset-0 justify-between z-10",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: scrollLeft,
-                                className: "bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition",
-                                children: "<"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                lineNumber: 73,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: scrollRight,
-                                className: "bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition",
-                                children: ">"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                lineNumber: 79,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>scroll("left"),
+                        disabled: isAnimating,
+                        className: "absolute left-0 bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition z-10",
+                        children: "<"
+                    }, void 0, false, {
                         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                        lineNumber: 72,
+                        lineNumber: 77,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        ref: scrollContainerRef,
-                        className: "overflow-x-auto flex gap-6 p-6 scroll-smooth",
-                        children: categories.map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "relative border rounded-lg shadow-lg overflow-hidden group w-[300px] h-[400px] bg-white",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative w-full h-[60%] bg-gray-100 flex items-center justify-center",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                            src: category.icon,
-                                            alt: category.name,
-                                            width: 200,
-                                            height: 200,
-                                            className: "object-contain"
-                                        }, void 0, false, {
-                                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                            lineNumber: 97,
-                                            columnNumber: 17
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                        lineNumber: 96,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "p-4 bg-white flex flex-col justify-between h-[40%]",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-lg font-semibold text-black",
-                                                children: category.name
+                        className: "overflow-hidden w-full max-w-6xl relative",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                            initial: {
+                                x: direction === "right" ? "20%" : "-20%",
+                                opacity: 0
+                            },
+                            animate: {
+                                x: "0%",
+                                opacity: 1
+                            },
+                            transition: {
+                                type: "spring",
+                                stiffness: 80,
+                                damping: 10
+                            },
+                            className: "flex gap-6 p-6",
+                            children: visibleCategories.map((category)=>{
+                                const validImageUrl = category.categoryPicture;
+                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative border rounded-lg shadow-lg overflow-hidden group flex-none w-[240px] h-[320px] bg-white",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "relative w-full h-[60%] bg-gray-100 flex items-center justify-center",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                src: validImageUrl,
+                                                alt: category.categoryName,
+                                                width: 200,
+                                                height: 200,
+                                                className: "object-cover"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                lineNumber: 107,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-gray-600 mt-2",
-                                                children: category.description
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                lineNumber: 108,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                href: `/category/${category.slug}`,
-                                                className: "mt-4 inline-block px-6 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-black transition",
-                                                children: [
-                                                    "Explore ",
-                                                    category.name
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                lineNumber: 109,
-                                                columnNumber: 17
+                                                lineNumber: 103,
+                                                columnNumber: 21
                                             }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                        lineNumber: 106,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-xl font-semibold",
-                                            children: "Click to Explore"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                            lineNumber: 119,
-                                            columnNumber: 17
+                                            lineNumber: 102,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "p-4 bg-white flex flex-col justify-between h-[40%]",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-lg font-semibold text-black",
+                                                    children: category.categoryName
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                                    lineNumber: 113,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                    href: {
+                                                        pathname: "/products",
+                                                        query: {
+                                                            category: category.categoryName
+                                                        }
+                                                    },
+                                                    className: "mt-4 inline-block px-6 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-black transition text-center",
+                                                    children: [
+                                                        "Explore ",
+                                                        category.categoryName
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                                    lineNumber: 117,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                            lineNumber: 112,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-xl font-semibold",
+                                                children: "Click to Explore"
+                                            }, void 0, false, {
+                                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                                lineNumber: 130,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                            lineNumber: 129,
+                                            columnNumber: 19
                                         }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                        lineNumber: 118,
-                                        columnNumber: 15
-                                    }, this)
-                                ]
-                            }, category.slug, true, {
-                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                lineNumber: 92,
-                                columnNumber: 13
-                            }, this))
+                                    ]
+                                }, category.categoryId, true, {
+                                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                                    lineNumber: 98,
+                                    columnNumber: 17
+                                }, this);
+                            })
+                        }, index, false, {
+                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                            lineNumber: 87,
+                            columnNumber: 11
+                        }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                        lineNumber: 87,
+                        lineNumber: 86,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>scroll("right"),
+                        disabled: isAnimating,
+                        className: "absolute right-0 bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition z-10",
+                        children: ">"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
+                        lineNumber: 139,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                lineNumber: 71,
+                lineNumber: 75,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-        lineNumber: 66,
+        lineNumber: 70,
         columnNumber: 5
     }, this);
 };
-_s(CategorySection, "Gfm/oEKPzfcG/oikjUDPHSjaGoQ=");
-_c = CategorySection;
-const __TURBOPACK__default__export__ = CategorySection;
+_s(ProductCategories, "SG2FquuASNE3GuQLsIf2w9VgXUw=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"]
+    ];
+});
+_c = ProductCategories;
+const __TURBOPACK__default__export__ = ProductCategories;
 var _c;
-__turbopack_refresh__.register(_c, "CategorySection");
+__turbopack_refresh__.register(_c, "ProductCategories");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
