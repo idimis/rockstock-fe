@@ -567,46 +567,47 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 ;
-const Pagination = ({ currentPage, totalPages, setCurrentPage })=>{
+const Pagination = ({ currentPage, totalPages, onPageChange })=>{
+    if (totalPages <= 1) return null; // Hide pagination if only 1 page
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex justify-center mt-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: `px-4 py-2 mx-1 rounded-lg ${currentPage === 1 ? "bg-gray-300" : "bg-blue-500 text-white"}`,
-                onClick: ()=>currentPage > 1 && setCurrentPage(currentPage - 1),
+                onClick: ()=>currentPage > 1 && onPageChange(currentPage - 1),
                 disabled: currentPage === 1,
                 children: "Prev"
             }, void 0, false, {
                 fileName: "[project]/src/components/products/Pagination.tsx",
-                lineNumber: 10,
-                columnNumber: 9
+                lineNumber: 12,
+                columnNumber: 7
             }, this),
             Array.from({
                 length: totalPages
             }, (_, i)=>i + 1).map((page)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    onClick: ()=>setCurrentPage(page),
+                    onClick: ()=>onPageChange(page),
                     className: `px-4 py-2 mx-1 rounded-lg ${currentPage === page ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}`,
                     children: page
                 }, page, false, {
                     fileName: "[project]/src/components/products/Pagination.tsx",
-                    lineNumber: 19,
-                    columnNumber: 11
+                    lineNumber: 21,
+                    columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: `px-4 py-2 mx-1 rounded-lg ${currentPage === totalPages ? "bg-gray-300" : "bg-blue-500 text-white"}`,
-                onClick: ()=>currentPage < totalPages && setCurrentPage(currentPage + 1),
+                onClick: ()=>currentPage < totalPages && onPageChange(currentPage + 1),
                 disabled: currentPage === totalPages,
                 children: "Next"
             }, void 0, false, {
                 fileName: "[project]/src/components/products/Pagination.tsx",
-                lineNumber: 30,
-                columnNumber: 9
+                lineNumber: 32,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/products/Pagination.tsx",
-        lineNumber: 9,
-        columnNumber: 7
+        lineNumber: 11,
+        columnNumber: 5
     }, this);
 };
 const __TURBOPACK__default__export__ = Pagination;
