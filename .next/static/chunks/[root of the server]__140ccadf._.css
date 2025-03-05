@@ -1726,4 +1726,14 @@ body {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-4
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+}
+
+
+/*# sourceMappingURL=%5Broot%20of%20the%20server%5D__140ccadf._.css.map*/
