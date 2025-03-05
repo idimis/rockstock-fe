@@ -8,3 +8,8 @@ export interface CategoriesResponse {
   content: Category[];
   totalPages: number;
 }
+
+export interface CategoryFormData {
+  categoryName: string;
+  file: File | null;
+}

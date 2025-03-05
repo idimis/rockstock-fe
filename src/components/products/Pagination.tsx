@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
@@ -5,7 +7,19 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
-  if (totalPages <= 1) return null; // Hide pagination if only 1 page
+  const router = useRouter(); // Initialize the router
+
+  const handlePageChange = (page: number) => {
+    if (page === 1) {
+      // If going to page 1, remove the page query from the URL
+      router.replace("/dashboard/admin/categories"); // Navigate without query parameters
+    } else {
+      // Otherwise, update the URL with the selected page
+      onPageChange(page);
+    }
+  };
+
+  if (totalPages <= 1) return null;
 
   return (
     <div className="flex justify-center mt-6">
