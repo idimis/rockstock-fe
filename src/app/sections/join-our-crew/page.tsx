@@ -53,7 +53,7 @@ const JoinOurCrew = () => {
           <h2 className="text-3xl md:text-4xl font-semibold mb-4 text-red-600">Open Positions</h2>
           <ul className="list-disc pl-6 text-base md:text-lg">
             <li>Furniture Designer (Dark Aesthetic Specialist)</li>
-            <li>Marketing Rockstar (Because "normal marketing" is boring)</li>
+            <li>Marketing Rockstar (Because &quot;normal marketing&ldquo; is boring)</li>
             <li>Warehouse Warrior (Handle our legendary stock)</li>
           </ul>
         </section>

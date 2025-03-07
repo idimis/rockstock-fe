@@ -18,12 +18,6 @@ interface Warehouse {
   cityId: string;
 }
 
-interface AdminUser {
-  id: number;
-  user_id: number; 
-  fullName: string;
-}
-
 
 const Map = dynamic(() => import("@/components/common/Map"), { ssr: false });
 
@@ -42,18 +36,8 @@ const WarehousePage = () => {
   });
   
   const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | null>(null);  
-  const [adminWarehouseId, setAdminWarehouseId] = useState<number | null>(null);
-const [adminId, setAdminId] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const [adminSearchResults, setAdminSearchResults] = useState<AdminUser[]>([]);
-  const [warehouseSearchResults, setWarehouseSearchResults] = useState<Warehouse[]>([]);
-  const [selectedAdmin, setSelectedAdmin] = useState<AdminUser | null>(null);
-  const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null);
-  const [queryAdmin, setQueryAdmin] = useState("");
-  const [queryWarehouse, setQueryWarehouse] = useState("");
-  
-
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -81,7 +65,7 @@ const [adminId, setAdminId] = useState<number | null>(null);
     try {
       const response = await axios.get<Warehouse[]>(`${BACKEND_URL}/api/v1/warehouse`);
       setWarehouses(response.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch warehouses");
     } finally {
       setLoading(false);

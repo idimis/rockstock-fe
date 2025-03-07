@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import axios from "axios";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
@@ -20,9 +19,6 @@ type DestinationOption = {
   city_name: string;
 };
 
-type ShippingCostResponse = {
-  value: number;
-};
 
 const ShippingCalculation = () => {
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
@@ -31,7 +27,6 @@ const ShippingCalculation = () => {
   const [selectedCourier, setSelectedCourier] = useState("jne");
   const [shippingCost, setShippingCost] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const apiKey = "YOUR_API_KEY_HERE";
 
   // Fetch list of cities from API

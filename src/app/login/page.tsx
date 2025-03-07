@@ -86,7 +86,7 @@ const LoginContent: React.FC = () => {
       } else {
         setError(response.data.message || "Invalid email or password");
       }
-    } catch (error) {
+    } catch {
       setError("Failed to log in. Please try again.");
     }
     setLoading(false);

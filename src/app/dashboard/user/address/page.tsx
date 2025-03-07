@@ -6,8 +6,10 @@ import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import UserSidebarPanel from "@/components/common/UserSidebar";
-import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.css"
+// import L from "leaflet";
 import axios from "axios";
+// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 interface Address {
   id: number;
@@ -19,6 +21,12 @@ interface Address {
   isMain: boolean;
   cityId?: number
 }
+
+// const customMarkerIcon = new L.Icon({
+//   iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+//   iconSize: [25, 41],
+//   iconAnchor: [12, 41],
+// });
 
 const Map = dynamic(() => import("@/components/common/Map"), { ssr: false });
 

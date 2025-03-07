@@ -13,7 +13,6 @@ const UserDashboard = () => {
   const router = useRouter();
 
   const [fullname, setFullname] = useState<string | null>(null);
-  const [isVerified, setIsVerified] = useState<boolean | null>(null);
   const [showSignupNotif, setShowSignupNotif] = useState(false);
   const [showActivationNotif, setShowActivationNotif] = useState(false);
   const [showPasswordSetupNotif, setShowPasswordSetupNotif] = useState(false);
@@ -21,42 +20,38 @@ const UserDashboard = () => {
   useEffect(() => {
     console.log("Session status:", status);
     console.log("Session data:", session);
-
+  
     if (status === "loading") return;
-
+  
     if (session?.user) {
       console.log("User logged in via social login:", session.user);
-
       sessionStorage.setItem("fullname", session.user.name ?? session.user.email ?? "User");
       sessionStorage.setItem("is_verified", "true");
-
       setFullname(session.user.name ?? session.user.email ?? "User");
-      setIsVerified(true);
     } else {
       const storedFullname = localStorage.getItem("fullname");
       const verifiedStatus = localStorage.getItem("is_verified") === "true";
       const isNewSignup = localStorage.getItem("newSignup") === "true";
       const isActivated = localStorage.getItem("accountActivated") === "true";
       const isPasswordSet = localStorage.getItem("passwordSet") === "true";
-
+  
       console.log("Checking localStorage:", { storedFullname, verifiedStatus, isNewSignup, isActivated, isPasswordSet });
-
+  
       if (storedFullname) {
         setFullname(storedFullname);
-        setIsVerified(verifiedStatus);
-
+  
         if (isNewSignup) {
           setShowSignupNotif(true);
           localStorage.removeItem("newSignup");
           setTimeout(() => setShowSignupNotif(false), 5000);
         }
-
+  
         if (isActivated) {
           setShowActivationNotif(true);
           localStorage.removeItem("accountActivated");
           setTimeout(() => setShowActivationNotif(false), 5000);
         }
-
+  
         if (isPasswordSet) {
           setShowPasswordSetupNotif(true);
           localStorage.removeItem("passwordSet");
@@ -67,7 +62,8 @@ const UserDashboard = () => {
         setTimeout(() => router.push("/login"), 500);
       }
     }
-  }, [session, status]);
+  }, [session, status, router]);
+  
 
   if (status === "loading") return <p>Loading...</p>;
 

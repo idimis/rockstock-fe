@@ -48,7 +48,7 @@ const AssignAdminPage = () => {
     try {
       const response = await axios.get<Warehouse[]>(`${BACKEND_URL}/api/v1/warehouse`);
       setWarehouses(response.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch warehouses");
     }
   };
@@ -57,7 +57,7 @@ const AssignAdminPage = () => {
     try {
       const response = await axios.get<AdminUser[]>(`${BACKEND_URL}/api/v1/admin`);
       setAdmins(response.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch admin users");
     }
   };
@@ -66,7 +66,7 @@ const AssignAdminPage = () => {
     try {
       const response = await axios.get<AssignedAdmin[]>(`${BACKEND_URL}/api/v1/warehouse-admins`);
       setAssignedAdmins(response.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch assigned admins");
     }
   };
@@ -80,7 +80,7 @@ const AssignAdminPage = () => {
       });
       alert(`✅ ${selectedAdmin.fullName} assigned to ${selectedWarehouse.name} successfully!`);
       fetchAssignedAdmins();
-    } catch (err) {
+    } catch {
       setError("Failed to assign warehouse admin");
     }
   };
@@ -90,10 +90,11 @@ const AssignAdminPage = () => {
       await axios.delete(`${BACKEND_URL}/api/v1/warehouse-admins/remove/${id}`);
       alert("✅ Admin revoked successfully!");
       fetchAssignedAdmins();
-    } catch (err) {
+    } catch {
       setError("Failed to revoke admin");
     }
   };
+  
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-black">

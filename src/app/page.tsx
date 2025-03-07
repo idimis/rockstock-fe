@@ -11,6 +11,7 @@ import ProductCategories from '@/components/homepage/ProductCategories';
 import FeaturedProducts from '@/components/homepage/FeaturedProducts';
 import NewestProducts from '@/components/homepage/NewestProducts';
 import Manifesto from '@/components/homepage/Manifesto';
+import ReviewSection from '@/components/homepage/ReviewSection';
 
 // import Testimonials from '@/components/homepage/Testimonials';
 
@@ -27,6 +28,7 @@ const Page: React.FC = () => {
         <AiSection />
         <FeaturedProducts />
         <NewestProducts />
+        <ReviewSection />
         <ProductCategories />
         {/* <Testimonials /> */}
         <Footer />

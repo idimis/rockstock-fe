@@ -1,21 +1,26 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 const AISection: React.FC = () => {
   const [input, setInput] = useState<string>('');
   const [responses, setResponses] = useState<string[]>([]);
   const [question, setQuestion] = useState<string | null>(null);
   const [isThinking, setIsThinking] = useState<boolean>(false);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<{ question: string; answer: string }[]>([]);
   const [displayedText, setDisplayedText] = useState<string>('');
-  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const qnaTemplates: { question: string; answer: string }[] = [
     { question: 'What is Rockstock?', answer: 'Rockstock is a furniture brand for those who live loud, with bold gothic and emo-inspired designs.' },
     { question: 'Who is Rockstock for?', answer: 'For those who still embrace their dark aesthetic and want furniture that speaks to their identity.' },
     { question: 'Where is Rockstock based?', answer: 'Rockstock operates online, shipping to various locations with a strong focus on quality and style.' },
-    { question: 'How can I order from Rockstock?', answer: 'Simply browse our catalog online, add to cart, and proceed with secure checkout.' }
+    { question: 'How can I order from Rockstock?', answer: 'Simply browse our catalog online, add to cart, and proceed with secure checkout.' },
+    { question: 'What materials are used in Rockstock furniture?', answer: 'We use high-quality, durable materials like reclaimed wood, metal, and leather to give our furniture a unique, bold look.' },
+    { question: 'Is Rockstock eco-friendly?', answer: 'Yes, Rockstock aims to reduce environmental impact by using sustainable materials and eco-friendly manufacturing processes.' },
+    { question: 'Can I customize my Rockstock furniture?', answer: 'Yes, we offer customization options to make your furniture uniquely yours.' },
+    { question: 'What is the warranty for Rockstock furniture?', answer: 'We offer a 5-year warranty on all our furniture, ensuring durability and quality.' },
+    { question: 'Can I track my order from Rockstock?', answer: 'Yes, once your order is shipped, we’ll provide a tracking number to follow your shipment.' },
+    { question: 'Does Rockstock offer international shipping?', answer: 'Yes, Rockstock ships internationally, though shipping fees and availability may vary based on location.' },
   ];
 
   const handleSend = (query: string) => {
@@ -47,8 +52,10 @@ const AISection: React.FC = () => {
 
     if (value.length > 1) {
       const filteredSuggestions = qnaTemplates
-        .map(qna => qna.question)
-        .filter(q => q.toLowerCase().startsWith(value.toLowerCase()));
+        .map(qna => qna)
+        .filter(qna => qna.question.toLowerCase().includes(value.toLowerCase()))
+        .slice(0, 3); // Limit suggestions to top 3 matches
+
       setSuggestions(filteredSuggestions);
     } else {
       setSuggestions([]);
@@ -77,19 +84,19 @@ const AISection: React.FC = () => {
               placeholder="Ask something..."
               className="border border-black text-black rounded-md p-2"
             />
-            {suggestions.length > 0 && (
-              <ul className="absolute top-full left-0 w-full border border-black rounded-md mt-1 bg-white">
-                {suggestions.map((suggestion, index) => (
-                  <li
-                    key={index}
-                    className="p-2 hover:bg-gray-200 cursor-pointer"
-                    onClick={() => handleSend(suggestion)}
-                  >
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            )}
+            
+            <div className="mt-2 space-y-2">
+              {suggestions.length > 0 && suggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className="text-left bg-white p-2 rounded-md border border-gray-300 shadow-sm cursor-pointer hover:bg-gray-200"
+                  onClick={() => handleSend(suggestion.question)}
+                >
+                  <p className="font-semibold text-black">{suggestion.question}</p>
+                </div>
+              ))}
+            </div>
+
             <button
               onClick={() => handleSend(input)}
               className="border-2 border-red-600 text-red-600 rounded-md p-2 mt-4 hover:bg-red-600 hover:text-white transition duration-300"

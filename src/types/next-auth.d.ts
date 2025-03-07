@@ -1,9 +1,8 @@
-// next-auth.d.ts
-import NextAuth from "next-auth";
+import type { DefaultSession } from "next-auth";
+import type { JWT as DefaultJWT } from "next-auth/jwt";
 
-// Extending JWT to include custom properties like accessToken and refreshToken
-declare module "next-auth/jwt" {
-  interface JWT {
+declare module "next-auth" {
+  interface Session extends DefaultSession {
     accessToken: string;
     refreshToken: string;
     userId: number;
@@ -11,9 +10,8 @@ declare module "next-auth/jwt" {
   }
 }
 
-// Extending Session to include custom properties like accessToken and refreshToken
-declare module "next-auth" {
-  interface Session {
+declare module "next-auth/jwt" {
+  interface JWT extends DefaultJWT {
     accessToken: string;
     refreshToken: string;
     userId: number;

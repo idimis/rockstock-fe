@@ -24,8 +24,8 @@ const About = () => {
         <section className="mb-10 md:mb-20 flex flex-col items-center mt-8"> 
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center text-red-600">About Rockstock</h1>
           <p className="text-base md:text-lg mb-6 max-w-2xl mx-auto text-center leading-relaxed">
-            Rockstock is where furniture meets rebellion. We design high-quality, gothic, and alternative furniture 
-            for those who never really left the mosh pit (mentally). Built to last, made for legends.
+            Rockstock is where furniture meets rebellion. We design high-quality, vintage, and niche furniture 
+            for those who grew up watching MTV, chronically active on MySpace and never really left the mosh pit (mentally). Built to last, made for legends.
           </p>
           <div className="flex justify-center mb-10">
             <div className="w-full max-w-2xl rounded-lg overflow-hidden shadow-lg"> 

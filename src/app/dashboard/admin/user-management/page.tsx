@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import AdminSidebarPanel from "@/components/common/AdminSidebar";
 import axios from "axios";
 import Dialog from "@/components/ui/Dialog";
-import { useSession } from "next-auth/react";
 import UserList from "@/components/common/user/UserList";
    
 
@@ -35,19 +33,6 @@ const AdminPage = () => {
   });
   const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const router = useRouter();
-  // const { data: session, status } = useSession();
-
-  // useEffect(() => {
-  //   if (status === "loading") return; 
-  //   if (!session || session.scope !== "Super_Admin") {
-  //     router.push("/unauthorized"); 
-  //   }
-  // }, [status, session, router]);
-
-  // if (status === "loading") return <p>Loading...</p>;
-  // if (!session || session.scope !== "Super_Admin") return null;
-  
 
   const fetchAdmins = async () => {
     setLoading(true);
@@ -55,7 +40,7 @@ const AdminPage = () => {
     try {
       const response = await axios.get<Admin[]>(`${BACKEND_URL}/api/v1/admin`);
       setAdmins(response.data);
-    } catch (err) {
+    } catch {
       setError("Failed to fetch admins");
     } finally {
       setLoading(false);
@@ -67,8 +52,8 @@ const AdminPage = () => {
       await axios.post(`${BACKEND_URL}/api/v1/admin`, newAdmin);
       setNewAdmin({ fullname: "", email: "", role: "", password: "" });
       fetchAdmins();
-    } catch (err) {
-      console.error("Failed to create admin", err);
+    } catch {
+      console.error("Failed to create admin");
     }
   };
 
@@ -89,8 +74,8 @@ const AdminPage = () => {
         setIsModalOpen(false);
       }
       fetchAdmins();
-    } catch (err) {
-      console.error("Failed to update admin", err);
+    } catch {
+      console.error("Failed to update admin");
       setError("Failed to update admin");
     }
   };

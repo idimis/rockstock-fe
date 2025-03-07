@@ -64,7 +64,7 @@ const CategorySection: React.FC = () => {
 
   return (
     <section className="max-w-[1440px] mx-auto px-8 py-12 my-8">
-      <h2 className="text-2xl font-semibold text-center text-black mb-8">
+      <h2 className="text-3xl font-semibold text-center text-black mb-8">
         Featured Categories
       </h2>
 

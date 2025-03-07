@@ -3,15 +3,8 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/signup/page": "app/signup/page.js",
-  "/sections/terms/page": "app/sections/terms/page.js",
-  "/sections/about/page": "app/sections/about/page.js",
-  "/sections/join-our-crew/page": "app/sections/join-our-crew/page.js",
-  "/sections/rock-partners/page": "app/sections/rock-partners/page.js",
-  "/sections/rockstock-blog/page": "app/sections/rockstock-blog/page.js",
-  "/sections/help-center/page": "app/sections/help-center/page.js",
-  "/sections/faq/page": "app/sections/faq/page.js",
-  "/sections/policy/page": "app/sections/policy/page.js",
   "/login/page": "app/login/page.js",
+  "/dashboard/user/page": "app/dashboard/user/page.js",
+  "/logout/page": "app/logout/page.js",
   "/dashboard/admin/page": "app/dashboard/admin/page.js"
 }

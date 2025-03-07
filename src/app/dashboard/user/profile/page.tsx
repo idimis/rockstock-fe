@@ -5,6 +5,7 @@ import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import UserSidebar from "@/components/common/UserSidebar";
 import Footer from "@/components/common/Footer";
+import Image from "next/image";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -23,8 +24,6 @@ const UserProfilePage = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [newAvatarFile, setNewAvatarFile] = useState<File | null>(null);
-  
-
 
   useEffect(() => {
     fetchUserProfile();
@@ -39,13 +38,17 @@ const UserProfilePage = () => {
         setLoading(false);
         return;
       }
-
+  
       const response = await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
       
       const userData = data.data;
+  
+      const isGoogleUser = userData.provider && userData.provider.toLowerCase() === "google";
+        const isVerified = isGoogleUser || userData.isVerified;
+  
       setUser({
         id: userData.id,
         fullname: userData.fullname,
@@ -53,7 +56,7 @@ const UserProfilePage = () => {
         photoProfileUrl: userData.photoProfileUrl || "/default-avatar.png",
         birthDate: userData.birthDate ? userData.birthDate.split("T")[0] : "",
         gender: userData.gender,
-        isVerified: userData.isVerified,
+        isVerified, 
         newAvatarFile: null,
       });
     } catch (error) {
@@ -62,6 +65,7 @@ const UserProfilePage = () => {
       setLoading(false);
     }
   };
+  
 
   const handleUpdateProfile = async () => {
     try {
@@ -84,12 +88,7 @@ const UserProfilePage = () => {
             });
 
             const uploadData = await uploadResponse.json();
-            console.log("Upload Avatar Response:", uploadData);
-            console.log("Photo Profile URL:", uploadData?.data?.photo_profile_url);
-            console.log("Response Body:", uploadData.body);
-
             if (uploadData?.data?.photo_profileUrl) {
-              console.log("Photo Profile URL from response:", uploadData.data.photo_profileUrl);
               photoProfileUrl = uploadData.data.photo_profileUrl;
               alert("Upload photo successful!"); 
             } else {
@@ -97,7 +96,6 @@ const UserProfilePage = () => {
               alert("Upload photo successful!");
               return;
             }
-            
         }
 
         const formattedBirthDate = user.birthDate ? `${user.birthDate}T00:00:00Z` : null;
@@ -108,9 +106,7 @@ const UserProfilePage = () => {
             gender: user.gender,
             photoProfileUrl,
         };
-        
 
-        console.log("Updated User Data:", requestBody);
         const response = await fetch(`${BACKEND_URL}/api/v1/user/profile`, {
             method: "PUT",
             headers: {
@@ -121,8 +117,6 @@ const UserProfilePage = () => {
         });
 
         const responseData = await response.json();
-        console.log("Update Profile Response:", responseData);
-
         if (!response.ok) {
             alert(`Error: ${responseData.message || "Profile update failed"}`);
             return;
@@ -134,8 +128,7 @@ const UserProfilePage = () => {
         console.error("Failed to update profile:", error);
         alert("Error updating profile.");
     }
-};
-
+  };
 
   const handleUploadPhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -152,13 +145,7 @@ const UserProfilePage = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
-};
-
-useEffect(() => {
-  console.log("Updated Avatar URL in State:", user.photoProfileUrl);
-}, [user.photoProfileUrl]);
-
-
+  };
 
   return (
     <>
@@ -194,27 +181,31 @@ useEffect(() => {
                     className="border p-2 w-full rounded-lg bg-gray-100"
                   />
 
-                  <label>Birth Date</label>
-                  <input
-                    type="date"
-                    name="birthDate"
-                    value={user.birthDate}
-                    onChange={handleChange}
-                    className="border p-2 w-full rounded-lg"
-                  />
+                  {/* Conditionally render Birth Date and Gender */}
+                  {user.email && !user.email.includes("google.com") && (
+                    <>
+                      <label>Birth Date</label>
+                      <input
+                        type="date"
+                        name="birthDate"
+                        value={user.birthDate}
+                        onChange={handleChange}
+                        className="border p-2 w-full rounded-lg"
+                      />
 
-                  <label>Gender</label>
-                  <select
-   name="gender"
-  value={user.gender || ""}
-  onChange={handleChange}
-  className="border p-2 w-full rounded-lg"
->
-
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
+                      <label>Gender</label>
+                      <select
+                        name="gender"
+                        value={user.gender || ""}
+                        onChange={handleChange}
+                        className="border p-2 w-full rounded-lg"
+                      >
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
+                    </>
+                  )}
 
                   <label>Status</label>
                   <p className={user.isVerified ? "text-green-600" : "text-red-600"}>
@@ -223,15 +214,8 @@ useEffect(() => {
                 </div>
               </section>
 
-              {!user.isVerified && (
-                <button
-                  className="px-5 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-                  onClick={() => alert("Verification email sent!")}
-                >
-                  Verify Email
-                </button>
-              )}
 
+              {/* Hide Reset Password Button for Social Login Users */}
               {user.id && !user.email.includes("google.com") && (
                 <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                   <h2 className="text-xl font-semibold mb-2">Reset Password</h2>
@@ -247,12 +231,14 @@ useEffect(() => {
               <section className="mb-6 p-6 border border-gray-200 rounded-xl shadow-md bg-white">
                 <h2 className="text-xl font-semibold mb-2">Profile Picture</h2>
                 {(previewImage || user.photoProfileUrl) && (
-  <img
-    src={previewImage || user.photoProfileUrl}
-    alt="Profile"
-    className="w-24 h-24 rounded-full mb-4 object-cover"
-  />
-)}
+                  <Image
+                    src={previewImage || user.photoProfileUrl}
+                    alt="Profile"
+                    width={48} 
+                    height={48}
+                    className="w-24 h-24 rounded-full mb-4 object-cover"
+                  />
+                )}
                 <input type="file" accept=".jpg,.jpeg,.png,.gif" className="border p-2 w-full rounded-lg" onChange={handleUploadPhoto} />
               </section>
 

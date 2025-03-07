@@ -20,7 +20,7 @@ const getStatus = (quantity: number) => {
 };
 
 const AdminProduct = () => {
-  const [products, setProducts] = useState(productData);
+  const [products] = useState(productData);
 
   return (
     <div className="flex min-h-screen flex-col">

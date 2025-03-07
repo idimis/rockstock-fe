@@ -5,7 +5,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { Pool } from "pg";
 import { JWT } from "next-auth/jwt";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || "",
@@ -65,10 +64,12 @@ const authOptions = {
   },
 
   callbacks: {
-    async jwt({ token, account, user }: { token: JWT; account?: any; user?: any }) {
+    async jwt(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      { token, account, user }: { token: JWT; account?: any; user?: any }) {
       console.log("JWT CALLBACK START:", { token, account, user });
   
-      // Jika user login pertama kali dengan Google
+      // **Google OAuth Login**
       if (account?.provider === "google" && account.id_token && account.access_token) {
         console.log("New Login - Processing Google Account");
         try {
@@ -78,7 +79,6 @@ const authOptions = {
   
           console.log("GOOGLE USER INFO:", googleUserInfo);
   
-          // Kirim data ke backend untuk verifikasi
           const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/google`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -100,87 +100,89 @@ const authOptions = {
           const backendData = await backendResponse.json();
           console.log("BACKEND RESPONSE:", backendData);
   
-          // Simpan data dari backend ke token
-          token.id = backendData.userId;
-          token.name = backendData.fullname;
-          token.email = backendData.email;
-          token.role = backendData.role;
-          token.accessToken = backendData.accessToken;
-          token.refreshToken = backendData.refreshToken;
-          token.scope = backendData.scope;
-          
+          // **Pastikan `accessToken` selalu ada**
+          token.accessToken = backendData.accessToken || "";
+          token.refreshToken = backendData.refreshToken || "";
+          token.id = backendData.userId || "";
+          token.name = backendData.fullname || "";
+          token.email = backendData.email || "";
+          token.role = backendData.role || "";
+          token.scope = backendData.scope || "";
+  
         } catch (error) {
           console.error("Error processing Google login:", error);
         }
       }
-
-            // Handle Facebook login
-            if (account?.provider === "facebook" && account.access_token) {
-              console.log("New Login - Processing Facebook Account");
-              try {
-                const facebookUserInfo = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${account.access_token}`)
-                  .then((res) => res.json());
-        
-                console.log("FACEBOOK USER INFO:", facebookUserInfo);
-        
-                // Send data to the backend for verification
-                const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/facebook`, {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    accessToken: account.access_token,
-                    email: facebookUserInfo.email,
-                    name: facebookUserInfo.name,
-                    photoProfileUrl: facebookUserInfo.picture?.data?.url,
-                  }),
-                });
-        
-                if (!backendResponse.ok) {
-                  const errorText = await backendResponse.text();
-                  console.error("Backend Authentication Error:", backendResponse.status, errorText);
-                  throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
-                }
-        
-                const backendData = await backendResponse.json();
-                console.log("BACKEND RESPONSE:", backendData);
-        
-                token.id = backendData.userId;
-                token.name = backendData.fullname;
-                token.email = backendData.email;
-                token.role = backendData.role;
-                token.accessToken = backendData.accessToken;
-                token.refreshToken = backendData.refreshToken;
-                token.scope = backendData.scope;
-              } catch (error) {
-                console.error("Error processing Facebook login:", error);
-              }
-            }
-      
   
-      // Jika login dengan email & password (Credentials)
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.fullname = user.name;
-        token.role = user.role;
+      // **Facebook OAuth Login**
+      if (account?.provider === "facebook" && account.access_token) {
+        console.log("New Login - Processing Facebook Account");
+        try {
+          const facebookUserInfo = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${account.access_token}`)
+            .then((res) => res.json());
+  
+          console.log("FACEBOOK USER INFO:", facebookUserInfo);
+  
+          const backendResponse = await fetch(`${BACKEND_URL}/api/v1/auth/oauth/facebook`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              accessToken: account.access_token,
+              email: facebookUserInfo.email,
+              name: facebookUserInfo.name,
+              photoProfileUrl: facebookUserInfo.picture?.data?.url || "",
+            }),
+          });
+  
+          if (!backendResponse.ok) {
+            const errorText = await backendResponse.text();
+            console.error("Backend Authentication Error:", backendResponse.status, errorText);
+            throw new Error(`Failed to authenticate with backend: ${backendResponse.status} - ${errorText}`);
+          }
+  
+          const backendData = await backendResponse.json();
+          console.log("BACKEND RESPONSE:", backendData);
+  
+          token.accessToken = backendData.accessToken || "";
+          token.refreshToken = backendData.refreshToken || "";
+          token.id = backendData.userId || "";
+          token.name = backendData.fullname || "";
+          token.email = backendData.email || "";
+          token.role = backendData.role || "";
+          token.scope = backendData.scope || "";
+  
+        } catch (error) {
+          console.error("Error processing Facebook login:", error);
+        }
       }
   
+      // **Email & Password Login (Credentials)**
+      if (user) {
+        token.id = user.id || "";
+        token.email = user.email || "";
+        token.fullname = user.name || "";
+        token.role = user.role || "";
+      }
+  
+      console.log("FINAL JWT TOKEN:", token);
       return token;
     },
-
-
   
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async session({ session, token }: { session: any; token: JWT }) {
       console.log("SESSION CALLBACK:", { session, token });
   
-      // Pastikan data session sesuai dengan token
-      session.user.id = token.id;
-      session.user.email = token.email;
-      session.user.fullname = token.fullname;
-      session.user.role = token.role;
-      session.accessToken = token.accessToken;
-      session.refreshToken = token.refreshToken;
-      session.scope = token.scope;
+      // **Pastikan `session.user` tidak mencoba mengakses `undefined` token**
+      session.user = {
+        id: token.id || "",
+        email: token.email || "",
+        fullname: token.fullname || "",
+        role: token.role || "",
+      };
+  
+      session.accessToken = token.accessToken || "";
+      session.refreshToken = token.refreshToken || "";
+      session.scope = token.scope || "";
   
       return session;
     },
@@ -193,16 +195,15 @@ const authOptions = {
     },
   },
   
-
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/auth/login",
     signOut: "/auth/logout",
     error: "/auth/error",
   },
+  
 };
 
-// Handler API NextAuth
-const handler = (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, authOptions);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

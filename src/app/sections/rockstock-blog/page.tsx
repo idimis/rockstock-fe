@@ -5,28 +5,30 @@ import Footer from '@/components/common/Footer';
 import Image from 'next/image'; 
 import Link from 'next/link';
 
-import blogImage from '@/public/darkacademi.jpg';
+import blogImage1 from '@/public/darkacademia.webp';
+import blogImage2 from '@/public/dark.jpeg';
+import blogImage3 from '@/public/darkinspiration.jpeg';
 
 const blogPosts = [
   {
     id: 1,
     title: "The Rise of Gothic Furniture",
     excerpt: "Explore how gothic aesthetics are making a comeback in modern furniture design.",
-    image: blogImage,
+    image: blogImage1,
     link: "/blog/rise-of-gothic-furniture"
   },
   {
     id: 2,
     title: "Alternative Home Decor: A Rocker's Guide",
     excerpt: "How to transform your living space into a true alternative haven.",
-    image: blogImage,
+    image: blogImage2,
     link: "/blog/alternative-home-decor"
   },
   {
     id: 3,
     title: "Why Dark Academia and Rock Styles Merge Perfectly",
     excerpt: "A deep dive into the aesthetic fusion of Dark Academia and rock culture.",
-    image: blogImage,
+    image: blogImage3,
     link: "/blog/dark-academia-rock"
   }
 ];

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -36,7 +37,7 @@ const UserList = () => {
         } else {
           throw new Error("Invalid response format");
         }
-      } catch (err) {
+      } catch {
         setError("Failed to fetch users.");
       } finally {
         setLoading(false);
@@ -70,7 +71,7 @@ const UserList = () => {
             <tr key={user.id} className="border">
               <td className="border p-2 text-center">{index + 1}</td>
               <td className="border p-2 text-center">
-                <img
+                <Image
                   src={user.photoProfileUrl || user.googleImageUrl || "/default-avatar.png"}
                   alt={user.fullname}
                   className="w-10 h-10 rounded-full object-cover mx-auto"

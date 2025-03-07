@@ -4,7 +4,6 @@ import Sidebar from "@/components/common/AdminSidebar";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { useState } from "react";
 
 const AdminSettings = () => {
   return (

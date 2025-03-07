@@ -7,9 +7,9 @@ import heroImage2 from '@/public/hero2.jpg';
 import heroImage3 from '@/public/hero3.webp';
 
 const slides = [
-  { image: heroImage1, text: "Furnish Your Space with Attitude." },
-  { image: heroImage2, text: "Create a Home as Unique as Your Sound." },
-  { image: heroImage3, text: "Rock Your World with Custom Furniture." },
+  { image: heroImage1, text: "Find your rockstar aesthetic furniture." },
+  { image: heroImage2, text: "Curated pieces for those who don't fit with instagram aesthetic standard." },
+  { image: heroImage3, text: "Craft Your Space with Rock n' Roll, Raw, Untamed Vibes." },
 ];
 
 const HeroSection = () => {
@@ -52,12 +52,11 @@ const HeroSection = () => {
         </AnimatePresence>
       </div>
 
-      {/* Teks Bisa di Luar Image */}
       <div className="absolute bottom-12 w-full flex flex-col items-center text-center px-6">
         <AnimatePresence mode="wait">
           <motion.h1
             key={currentIndex}
-            className="text-4xl md:text-6xl font-bold text-black drop-shadow-lg bg-white/90 px-6 py-3 rounded-lg"
+            className="text-4xl md:text-4xl font-bold text-black drop-shadow-lg bg-white/90 px-6 py-3 rounded-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -68,14 +67,16 @@ const HeroSection = () => {
         </AnimatePresence>
 
         <p className="mt-4 text-lg md:text-xl text-black bg-white/80 px-4 py-2 rounded-lg">
-          The ultimate furniture collection for those who lived and breathed the music of the 90s-00s. Rock your home with style and nostalgia.
-        </p>
+        Dedicated for those who lived and breathed the music of the 90s-00s.<br />
+        Rock your home with style and nostalgia because punk, rock, and emo never dies!
+      </p>
+
 
         <div className="flex space-x-4 mt-6">
-          <a href="/shop" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
+          <a href="/products" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
             Shop Our Collection
           </a>
-          <a href="/about" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
+          <a href="/sections/about" className="px-6 py-3 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition">
             Learn More About Us
           </a>
         </div>

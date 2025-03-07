@@ -8,8 +8,6 @@ import GoogleIcon from "@/public/icons/google.png";
 import darkImage from "@/public/darkacadem.jpg";
 import Link from "next/link";
 import FacebookIcon from "@/public/icons/facebook.jpg";
-import TwitterIcon from "@/public/icons/twitter.png";
-import InstagramIcon from "@/public/icons/instagram.png";
 import { signIn } from "next-auth/react";
 
 const SignupContent: React.FC = () => {
@@ -28,7 +26,7 @@ const SignupContent: React.FC = () => {
     try {
       const formattedBirthdate = new Date(birthdate).toISOString();
   
-      const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
+      const response = await axios.post("https://localhost:8080/api/v1/auth/register", {
         fullname,
         email,
         gender,
@@ -41,11 +39,17 @@ const SignupContent: React.FC = () => {
       localStorage.setItem("fullname", fullname);
       localStorage.setItem("newSignup", "true"); 
       window.location.href = "/dashboard/user";
-    } catch (err: any) {
-      console.error("Signup error:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "Signup failed. Please try again.");
-    } finally {
-      setLoading(false);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        console.error("Signup error:", err.response?.data || err.message);
+        setError(err.response?.data?.message || "Signup failed. Please try again.");
+      } else if (err instanceof Error) {
+        console.error("Signup error:", err.message);
+        setError(err.message);
+      } else {
+        console.error("Signup error:", err);
+        setError("An unknown error occurred.");
+      }
     }
   };
   
