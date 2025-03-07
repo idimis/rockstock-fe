@@ -2,17 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { formatCurrency } from "@/lib/utils/formatCurrency";
+import { formatCurrency } from "@/lib/utils/format";
 import IncreaseQuantityButton from "@/components/buttons/IncreaseQuantityButton";
 import DecreaseQuantityButton from "@/components/buttons/DecreaseQuantityButton";
 import RemoveItemButton from "@/components/buttons/RemoveItemButton";
 import { fetchCartItems, increaseCartItemQuantity, decreaseCartItemQuantity, removeCartItem } from "@/services/cartService";
 import CartSummary from "@/components/cart/CartSummary";
 import { getAccessToken } from "@/lib/utils/auth";
+import { AxiosError } from "axios";
 
 interface CartItem {
   cartItemId: number;
@@ -23,48 +23,63 @@ interface CartItem {
   productName: string;
   productImage: string;
   productPrice: number;
+  productPictures: { productPictureUrl: string; position: number } | null;
 }
 
 const Cart = () => {
-  const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const accessToken = getAccessToken();
 
   useEffect(() => {
-    const getCartData = async () => {
+    const getCartData = async (attempt = 1) => {
       try {
         const data = await fetchCartItems(accessToken);
         setCartItems(data.length ? data : []);
-      } catch (err: any) {
-        if (err.response?.data?.message === "Item not found !") {
-          setCartItems([]);
+      } catch (err: unknown) {
+        if (err instanceof AxiosError && err.response?.data?.message) {
+          const errorMessage = err.response.data.message;
+          console.error("Error fetching cart items:", errorMessage);
+
+          if (errorMessage.includes("JDBC")) {
+            const retryDelay = Math.min(2 ** attempt * 1000, 30000); // Exponential backoff (max 30s)
+            console.warn(`Retrying getCartData in ${retryDelay / 1000}s...`);
+            setTimeout(() => getCartData(attempt + 1), retryDelay);
+          } else if (errorMessage === "Item not found !") {
+            setCartItems([]);
+          } else {
+            setError(errorMessage);
+          }
         } else {
-          setError(err.message);
+          setError("An unknown error occurred while fetching cart data.");
         }
       } finally {
         setLoading(false);
       }
     };
+
     getCartData();
   }, [accessToken]);
 
-  const increaseQuantity = async (productId: number) => {
-    await increaseCartItemQuantity(productId, accessToken);
+  const updateCartItemQuantity = (productId: number, newQuantity: number) => {
     setCartItems((prev) =>
-      prev.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity + 1 } : item))
+      prev.map((item) => (item.productId === productId ? { ...item, quantity: newQuantity } : item))
     );
     window.dispatchEvent(new Event("storage"));
   };
 
+  const increaseQuantity = async (productId: number) => {
+    await increaseCartItemQuantity(productId, accessToken);
+    updateCartItemQuantity(productId, (cartItems.find((item) => item.productId === productId)?.quantity || 0) + 1);
+  };
+
   const decreaseQuantity = async (productId: number, currentQuantity: number) => {
-    await decreaseCartItemQuantity(productId, currentQuantity, accessToken);
-    setCartItems((prev) =>
-      prev.map((item) => (item.productId === productId ? { ...item, quantity: item.quantity - 1 } : item))
-    );
-    window.dispatchEvent(new Event("storage"));
+    if (currentQuantity > 1) {
+      await decreaseCartItemQuantity(productId, currentQuantity, accessToken);
+      updateCartItemQuantity(productId, currentQuantity - 1);
+    }
   };
 
   const handleRemoveItem = async (cartItemId: number) => {
@@ -74,9 +89,8 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    const newTotalPrice = cartItems.reduce((total, item) => total + item.productPrice * item.quantity, 0);
-    setTotalPrice(newTotalPrice);
-  }, [cartItems]); 
+    setTotalPrice(cartItems.reduce((total, item) => total + item.productPrice * item.quantity, 0));
+  }, [cartItems]);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -95,11 +109,11 @@ const Cart = () => {
                   <div className="flex justify-between items-center w-full">
                     <div className="flex items-center gap-2">
                       <Image
-                        src={item.productImage || "/images/default-product.jpg"}
+                        src={item.productPictures?.productPictureUrl || "/placeholder.png"}
                         alt={item.productName}
-                        width={80}
-                        height={80}
-                        className="rounded-lg"
+                        width={96}
+                        height={96}
+                        className="w-24 h-24 object-cover rounded-lg"
                       />
                       <h3 className="text-lg text-black">{item.productName}</h3>
                     </div>
@@ -107,7 +121,7 @@ const Cart = () => {
                   </div>
                   <div className="flex gap-4 items-center ml-auto">
                     <div className="flex items-center space-x-1 border border-red-600 px-2 py-0.5 rounded-full">
-                      <DecreaseQuantityButton onClick={() => decreaseQuantity(item.productId, item.quantity)}/>
+                      <DecreaseQuantityButton onClick={() => decreaseQuantity(item.productId, item.quantity)} />
                       <span className="px-4 py-1">{item.quantity}</span>
                       <IncreaseQuantityButton onClick={() => increaseQuantity(item.productId)} />
                     </div>
@@ -117,11 +131,8 @@ const Cart = () => {
               ))}
             </div>
           </div>
-          <div>
-            {cartItems.length > 0 && <CartSummary totalPrice={totalPrice} />}
-          </div>
+          <div>{cartItems.length > 0 && <CartSummary totalPrice={totalPrice} />}</div>
         </div>
-
       </main>
       <Footer />
     </div>

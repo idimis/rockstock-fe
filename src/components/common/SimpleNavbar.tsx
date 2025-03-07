@@ -7,7 +7,7 @@ import logoImage from "@/public/rockstock1.svg";
 
 const SimpleNavbar = () => {
   return (
-    <header className="bg-gray-100 sticky top-0 z-50">
+    <header className="bg-white sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <div>

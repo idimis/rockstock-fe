@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { formatCurrency } from "@/lib/utils/formatCurrency";
+import { formatCurrency } from "@/lib/utils/format";
 
 interface CartSummaryProps {
   totalPrice: number;

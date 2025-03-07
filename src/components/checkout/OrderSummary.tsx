@@ -1,13 +1,15 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { formatCurrency } from "@/lib/utils/formatCurrency";
+import { formatCurrency } from "@/lib/utils/format";
 
 interface CartItem {
   cartItemId: number;
   productName: string;
-  productImage: string;
   productPrice: number;
   quantity: number;
+  productPictures: { productPictureUrl: string; position: number } | null;
 }
 
 interface OrderSummaryProps {
@@ -21,7 +23,13 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems }) => {
       {cartItems.map((item) => (
         <div key={item.cartItemId} className="flex items-center border-b border-gray-300 pb-4 mb-4">
           <div className="flex items-center gap-4 w-full">
-            <Image src={item.productImage || "/images/default-product.jpg"} alt={item.productName} width={80} height={80} className="rounded-lg" />
+            <Image
+              src={item.productPictures?.productPictureUrl || "/placeholder.png"}
+              alt={item.productName}
+              width={96}
+              height={96}
+              className="w-24 h-24 object-cover rounded-lg"
+            />
             <div className="w-full flex flex-col justify-between md:flex-row">
               <h3 className="text-lg text-black">{item.productName}</h3>
               <p className="text-black font-semibold">{item.quantity} x {formatCurrency(item.productPrice)}</p>

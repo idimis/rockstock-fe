@@ -1,22 +1,27 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { formatCurrency } from "@/lib/utils/formatCurrency";
-import { useRouter } from "next/navigation";
+import { formatCurrency } from "@/lib/utils/format";
 import { getAccessToken } from "@/lib/utils/auth";
+
+interface PaymentMethod {
+  id: number;
+  name: string;
+}
 
 interface DetailPaymentProps {
   subtotal: number;
   shippingFee: number;
   totalPrice: number;
   onShowPopup: () => void;
-  paymentMethods: { id: number; name: string }[];
-  setPaymentMethods: React.Dispatch<React.SetStateAction<{ id: number; name: string }[]>>;
+  paymentMethods: PaymentMethod[];
+  setPaymentMethods: React.Dispatch<React.SetStateAction<PaymentMethod[]>>;
   selectedMethod: number | null;
   setSelectedMethod: (id: number) => void;
 }
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const accessToken = getAccessToken();
 
 const DetailPayment: React.FC<DetailPaymentProps> = ({ 
   subtotal, 
@@ -28,25 +33,47 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
   selectedMethod, 
   setSelectedMethod 
 }) => {
-  // const [paymentMethods, setPaymentMethods] = useState<{ id: number; name: string }[]>([]);
-  // const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchPaymentMethods = async () => {
+    const fetchPaymentMethods = async (attempt = 1) => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/payments/methods`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const accessToken = getAccessToken(); // Fetch token dynamically inside the function
+        if (!accessToken) {
+          setError("Authentication error. Please log in again.");
+          return;
+        }
+
+        const response = await axios.get<{ data: PaymentMethod[] }>(
+          `${API_BASE_URL}/payments/methods`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
         setPaymentMethods(response.data.data);
-      } catch (error) {
-        console.error("Error fetching payment methods:", error);
+      } catch (err: unknown) {
+        if (axios.isAxiosError(err)) {
+          const errorMessage = err.response?.data?.message || err.message;
+          console.error("Error fetching payment methods:", errorMessage);
+
+          if (errorMessage.includes("JDBC")) {
+            const retryDelay = Math.min(2 ** attempt * 1000, 30000); // Exponential backoff (max 30s)
+            console.warn(`Retrying fetchPaymentMethods in ${retryDelay / 1000}s...`);
+            setTimeout(() => fetchPaymentMethods(attempt + 1), retryDelay);
+          } else {
+            setError("Failed to fetch payment methods.");
+          }
+        } else {
+          console.error("Unexpected error:", err);
+          setError("An unexpected error occurred.");
+        }
       }
     };
 
     fetchPaymentMethods();
-  }, []);
+  }, [setPaymentMethods]);
 
   const handlePayNow = () => {
     if (!selectedMethod) {
@@ -55,6 +82,8 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
     }
     onShowPopup();
   };
+
+  if (error) return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="flex flex-col justify-between w-full p-6 bg-white shadow-md rounded-lg">

@@ -12,9 +12,10 @@ import logoImage from "@/public/rockstock1.svg";
 const Navbar = () => {
   const [isActive, setIsActive] = useState<string>('');
   const [cartQuantity, setCartQuantity] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null)
 
   // Function to fetch cart quantity from API
-  const fetchCartQuantity = async () => {
+  const fetchCartQuantity = async (attempt = 1) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
@@ -28,8 +29,17 @@ const Navbar = () => {
       } else {
         setCartQuantity(0); // If no items are found, set cart quantity to 0
       }
-    } catch (error) {
-      console.error("Error fetching cart quantity:", error);
+    } catch (err: any) {
+      const errorMessage = err.response?.data?.message || err.message;
+      console.error("Error fetching cart items:", errorMessage);
+
+      if (errorMessage.includes("JDBC")) {
+        const retryDelay = Math.min(2 ** attempt * 1000, 30000); // Exponential backoff (max 30s)
+        console.warn(`Retrying fetchCartQuantity in ${retryDelay / 1000}s...`);
+        setTimeout(() => fetchCartQuantity(attempt + 1), retryDelay);
+      } else {
+        setError("Failed to fetch cart items");
+      } 
     }
   };  
 
@@ -58,7 +68,13 @@ const Navbar = () => {
         {/* Logo */}
         <div>
           <Link href="/">
-            <Image src={logoImage} alt="Rockstock Logo" width={400} height={200} />
+            <Image 
+              src={logoImage} 
+              alt="Rockstock Logo" 
+              width={400} 
+              height={200} 
+              className="w-40 md:w-60 h-auto"
+            />
           </Link>
         </div>
 

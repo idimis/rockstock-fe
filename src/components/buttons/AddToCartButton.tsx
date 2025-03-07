@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface AddToCartButtonProps {
   productId: number;
@@ -41,14 +43,15 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productId, quantity }
         setSuccess(true);
         window.dispatchEvent(new Event("storage"));
       }
-    } catch (err: any) {
-      console.error("Error adding to cart:", err);
+    } catch (err: unknown) {
+      const axiosError = err as AxiosError<{ message?: string }>;
+      console.error("Error adding to cart:", axiosError);
 
-      if (err.response?.data?.message) {
+      if (axiosError.response?.data?.message) {
         setError(
-          err.response.data.message === "Hit stock limit !"
+          axiosError.response.data.message === "Hit stock limit !"
             ? "You've reached the stock limit for this product!"
-            : err.response.data.message
+            : axiosError.response.data.message
         );
       } else {
         setError("Failed to add item to cart. Please try again.");
