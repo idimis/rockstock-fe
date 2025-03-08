@@ -13,3 +13,7 @@ export interface CategoryFormData {
   categoryName: string;
   file: File | null;
 }
+
+export interface ApiErrorResponse {
+  message?: string;
+}

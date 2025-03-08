@@ -1,75 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import axiosInstance from "@/utils/axiosInstance";
-import { Product, Category, ApiResponse } from "@/types/product"; // Import interfaces
+import { useQuery } from "@tanstack/react-query";
+import { ApiResponse } from "@/types/product";
 
-const useProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sortOption, setSortOption] = useState<string>("createdAt");
-  const [sortDirection, setSortDirection] = useState<string>("ASC");
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const { data } = await axiosInstance.get<ApiResponse>("/products", {
-          params: {
-            page: currentPage - 1,
-            size: 8,
-            name: searchQuery,
-            category: selectedCategory,
-            sortField: sortOption,
-            sortDirection,
-          },
-        });
-        setProducts(data.content);
-        setTotalPages(data.totalPages);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [currentPage, searchQuery, selectedCategory, sortOption, sortDirection]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await axiosInstance.get<{ data: Category[] }>("/categories");
-        setCategories(data.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  return {
-    products,
-    categories,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-    loading,
-    selectedCategory,
-    setSelectedCategory,
-    searchQuery,
-    setSearchQuery,
-    sortOption,
-    setSortOption,
-    sortDirection,
-    setSortDirection,
-  };
+export const useProducts = (page: number, pageSize: number, searchQuery?: string, filters?: { category: string, sortField: string, sortDirection: string }) => {
+  return useQuery<ApiResponse>({
+    queryKey: ["products", page, pageSize, searchQuery, filters],
+    queryFn: async () => {
+      const { category, sortField, sortDirection } = filters || {};
+      const response = await axiosInstance.get("/products/active", {
+        params: {
+          page: page - 1,
+          size: pageSize,
+          name: searchQuery || undefined,
+          category: category || undefined,
+          sortField: sortField || "name",
+          sortDirection: sortDirection || "asc",
+        },
+      });
+      return response.data;
+    },
+  });
 };
-
-export default useProducts;
