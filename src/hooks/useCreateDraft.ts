@@ -13,6 +13,7 @@ export const useCreateDraft = () => {
     },
     
     onSuccess: (data) => {
+      console.log("Draft created successfully:", data); // ✅ Log draft response
       queryClient.invalidateQueries({ queryKey: ["products"] }); 
       router.push(`/dashboard/admin/products/draft/${data.productId}`);
     },

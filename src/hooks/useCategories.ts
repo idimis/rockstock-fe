@@ -12,7 +12,7 @@ export const useCategories = (page: number, pageSize: number, searchQuery?: stri
           params: { 
             page: page - 1,
             size: pageSize,
-            categoryName: searchQuery || undefined, // Pass searchQuery only if it's not empty
+            categoryName: searchQuery || undefined,
           },
         });
         return response.data.data;

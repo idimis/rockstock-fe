@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://E%3A/Repository/rockstock-fe/src/app/dashboard/admin/products/draft/%5BproductId%5D/page.tsx"],"sourcesContent":["\"use client\";\r\n\r\nimport { useParams } from \"next/navigation\";\r\nimport DraftForm from \"@/components/DraftForm\";\r\n\r\nexport default function DraftProductPage() {\r\n  const params = useParams();\r\n  const productId = params.productId as string;\r\n\r\n  if (!productId) return <div>Loading...</div>;\r\n\r\n  return <DraftForm productId={productId} />;\r\n}"],"names":[],"mappings":";;;;AAEA;;;;;;;;AAFA;;;AAKe,SAAS;;IACtB,MAAM,SAAS,CAAA,GAAA,qIAAA,CAAA,YAAS,AAAD;IACvB,MAAM,YAAY,OAAO,SAAS;IAElC,IAAI,CAAC,WAAW,qBAAO,6LAAC;kBAAI;;;;;;IAE5B,qBAAO,6LAAC;QAAU,WAAW;;;;;;AAC/B;GAPwB;;QACP,qIAAA,CAAA,YAAS;;;KADF","debugId":null}},
+    {"offset": {"line": 52, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}},
+    {"offset": {"line": 57, "column": 0}, "map": {"version":3,"sources":["file://E%3A/Repository/rockstock-fe/node_modules/next/navigation.js"],"sourcesContent":["module.exports = require('./dist/client/components/navigation')\n"],"names":[],"mappings":"AAAA,OAAO,OAAO","ignoreList":[0],"debugId":null}},
+    {"offset": {"line": 58, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

@@ -1,4 +1,5 @@
 export interface Product {
+  pictures(pictures: any): unknown;
   categoryId: number;
   productId: number;
   productName: string;
