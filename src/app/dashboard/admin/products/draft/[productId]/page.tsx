@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import axiosInstance from "@/utils/axiosInstance";
 import Select from "react-select";
 import { useCategories } from "@/hooks/useCategories";
-import { Product, Category } from "@/types/product";
+import { Product, Category, ProductStatus } from "@/types/product";
 import { FiTrash, FiUploadCloud } from "react-icons/fi";
 import { toast } from "react-toastify";
 
@@ -19,22 +19,32 @@ const ProductDraftForm = () => {
 
   const [productData, setProductData] = useState<Product | null>(null);
   const [isSubmitting, setSubmitting] = useState(false);
+  const [localProductPictures, setLocalProductPictures] = useState<(string | null)[]>([null, null, null]);
+  const [isUnauthorized, setIsUnauthorized] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
   
-  const fetchImages = async () => {
+  const fetchProducts = async () => {
     try {
       const response = await axiosInstance.get<Product>(`/products/${productId}`);
-      setProductData(response.data); // Update the product data including pictures
+      const product = response.data;
+      setProductData(product);
+
+      if (product.status !== ProductStatus.DRAFT) {
+        console.warn("Unauthorized access: Redirecting to /403...");
+        setIsUnauthorized(true);
+        setTimeout(() => router.push("/403"), 2000);
+        return;
+      }
     } catch (error) {
       console.error("Error fetching product data:", error);
     }
   };
   
-  
-
   useEffect(() => {
     if (productId && !productData) {
       console.log("Fetching product data for ID:", productId);
-      fetchImages();
+      fetchProducts();
     }
   }, [productId]);
 
@@ -114,11 +124,10 @@ const ProductDraftForm = () => {
         });
       }
 
-      if (JSON.stringify(formik.values.productPictures) !== JSON.stringify(initialPictures)) {
-        formik.setFieldValue("productPictures", initialPictures);
-      }
+      setLocalProductPictures(initialPictures); // Set local state for pictures
+      formik.setFieldValue("productPictures", initialPictures);
     }
-  }, [productData, formik]);
+  }, [productData]);
 
   const handleUploadPicture = async (position: number) => {
     const input = document.createElement("input");
@@ -140,8 +149,13 @@ const ProductDraftForm = () => {
             "Content-Type": "multipart/form-data",
           },
         });
+
+        const newPictures = [...localProductPictures];
+        newPictures[position - 1] = URL.createObjectURL(file); // Temporarily set the uploaded image URL
+        setLocalProductPictures(newPictures);  // Update local state
+        formik.setFieldValue("productPictures", newPictures); // Update Formik state
+
         toast.success("Picture uploaded successfully!");
-        fetchImages();
       } catch (error) {
         toast.error("Failed to upload picture");
       } finally {
@@ -156,9 +170,12 @@ const ProductDraftForm = () => {
   
       await axiosInstance.delete(`/pictures/${productId}/${position}/delete`);
 
+      const newPictures = [...localProductPictures];
+      newPictures[position - 1] = null; // Set the deleted picture slot to null
+      setLocalProductPictures(newPictures); // Update local state
+      formik.setFieldValue("productPictures", newPictures); // Update Formik state
+
       toast.success("Picture deleted successfully!");
-      
-      fetchImages();
     } catch (error) {
       toast.error("Error deleting picture");
     } finally {
@@ -167,8 +184,27 @@ const ProductDraftForm = () => {
   };
 
   const handleSaveDraft = async () => {
-    await axiosInstance.patch(`/products/${productId}/draft`, formik.values);
-    router.push("/dashboard/admin/products");
+    try {
+      const draftValues = { ...formik.values, categoryId: formik.values.productCategory };
+      const { productCategory, ...finalValues } = draftValues;
+      await axiosInstance.patch(`/products/${productId}/draft`, finalValues);
+      router.push("/dashboard/admin/products");
+    } catch (error) {
+      console.error("Error saving draft:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowCancelModal(true); // Show modal
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await axiosInstance.delete(`/products/${productId}/delete`);
+      router.push("/dashboard/admin/products");
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
 
   return (
@@ -255,7 +291,7 @@ const ProductDraftForm = () => {
                   ?.map((cat) => ({ value: cat.categoryId, label: cat.categoryName }))
                   ?.find((option) => option.value === Number(formik.values.productCategory)) || null
               }
-              onChange={(selectedOption) => formik.setFieldValue("productCategory", selectedOption?.value)}
+              onChange={(selectedOption) => formik.setFieldValue("productCategory", selectedOption?.value || "")}
               isSearchable
               isDisabled={!categoryData?.content}
               className="text-gray-500"
@@ -271,7 +307,7 @@ const ProductDraftForm = () => {
       <div>
         <label className="block text-gray-700 font-semibold">Product Pictures</label>
         <div className="flex flex-wrap gap-2 md:flex-nowrap">
-          {formik.values.productPictures.map((pic, position) => (
+        {localProductPictures.map((pic, position) => (
             <div key={position} className="relative w-24 h-24 border rounded flex items-center justify-center bg-gray-100">
               {pic ? (
                 <>
@@ -308,16 +344,61 @@ const ProductDraftForm = () => {
         </div>
       </div>
 
-
-        {/* Buttons */}
         <div className="flex space-x-4">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded" disabled={isSubmitting}>
+          {/* Create Product Button */}
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            disabled={isSubmitting || !formik.isValid || !formik.dirty}
+          >
             {isSubmitting ? "Creating..." : "Create Product"}
           </button>
-          <button type="button" onClick={handleSaveDraft} className="bg-gray-500 text-white px-4 py-2 rounded">
-            Save Draft
+
+          {/* Cancel Button */}
+          <button
+            type="button"
+            onClick={handleCancel}
+            className="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Cancel
           </button>
         </div>
+
+
+{/* Cancel Confirmation Modal */}
+{showCancelModal && (
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg shadow-xl w-96">
+      <h3 className="text-xl font-semibold mb-4">Do you want to save your draft?</h3>
+
+      {/* Save Draft Button */}
+      <button
+        type="button"  // Prevent form submission
+        onClick={handleSaveDraft}
+        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full mb-3"
+      >
+        Save Draft
+      </button>
+
+      {/* No, Delete Product Button */}
+      <button
+        onClick={handleDeleteProduct}
+        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full mb-3"
+      >
+        No, Delete Product
+      </button>
+
+      {/* Cancel Button */}
+      <button
+        onClick={() => setShowCancelModal(false)}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
+
       </form>
     </div>
   );
