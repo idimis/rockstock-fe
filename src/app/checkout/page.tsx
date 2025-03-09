@@ -5,12 +5,16 @@ import { useRouter } from "next/navigation";
 import Footer from "@/components/common/Footer";
 import OrderSummary from "@/components/checkout/OrderSummary";
 import DetailPayment from "@/components/checkout/DetailPayment";
-import { fetchCartItems } from "@/services/cartService";
 import AddressComponent from "@/components/checkout/AddressComponent";
 import SimpleNavbar from "@/components/common/SimpleNavbar";
 import { getAccessToken } from "@/lib/utils/auth";
-import axios from "axios";
-import DeliveryService from "@/components/checkout/DeliveryService";
+import DeliveryServiceComponent from "@/components/checkout/DeliveryServiceComponent";
+import { getCartData } from "@/lib/utils/cart";
+import { CartItem } from "@/types/cart";
+import { Warehouse } from "@/types/warehouse";
+import { placeOrder, updateOrderStatus } from "@/services/orderService";
+import { toast } from "react-toastify";
+import { MidtransPaymentResult, OrderResponse, PaymentMethod } from "@/types/payment";
 
 declare global {
   interface Window {
@@ -18,46 +22,20 @@ declare global {
       pay: (
         token: string,
         options: {
-          onSuccess: (result: unknown) => void;
-          onPending: (result: unknown) => void;
-          onError: (result: unknown) => void;
-          onClose: () => void;
+          onSuccess?: (result: MidtransPaymentResult) => void;
+          onPending?: (result: MidtransPaymentResult) => void;
+          onError?: (result: MidtransPaymentResult) => void;
+          onClose?: () => void;
         }
       ) => void;
     };
   }
 }
 
-interface Warehouse {
-  id: number;
-  name: string;
-  address: string;
-  latitude: string;
-  longitude: string;
-  subDistrictPostalCode: string;
-}
-
-interface CartItem {
-  cartItemId: number;
-  productName: string;
-  productPrice: number;
-  quantity: number;
-  productWeight: number;
-  productPictures: { productPictureUrl: string; position: number } | null;
-}
-
-interface PaymentMethod {
-  id: number;
-  name: string;
-}
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
 const CheckoutPage = () => {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([]);
   const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
@@ -77,47 +55,70 @@ const CheckoutPage = () => {
   }, []);
 
   useEffect(() => {
-    const getCartData = async (attempt = 1) => {
-      try {
-        const data = await fetchCartItems(accessToken);
-        setCartItems(data.length ? data : []);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          console.error("Error fetching cart items:", err.message);
-          setError("Unknown error");
-        }
-      }
-    };
-    getCartData();
-  }, [accessToken]);
+    getCartData(setCartItems, setLoading, router);
+  }, [accessToken, router]);
 
   useEffect(() => {
     if (snapToken && window.snap) {
       window.snap.pay(snapToken, {
-        onSuccess: (result) => {
+        onSuccess: async (result) => {
           console.log("Payment success:", result);
-          alert("Payment successful! Redirecting...");
-          router.push("/checkout/success");
+          try {
+            await updateOrderStatus("PROCESSING", {}, undefined, result.order_id);
+            toast.success("Payment successful! Redirecting...");
+            router.push("/checkout/success");
+          } catch (error) {
+            console.error("Error updating order status:", error);
+            toast.error("Payment successful, but failed to update order status.");
+          }
         },
         onPending: (result) => {
           console.log("Waiting for payment:", result);
-          alert("Waiting for payment! You can check your order in the order list.");
+          toast.info("Waiting for payment! You can check your order in the order list.");
         },
         onError: (result) => {
           console.log("Payment failed:", result);
-          alert("Payment failed! Please try again.");
+          toast.error("Payment failed! Please try again.");
         },
         onClose: () => {
           console.log("Payment popup closed.");
-          alert("You closed the payment popup.");
+          toast.warning("You closed the payment popup. If you have paid, please check your order status.");
         },
       });
     }
-  }, [snapToken, router]);
+  }, [snapToken, router]);  
 
   const subtotal = cartItems.reduce((total, item) => total + item.productPrice * item.quantity, 0);
   const totalPrice = subtotal + shippingFee;
   const totalWeight = cartItems.reduce((total, item) => total + item.productWeight, 0);
+
+  const handleConfirmPayment = async () => {
+    if (!addressId) {
+      toast.error("Please select an address before proceeding with payment.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const orderData: OrderResponse = await placeOrder(shippingFee, addressId, selectedMethod, accessToken);
+      const orderId = orderData.id;
+      const transactionToken = orderData.transactionToken;
+      const selectedPayment = paymentMethods.find((method) => method.id === selectedMethod);
+      if (!selectedPayment) return;
+
+      if (selectedPayment.name === "Manual Bank Transfer") {
+        router.push(`/checkout/payment/manual/${orderId}`);
+      } else {
+        setShowPopup(false);
+        setSnapToken(transactionToken);
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -125,20 +126,16 @@ const CheckoutPage = () => {
       <main className="flex-1 container mx-auto p-6 mt-8 mb-8">
         <h1 className="text-3xl font-bold mb-4 text-black">Checkout</h1>
         {loading && <p>Loading cart items...</p>}
-        {error && <p className="text-red-500">{error}</p>}
-        {!loading && !error && cartItems.length === 0 && <p>Your cart is empty.</p>}
-        {!loading && !error && cartItems.length > 0 && (
+        {!loading && cartItems.length === 0 && <p>Your cart is empty.</p>}
+        {!loading && cartItems.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col md:col-span-2">
-              <AddressComponent
-                addressId={addressId}
-                setAddressId={setAddressId}
-                addressPostalCode={addressPostalCode}
-                setAddressPostalCode={setAddressPostalCode}
-                nearestWarehouse={nearestWarehouse}
-                setNearestWarehouse={setNearestWarehouse}
+              <AddressComponent 
+                addressId={addressId} setAddressId={setAddressId} 
+                addressPostalCode={addressPostalCode} setAddressPostalCode={setAddressPostalCode}
+                nearestWarehouse={nearestWarehouse} setNearestWarehouse={setNearestWarehouse} 
               />
-              <DeliveryService
+              <DeliveryServiceComponent
                 origin={nearestWarehouse?.subDistrictPostalCode ?? null}
                 destination={addressPostalCode ?? null}
                 weight={totalWeight || 0}
@@ -160,6 +157,35 @@ const CheckoutPage = () => {
         )}
       </main>
       <Footer />
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold text-black mb-4">Confirm Payment</h2>
+            <p className="text-gray-700 mb-4">
+              Once you proceed, you <b>cannot change</b>, add, or remove items, and you also
+              <b> cannot change the address</b> or payment method. Are you sure you want to continue?
+            </p>
+            <div className="flex justify-end gap-4">
+              <button
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-400"
+                onClick={() => setShowPopup(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className={`px-4 py-2 text-white font-bold rounded-lg w-full transition ${
+                  loading ? "bg-gray-400 cursor-not-allowed" : "bg-red-600 hover:bg-red-500"
+                }`}
+                onClick={handleConfirmPayment}
+                disabled={loading}
+              >
+                {loading ? "Processing..." : "Confirm & Pay"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

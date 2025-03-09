@@ -3,18 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/lib/utils/format";
-
-interface CartItem {
-  cartItemId: number;
-  productName: string;
-  productPrice: number;
-  quantity: number;
-  productPictures: { productPictureUrl: string; position: number } | null;
-}
-
-interface OrderSummaryProps {
-  cartItems: CartItem[];
-}
+import { OrderSummaryProps } from "@/types/order";
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ cartItems }) => {
   return (

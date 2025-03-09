@@ -1,44 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { getAccessToken } from "@/lib/utils/auth";
 import { IoIosPin } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
+import { Warehouse } from "@/types/warehouse";
+import { Address, AddressComponentProps } from "@/types/address";
+import { findNearestWarehouse } from "@/lib/utils/geolocationUtils";
+import { fetchAddresses } from "@/lib/utils/address";
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const accessToken = getAccessToken();
 
-interface Address {
-  addressId: number;
-  label: string;
-  addressDetail: string;
-  latitude: string;
-  longitude: string;
-  note?: string;
-  isMain: boolean;
-  addressPostalCode: string;
-}
-
-interface Warehouse {
-  id: number;
-  name: string;
-  address: string;
-  latitude: string;
-  longitude: string;
-  subDistrictPostalCode: string;
-}
-
-interface AddressComponentProps {
-  addressId: number | null;
-  setAddressId: (id: number) => void;
-  addressPostalCode: string | null;
-  setAddressPostalCode: (addressPostalCode: string) => void;
-  nearestWarehouse: Warehouse | null;
-  setNearestWarehouse: (warehouse: Warehouse | null) => void;
-}
-
 const AddressComponent: React.FC<AddressComponentProps> = ({ 
-  addressId, setAddressId, 
+  setAddressId, 
   addressPostalCode, setAddressPostalCode, 
   nearestWarehouse, setNearestWarehouse
 }) => {
@@ -49,50 +25,15 @@ const AddressComponent: React.FC<AddressComponentProps> = ({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchAddresses = async (attempt = 1) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/addresses`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-
-      const addressList = response.data?.data;
-      if (Array.isArray(addressList)) {
-        const mainAddress = addressList.find((addr: Address) => addr.isMain) || addressList[0];
-
-        if (mainAddress) {
-          console.log("Default Address ID:", mainAddress.id);
-          setDefaultAddress(mainAddress);
-          setAddressId(mainAddress.id);
-          setAddressPostalCode(mainAddress.addressPostalCode)
-        }
-        setAddresses(addressList);
-      } else {
-        throw new Error("Invalid API response format: 'data' is not an array");
-      }
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.message || err.message;
-      console.error("Failed to fetch addresses:", errorMessage);
-
-      if (errorMessage.includes("JDBC")) {
-        const retryDelay = Math.min(2 ** attempt * 1000, 30000);
-        console.warn(`Retrying fetchAddresses in ${retryDelay / 1000}s...`);
-        setTimeout(() => fetchAddresses(attempt + 1), retryDelay);
-      } else {
-        setError("Failed to fetch addresses");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchWarehouses = async (attempt = 1) => {
+  const fetchWarehouses = useCallback(async (attempt = 1) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/warehouses`);
       const warehouseList = response.data;
       setWarehouses(warehouseList);
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.message || err.message;
-      console.error("Failed to fetch warehouses:", errorMessage);
+    } catch (err: unknown) {
+      const errorMessage = axios.isAxiosError(err)
+        ? err.response?.data?.message || err.message
+        : "An unknown error occurred";
 
       if (errorMessage.includes("JDBC")) {
         const retryDelay = Math.min(2 ** attempt * 1000, 30000);
@@ -102,62 +43,32 @@ const AddressComponent: React.FC<AddressComponentProps> = ({
         setError("Failed to fetch warehouses");
       }
     }
-  };
-
-  const haversineDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-    const toRadians = (degree: number) => (degree * Math.PI) / 180;
-    const R = 6371; // Radius of the Earth in km
-    const dLat = toRadians(lat2 - lat1);
-    const dLon = toRadians(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in km
-  };
-
-  const findNearestWarehouse = () => {
-    if (!defaultAddress || warehouses.length === 0) return;
+  }, []);
   
-    const { latitude, longitude } = defaultAddress;
-    const userLat = parseFloat(latitude);
-    const userLon = parseFloat(longitude);
-  
-    let nearest: Warehouse | null = null;
-    let minDistance = Infinity;
-  
-    warehouses.forEach((warehouse: Warehouse) => {
-      const warehouseLat = parseFloat(warehouse.latitude);
-      const warehouseLon = parseFloat(warehouse.longitude);
-      const distance = haversineDistance(userLat, userLon, warehouseLat, warehouseLon);
-  
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearest = warehouse;
-      }
-    });
-  
-    if (nearest) {
-      setNearestWarehouse(nearest);
-    } else {
-      console.warn("No nearest warehouse found!");
-    }
-  };
-  
-
   useEffect(() => {
     if (!accessToken) return;
-    fetchAddresses();
-  }, [setAddressId]);
+    setLoading(true)
+    fetchAddresses(setDefaultAddress, setAddressId, setAddressPostalCode, setAddresses, setError);
+    setLoading(false)
+  }, [setAddressId, setAddressPostalCode, setAddresses, setError]);
 
   useEffect(() => {
     fetchWarehouses();
-  }, []);
+  }, [fetchWarehouses]);
 
+  const memoizedSetNearestWarehouse = useCallback((warehouse: Warehouse) => {
+    setNearestWarehouse(warehouse);
+  }, [setNearestWarehouse]);
+  
   useEffect(() => {
-    findNearestWarehouse();
-  }, [defaultAddress, warehouses]);
-
+    const nearest = findNearestWarehouse(defaultAddress, warehouses);
+    if (nearest) {
+      memoizedSetNearestWarehouse(nearest);
+    } else {
+      console.warn("No nearest warehouse found!");
+    }
+  }, [defaultAddress, warehouses, memoizedSetNearestWarehouse]);
+  
   useEffect(() => {
     console.log("Selected address postal code:", addressPostalCode);
   }, [addressPostalCode]);  
@@ -167,7 +78,7 @@ const AddressComponent: React.FC<AddressComponentProps> = ({
       setAddressId(defaultAddress.addressId);
       setAddressPostalCode(defaultAddress.addressPostalCode);
     }
-  }, [defaultAddress]);  
+  }, [defaultAddress, setAddressId, setAddressPostalCode]);  
 
   const handleChangeAddress = () => {
     setShowPopup(true);
@@ -214,8 +125,13 @@ const AddressComponent: React.FC<AddressComponentProps> = ({
 
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg w-96">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Address</h3>
+          <div className="bg-white p-6 rounded-lg w-full md:w-[700px]">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-gray-900">Select Address</h3>
+              <button onClick={() => setShowPopup(false)}>
+                <IoMdClose size={28} color="red"/>
+              </button>
+            </div>
             {addresses.map((address) => (
               <div key={address.addressId} className="p-3 border-b border-gray-300">
                 <div className="flex justify-between">

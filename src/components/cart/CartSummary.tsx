@@ -3,10 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "@/lib/utils/format";
-
-interface CartSummaryProps {
-  totalPrice: number;
-}
+import { CartSummaryProps } from "@/types/cart";
 
 const CartSummary: React.FC<CartSummaryProps> = ({ totalPrice }) => {
   const router = useRouter();

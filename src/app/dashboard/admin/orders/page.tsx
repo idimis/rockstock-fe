@@ -10,11 +10,12 @@ import { useRouter } from "next/navigation";
 import { Order, OrderFilterProps, OrderItem } from "@/types/order";
 import { Warehouse } from "@/types/warehouse";
 import { decodeToken } from "@/lib/utils/decodeToken";
-import { fetchOrders, fetchOrderItems, updateOrderStatus } from "@/services/orderService";
+import { fetchOrderItems, updateOrderStatus } from "@/services/orderService";
 import OrderDetailPopup from "@/components/orders/OrderDetailPopup";
-import OrderCard from "@/components/orders/OrderCard";
-import { fetchWarehouses } from "@/services/warehouseService";
+import { fetchWarehouses, fetchWHAdminWarehouses } from "@/services/warehouseService";
 import OrderFilter from "@/components/orders/OrderFilter";
+import AdminOrderCard from "@/components/orders/AdminOrderCard";
+import { fetchAndSetOrders, handleApprovePaymentProof, handleCancelOrder, handleDeliverOrder, handleOpenPaymentProof, handleRejectPaymentProof } from "@/lib/utils/order";
 
 const OrdersPage = () => {
   const router = useRouter();
@@ -24,8 +25,6 @@ const OrdersPage = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [isLoadingOrderItems, setIsLoadingOrderItems] = useState(false);
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
-
-  // Filters, Pagination & Sorting
   const [filters, setFilters] = useState<OrderFilterProps["filters"]>({ 
     status: null, 
     startDate: null, 
@@ -35,37 +34,36 @@ const OrdersPage = () => {
     sortOrder: "desc"
   });
   const [page, setPage] = useState(1);
-  const [size] = useState(10); // Default page size
+  const [size] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const accessToken = getAccessToken();
+  const decoded = accessToken ? decodeToken(accessToken) : null;
 
-  // Authorization
   useEffect(() => {
-    const accessToken = getAccessToken();
     if (!accessToken) {
       router.replace("/login");
       return;
     }
-    
-    const decoded = decodeToken(accessToken);
-    if (!decoded || decoded.roles === "Customer") {
+    if (!decoded || decoded?.roles === "Customer") {
       router.replace(decoded ? "/unauthorized" : "/login");
     }
-  }, [router]);
+  }, [router, accessToken, decoded]);
 
-  // Fetch Orders
   useEffect(() => {
-    fetchOrders(filters.status, page, size, `${filters.sortBy},${filters.sortOrder}`, filters.startDate, filters.endDate, filters.warehouseId)
-      .then(({ orders, totalPages }) => {
-        setOrders(orders);
-        setTotalPages(totalPages);
-      })
-      .catch(() => console.error("Failed to fetch orders"));
+    fetchAndSetOrders(filters, page, size, setOrders, setTotalPages);
   }, [filters, page, size]);
   
   useEffect(() => {
-    fetchWarehouses()
+    if (decoded?.roles === "Super Admin") {
+      fetchWarehouses()
       .then(({ warehouses }) => setWarehouses(warehouses))
       .catch(() => console.error("Failed to fetch warehouses"));
+    }
+    if (decoded?.roles === "Warehouse Admin") {
+      fetchWHAdminWarehouses()
+      .then(({ warehouses }) => setWarehouses(warehouses))
+      .catch(() => console.error("Failed to fetch warehouses"));
+    }
   }, []);
 
   const handleOpenOrderDetail = async (order: Order) => {
@@ -88,29 +86,6 @@ const OrdersPage = () => {
     setShowPopup(false);
   }
 
-  const handleUploadPaymentProof = (order: Order) => {
-    setSelectedOrder(order);
-    router.push(`/payments/manual/${order.orderId}`);
-  }
-
-  const handleCompleteOrder = async (order: Order) => {
-    try {
-      await updateOrderStatus({}, order.orderId, "COMPLETE");
-      console.log("Order completed successfully");
-    } catch {
-      console.error("Failed to complete the order");
-    }
-  }
-
-  const handleCancelOrder = async (order: Order) => {
-    try {
-      await updateOrderStatus({}, order.orderId, "CANCELED");
-      console.log("Order canceled successfully");
-    } catch {
-      console.error("Failed to cancel the order");
-    }
-  }
-
   return (
     <div>
       <Header />
@@ -122,27 +97,27 @@ const OrdersPage = () => {
             <h1 className="text-2xl font-semibold">My Orders</h1>
             <p>View and manage your past orders here.</p>
           </div>
-
           <OrderFilter filters={filters} setFilters={setFilters} setPage={setPage} warehouses={warehouses} />
-
-          {/* Order List */}
           <div>
             {orders.length > 0 ? (
               orders.map((order) => (
-                <OrderCard key={order.orderId} 
+                <AdminOrderCard key={order.orderId} 
+                  decoded={decoded}
                   order={order} 
                   onOpenDetail={handleOpenOrderDetail} 
-                  onUploadPaymentProof={handleUploadPaymentProof}
-                  onComplete={handleCompleteOrder}
-                  onCancel={handleCancelOrder} 
+                  onOpenPaymentProof={handleOpenPaymentProof}
+                  onRejectPaymentProof={() => handleRejectPaymentProof(order, filters, page, size, setOrders, setTotalPages)}
+                  onApprovePaymentProof={() => handleApprovePaymentProof(order, filters, page, size, setOrders, setTotalPages)}
+                  onDeliverOrder={() => handleDeliverOrder(order, filters, page, size, setOrders, setTotalPages)}
+                  onCancel={() => handleCancelOrder(order, filters, page, size, setOrders, setTotalPages)}
                 />
               ))
             ) : (
-              <p>There are no orders in this status!</p>
+              <div className="border p-4 my-2 w-full bg-white rounded-lg shadow mx-auto">
+                <p>There are no orders in this status!</p>
+              </div>
             )}
           </div>
-          
-          {/* Pagination */}
           <div className="flex justify-center mt-4">
             <button 
               disabled={page === 1} 
@@ -151,9 +126,7 @@ const OrdersPage = () => {
             >
               Previous
             </button>
-
             <span className="text-lg font-semibold px-4">{page} / {totalPages}</span>
-
             <button 
               disabled={page === totalPages} 
               onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
@@ -165,7 +138,6 @@ const OrdersPage = () => {
         </main>
       </div>
       <Footer />
-
       {showPopup && selectedOrder && (
         <OrderDetailPopup
           order={selectedOrder}

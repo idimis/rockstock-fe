@@ -8,8 +8,6 @@ import Navbar from "@/components/common/Navbar";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  console.log("Product ID:", id); // Log the product ID
-  const productId = Number(id); // Ensure it's a valid number
   
   const { product, loading } = useProductDetail(Number(id));
 

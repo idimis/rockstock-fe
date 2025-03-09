@@ -10,14 +10,7 @@ const UserSidebar = () => {
         <SidebarMenu 
           title="📦 My Orders" 
           links={[
-            { name: "View Orders", path: "/dashboard/user/my-orders" },
-            { name: "Track Order", path: "/dashboard/user/orders/track" }
-          ]}
-        />
-        <SidebarMenu 
-          title="🛒 Cart" 
-          links={[
-            { name: "View Cart", path: "/dashboard/user/cart" }
+            { name: "View Orders", path: "/dashboard/user/orders" }
           ]}
         />
         <SidebarMenu 

@@ -1,11 +1,6 @@
 import { useState } from "react";
 import AddToCartButton from "../buttons/AddToCartButton";
-
-interface QuantitySelectorProps {
-  productId: number;
-  totalStock: number;
-  price: number;
-}
+import { QuantitySelectorProps } from "@/types/product";
 
 const QuantitySelector: React.FC<QuantitySelectorProps> = ({ productId, totalStock, price }) => {
   const [quantity, setQuantity] = useState(1);

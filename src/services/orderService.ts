@@ -34,8 +34,8 @@ export const fetchOrders = async (
       orders: response.data?.data?.content || [],
       totalPages: response.data?.data?.totalPages || 1,
     };
-  } catch (err: any) {
-    const errorMessage = err.response?.data?.message || err.message;
+  } catch (err: unknown) {
+    const errorMessage = (err as unknown as { response?: { data?: { message?: string } } }).response?.data?.message || (err as Error).message;
     console.error("Error fetching orders:", errorMessage);
 
     if (errorMessage.includes("JDBC") && attempt <= 3) {
@@ -57,8 +57,8 @@ export const fetchOrderItems = async (orderId: number, attempt = 1): Promise<Ord
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return response.data?.data || [];
-  } catch (err: any) {
-    const errorMessage = err.response?.data?.message || err.message;
+  } catch (err: unknown) {
+    const errorMessage = (err as unknown as { response?: { data?: { message?: string } } }).response?.data?.message || (err as Error).message;
     console.error("Error fetching order items:", errorMessage);
 
     if (errorMessage.includes("JDBC")) {
@@ -73,9 +73,10 @@ export const fetchOrderItems = async (orderId: number, attempt = 1): Promise<Ord
 };
 
 export const updateOrderStatus = async (
-  data: any | {},
-  orderId: number, 
   status: string | null, 
+  data: object,
+  orderId?: number,
+  orderCode?: string,
   attempt = 1
 ): Promise<Order[]> => {
   try {
@@ -85,6 +86,7 @@ export const updateOrderStatus = async (
       {
         params: {
           orderId,
+          orderCode,
           newStatus: status,
         },
         headers: {
@@ -94,17 +96,42 @@ export const updateOrderStatus = async (
       }
     );
     return response.data?.data;
-  } catch (err: any) {
-    const errorMessage = err.response?.data?.message || err.message;
+  } catch (err: unknown) {
+    const errorMessage = (err as unknown as { response?: { data?: { message?: string } } }).response?.data?.message || (err as Error).message;
     console.error("Error updating order status:", errorMessage);
 
     if (errorMessage.includes("JDBC")) {
       const retryDelay = Math.min(2 ** attempt * 1000, 30000);
       console.warn(`Retrying updateOrderStatus in ${retryDelay / 1000}s...`);
       await new Promise((resolve) => setTimeout(resolve, retryDelay));
-      return updateOrderStatus(data, orderId, status, attempt + 1);
+      return updateOrderStatus(status, data, orderId, orderCode, attempt + 1);
     } else {
       throw new Error("Failed to update order status");
     }
   }
 }
+
+export const placeOrder = async (
+  shippingFee: number,
+  addressId: number | null,
+  selectedMethod: number | null,
+  accessToken: string | null
+) => {
+  if (!addressId) {
+    throw new Error("Please select an address before proceeding with payment.");
+  }
+
+  const response = await axios.post(
+    `${API_BASE_URL}/orders`,
+    {
+      deliveryCost: shippingFee,
+      addressId: addressId,
+      paymentMethodId: selectedMethod,
+    },
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }
+  );
+
+  return response.data?.data;
+};

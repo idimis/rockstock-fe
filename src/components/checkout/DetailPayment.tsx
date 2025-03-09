@@ -1,27 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { formatCurrency } from "@/lib/utils/format";
 import { getAccessToken } from "@/lib/utils/auth";
-
-interface PaymentMethod {
-  id: number;
-  name: string;
-}
-
-interface DetailPaymentProps {
-  subtotal: number;
-  shippingFee: number;
-  totalPrice: number;
-  onShowPopup: () => void;
-  paymentMethods: PaymentMethod[];
-  setPaymentMethods: React.Dispatch<React.SetStateAction<PaymentMethod[]>>;
-  selectedMethod: number | null;
-  setSelectedMethod: (id: number) => void;
-}
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { DetailPaymentProps } from "@/types/payment";
+import { toast } from "react-toastify";
+import { fetchPaymentMethods } from "@/services/paymentService";
 
 const DetailPayment: React.FC<DetailPaymentProps> = ({ 
   subtotal, 
@@ -34,46 +18,34 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
   setSelectedMethod 
 }) => {
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPaymentMethods = async (attempt = 1) => {
+    const getPaymentMethods = async () => {
+      const accessToken = getAccessToken();
+      if (!accessToken) {
+        setError("Authentication error. Please log in again.");
+        return;
+      }
+
       try {
-        const accessToken = getAccessToken(); // Fetch token dynamically inside the function
-        if (!accessToken) {
-          setError("Authentication error. Please log in again.");
-          return;
+        setLoading(true);
+        const paymentMethodData = await fetchPaymentMethods();
+        if (paymentMethodData) {
+          setPaymentMethods(paymentMethodData);
         }
-
-        const response = await axios.get<{ data: PaymentMethod[] }>(
-          `${API_BASE_URL}/payments/methods`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        setPaymentMethods(response.data.data);
-      } catch (err: unknown) {
-        if (axios.isAxiosError(err)) {
-          const errorMessage = err.response?.data?.message || err.message;
-          console.error("Error fetching payment methods:", errorMessage);
-
-          if (errorMessage.includes("JDBC")) {
-            const retryDelay = Math.min(2 ** attempt * 1000, 30000); // Exponential backoff (max 30s)
-            console.warn(`Retrying fetchPaymentMethods in ${retryDelay / 1000}s...`);
-            setTimeout(() => fetchPaymentMethods(attempt + 1), retryDelay);
-          } else {
-            setError("Failed to fetch payment methods.");
-          }
-        } else {
-          console.error("Unexpected error:", err);
-          setError("An unexpected error occurred.");
-        }
+        console.log("Payment Methods: ", paymentMethods);
+        
+      } catch (error) {
+        console.error("Error placing order:", error);
+        toast.error("Failed to place order. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchPaymentMethods();
-  }, [setPaymentMethods]);
+    getPaymentMethods();
+  }, [error, paymentMethods, setPaymentMethods]);
 
   const handlePayNow = () => {
     if (!selectedMethod) {
@@ -83,14 +55,14 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
     onShowPopup();
   };
 
-  if (error) return <p className="text-red-500">{error}</p>;
-
   return (
     <div className="flex flex-col justify-between w-full p-6 bg-white shadow-md rounded-lg">
       <div>
         <div className="mb-6 border-b border-gray-300 pb-2">
           <h3 className="text-xl font-semibold mb-4 text-black">Payment Methods</h3>
-          {paymentMethods.length > 0 ? (
+          {loading ? (
+            <p className="text-gray-500">Fetching payment methods...</p>
+          ) : paymentMethods.length > 0 ? (
             <div className="space-y-2">
               {paymentMethods.map((method) => (
                 <label key={method.id} className="flex items-center space-x-2 cursor-pointer">
@@ -107,7 +79,7 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">Loading payment methods...</p>
+            <p className="text-gray-500">No payment methods available.</p>
           )}
         </div>
 
@@ -127,7 +99,12 @@ const DetailPayment: React.FC<DetailPaymentProps> = ({
           <span>Total</span> {formatCurrency(totalPrice)}
         </p>
         <button
-          className="mt-4 px-6 py-4 bg-red-600 text-white text-xl font-bold rounded-lg hover:bg-red-500 w-full"
+          disabled={!selectedMethod}
+          className={`mt-4 px-6 py-4 text-white text-xl font-bold rounded-lg w-full ${
+            selectedMethod
+              ? "bg-red-600 hover:bg-red-500"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
           onClick={handlePayNow}
         >
           Pay Now

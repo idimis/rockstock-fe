@@ -1,20 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import axios, { AxiosError } from "axios";
-
-interface AddToCartButtonProps {
-  productId: number;
-  quantity: number;
-}
+import { AxiosError } from "axios";
+import { AddToCartButtonProps } from "@/types/cart";
+import { getAccessToken } from "@/lib/utils/auth";
+import { addToCart } from "@/services/cartService";
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productId, quantity }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
-
-  const accessToken = typeof window !== "undefined" ? localStorage.getItem("token") : null;
-
+  const accessToken = getAccessToken();
+  
   const handleAddToCart = async () => {
     if (!accessToken) {
       setError("Please log in to add items to the cart.");
@@ -25,37 +22,21 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productId, quantity }
     setError(null);
     setSuccess(false);
 
-    const payload = { productId, quantity };
-
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/carts/item`,
-        payload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
+      const response = await addToCart({ productId, quantity });
       if (response.status === 200) {
         setSuccess(true);
         window.dispatchEvent(new Event("storage"));
       }
     } catch (err: unknown) {
       const axiosError = err as AxiosError<{ message?: string }>;
-      console.error("Error adding to cart:", axiosError);
 
-      if (axiosError.response?.data?.message) {
-        setError(
-          axiosError.response.data.message === "Hit stock limit !"
-            ? "You've reached the stock limit for this product!"
-            : axiosError.response.data.message
-        );
-      } else {
-        setError("Failed to add item to cart. Please try again.");
-      }
+      console.error("Error adding to cart:", axiosError);
+      setError(
+        axiosError.response?.data?.message === "Hit stock limit !"
+          ? "You've reached the stock limit for this product!"
+          : axiosError.response?.data?.message || "Failed to add item to cart. Please try again."
+      );
     } finally {
       setLoading(false);
     }
