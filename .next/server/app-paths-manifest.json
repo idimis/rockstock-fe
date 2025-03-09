@@ -1,10 +1,7 @@
 {
-  "/dashboard/admin/products/draft/[productId]/page": "app/dashboard/admin/products/draft/[productId]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/dashboard/admin/products/page": "app/dashboard/admin/products/page.js",
   "/dashboard/admin/categories/page": "app/dashboard/admin/categories/page.js",
-  "/403/page": "app/403/page.js",
-  "/page": "app/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/login/page": "app/login/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/dashboard/user/page": "app/dashboard/user/page.js",
+  "/dashboard/admin/products/page": "app/dashboard/admin/products/page.js",
+  "/dashboard/admin/products/draft/[productId]/page": "app/dashboard/admin/products/draft/[productId]/page.js"
 }

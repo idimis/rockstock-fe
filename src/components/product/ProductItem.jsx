@@ -17,10 +17,8 @@ const ProductItem = ({ product, onEdit }) => {
       });
     },
     onSuccess: () => {
-      toast.success("Product deleted successfully!");
-      setTimeout(() => {
+      localStorage.setItem('toastMessage', 'Product deleted successfully!');
         window.location.reload();
-      }, 500);
     },
     onError: (error) => {
       const errorMessage = error.response?.data?.message || "Failed to delete product";
@@ -82,7 +80,7 @@ const ProductItem = ({ product, onEdit }) => {
       {/* Product Details */}
       <div className="flex-grow">
         <h3 className="text-xl font-bold text-gray-900">{product.productName}</h3>
-        <p className="text-sm text-blue-600">{product.productCategory}</p>
+        <p className="text-sm text-blue-600">{product.categoryName}</p>
         <p className="text-sm text-gray-700">Weight: {product.weight}g</p>
         <p className="text-sm font-semibold text-gray-900">Price: Rp {product.price.toLocaleString()}</p>
         <p className="text-md text-gray-700 mt-2">{product.detail}</p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useProducts } from "@/hooks/useProducts";
 import SkeletonRow from "@/components/product/SkeletonRow";
@@ -13,46 +13,55 @@ import { useCreateDraft } from "@/hooks/useCreateDraft";
 
 const ProductTable = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // Extract query parameters
   const currentPage = Number(searchParams.get("page")) || 1;
-  const searchQueryFromURL = searchParams.get("search") || "";
+  const searchQuery = searchParams.get("search") || "";
+  const categoryId = searchParams.get("category") ? Number(searchParams.get("category")) : null;
+  const sortField = searchParams.get("sortField") || "name";
+  const sortDirection = searchParams.get("sort") || "asc";
   const pageSize = 10;
+
   const createDraftMutation = useCreateDraft();
+  const { data, isLoading } = useProducts(currentPage, pageSize, searchQuery, categoryId !== null ? categoryId : undefined, sortField, sortDirection);
 
-  const [filters, setFilters] = useState({
-    category: "",
-    sortField: "name",
-    sortDirection: "asc",
-  });
+  const updateQueryParams = (params: Record<string, any>) => {
+    const query = new URLSearchParams(searchParams.toString());
 
-  const { data, isLoading } = useProducts(
-    currentPage,
-    pageSize,
-    searchQueryFromURL,
-    filters
-  );
+    Object.entries(params).forEach(([key, value]) => {
+      if (
+        value === null || 
+        value === "" ||
+        (key === "page" && value === 1) || // Remove page=1
+        (key === "sortField" && value === "name" && query.get("sort") === "asc") ||
+        (key === "sort" && value === "asc" && query.get("sortField") === "name")
+      ) {
+        query.delete(key);
+      } else {
+        query.set(key, String(value));
+      }
+    });
 
-  const [isFetching, setIsFetching] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-
-  useEffect(() => {
-    setIsFetching(isLoading);
-    console.log("Filters being sent to the backend:", filters);  // Log the filters object
-  }, [isLoading]);
-
-  const updatePage = (page: number) => {
-    setIsFetching(true);
-    window.location.href = `/dashboard/admin/products?page=${page}&search=${searchQueryFromURL}`;
+    router.push(`/dashboard/admin/products?${query.toString()}`);
   };
 
-  const handleFilterChange = (filters: any) => {
-    console.log("Filters updated:", filters);  // Log filters before updating state
-    setFilters(filters);
+  const handleSearch = (query: string) => {
+    updateQueryParams({ search: query, page: 1 });
   };
 
-  useEffect(() => {
-    console.log("Filters being sent to the backend:", filters);  // Log the filters object
-  }, [filters]);
+  const handlePageChange = (page: number) => {
+    updateQueryParams({ page });
+  };
+
+  const handleFilterChange = (filters: { category?: number | null; sortField?: string; sortDirection?: string }) => {
+    updateQueryParams({
+      category: filters.category ?? null,
+      sortField: filters.sortField || sortField,
+      sort: filters.sortDirection || sortDirection,
+      page: 1,
+    });
+  };
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg">
@@ -70,32 +79,33 @@ const ProductTable = () => {
           {createDraftMutation.isPending ? "Creating..." : "Create Draft Product"}
         </button>
       </div>
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+  {/* Filters Section (Aligned Left) */}
+  <ProductFilter
+    currentSortField={sortField}
+    currentSortDirection={sortDirection}
+    currentCategory={categoryId}
+    handleFilterChange={handleFilterChange}
+  />
 
-      {/* Search and Filters */}
-      <div className="flex justify-between items-center mb-6">
-        <ProductFilter handleFilterChange={handleFilterChange} />
-        <SearchBar basePath="/dashboard/admin/products" />
-      </div>
+  {/* Search Bar (Aligned Right) */}
+  <div className="w-full md:w-auto flex justify-end">
+    <SearchBar basePath="/dashboard/admin/products" onSearch={handleSearch} />
+  </div>
+</div>
 
       {/* Products List */}
       <div className="space-y-4 mt-6">
-        {isFetching ? (
+        {isLoading ? (
           Array.from({ length: 10 }).map((_, index) => <SkeletonRow key={index} />)
-        ) : (data?.content ?? []).length > 0 ? (
-          (data?.content ?? []).map((product) => (
-            <ProductItem 
-              key={product.productId}
-              product={product}
-              onEdit={() => {
-                setEditingProduct(product);
-                setIsModalOpen(true);
-              }}
-            />
-          ))
         ) : (
-          !isFetching && (
+          (data?.content ?? []).length > 0 ? (
+            (data?.content ?? []).map((product: Product) => (
+              <ProductItem key={product.productId} product={product} onEdit={() => {}} />
+            ))
+          ) : (
             <div className="text-center text-gray-500 mt-4">
-              {searchQueryFromURL ? `No products found for "${searchQueryFromURL}"` : "No products available"}
+              {searchQuery ? `No products found for "${searchQuery}"` : "No products available"}
             </div>
           )
         )}
@@ -105,7 +115,7 @@ const ProductTable = () => {
       <Pagination
         currentPage={currentPage}
         totalPages={data?.totalPages ?? 1}
-        onPageChange={updatePage} 
+        onPageChange={handlePageChange}
         basePath={"/dashboard/admin/products"}
       />
     </div>

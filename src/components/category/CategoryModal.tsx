@@ -6,23 +6,17 @@ import axiosInstance from "@/utils/axiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AxiosError, AxiosResponse } from "axios";
-import { Category, ApiErrorResponse } from "@/types/category";
-
-interface CategoryFormValues {
-  categoryName: string;
-  file: File | null;
-}
+import { Category, ApiErrorResponse, CategoryFormData } from "@/types/product";
 
 const CategoryModal: React.FC<{ 
   isOpen: boolean; 
   onClose: () => void; 
-  category?: Category | null; // ✅ Now it allows null
+  category?: Category | null;
 }> = ({ isOpen, onClose, category }) => {
   const queryClient = useQueryClient();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
 
-  // ✅ Update Form Schema (file is optional when editing)
   const categorySchema = Yup.object().shape({
     categoryName: Yup.string()
       .required("Category name is required")
@@ -37,15 +31,13 @@ const CategoryModal: React.FC<{
       }),
   });
 
-  // ✅ Pre-fill data when editing
   useEffect(() => {
     if (category) {
       setImagePreview(category.categoryPicture || null);
     }
   }, [category]);
 
-  // ✅ Create or Update API Call
-  const handleSubmit = async (values: CategoryFormValues): Promise<AxiosResponse<Category>> => {
+  const handleSubmit = async (values: CategoryFormData): Promise<AxiosResponse<Category>> => {
     const formData = new FormData();
     formData.append("categoryName", values.categoryName);
     if (values.file) {
@@ -53,12 +45,10 @@ const CategoryModal: React.FC<{
     }
 
     if (category) {
-      // ✅ Edit mode (Update category)
       return axiosInstance.patch(`/categories/${category.categoryId}/update`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
     } else {
-      // ✅ Create mode (New category)
       return axiosInstance.post("/categories/create", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -68,7 +58,7 @@ const CategoryModal: React.FC<{
   const mutation = useMutation<
     AxiosResponse<Category>,
     AxiosError<ApiErrorResponse>, 
-    CategoryFormValues
+    CategoryFormData
   >({
     mutationFn: handleSubmit,
     onSuccess: () => {
@@ -77,7 +67,6 @@ const CategoryModal: React.FC<{
       onClose();
     },
     onError: (error) => {
-      // Safely extract the error message
       const errorMessage =
         (error.response?.data as { message?: string })?.message || "Something went wrong";
         
@@ -92,7 +81,7 @@ const CategoryModal: React.FC<{
           <h2 className="text-xl font-semibold mb-4">
             {category ? "Edit Category" : "Create Category"}
           </h2>
-          <Formik<CategoryFormValues>
+          <Formik<CategoryFormData>
             initialValues={{ 
               categoryName: category?.categoryName || "", 
               file: null 
@@ -129,6 +118,7 @@ const CategoryModal: React.FC<{
                       const file = event.currentTarget.files?.[0] || null;
                       setFieldValue("file", file);
                       setImagePreview(file ? URL.createObjectURL(file) : category?.categoryPicture || null);
+                      toast.success("Picture uploaded succesfully");
                     }}
                     className="border p-2 w-full"
                   />

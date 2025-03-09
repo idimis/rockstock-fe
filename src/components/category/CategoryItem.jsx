@@ -4,12 +4,10 @@ import { MdEdit, MdDelete } from "react-icons/md";
 import axiosInstance from "@/utils/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const CategoryItem = ({ category, onEdit }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false); // ✅ State for modal
 
-  // ✅ Mutation for deleting category
   const deleteMutation = useMutation({
     mutationFn: async () => {
       return axiosInstance.patch(`/categories/${category.categoryId}/delete`, {
@@ -59,7 +57,6 @@ const CategoryItem = ({ category, onEdit }) => {
         </button>
       </div>
 
-      {/* ✅ Confirmation Modal */}
       {isConfirmOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
@@ -69,14 +66,14 @@ const CategoryItem = ({ category, onEdit }) => {
             <div className="flex justify-center gap-4 mt-4">
               <button
                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                onClick={() => deleteMutation.mutate()} // ✅ Confirm delete
-                disabled={deleteMutation.isPending} // Disable while deleting
+                onClick={() => deleteMutation.mutate()}
+                disabled={deleteMutation.isPending}
               >
                 {deleteMutation.isPending ? "Deleting..." : "Confirm"}
               </button>
               <button
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
-                onClick={() => setIsConfirmOpen(false)} // ✅ Cancel
+                onClick={() => setIsConfirmOpen(false)}
               >
                 Cancel
               </button>

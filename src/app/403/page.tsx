@@ -8,7 +8,7 @@ const ForbiddenPage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push("/"); // Redirect home after 3 seconds
+      router.push("/");
     }, 3000);
   }, [router]);
 

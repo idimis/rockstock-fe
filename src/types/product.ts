@@ -7,7 +7,7 @@ export interface Product {
   price: number;
   weight: number;
   totalStock: number;
-  productCategory: string;
+  categoryName: string;
   productPictures: { productPictureUrl: string; position: number }[] | null;
   status: ProductStatus;
 }

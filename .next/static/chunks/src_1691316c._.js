@@ -394,7 +394,6 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
     const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQueryClient"])();
     const [imagePreview, setImagePreview] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [serverError, setServerError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    // ✅ Update Form Schema (file is optional when editing)
     const categorySchema = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$yup$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["object"])().shape({
         categoryName: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$yup$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["string"])().required("Category name is required").min(3, "Must be at least 3 characters"),
         file: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$yup$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["mixed"])().nullable().test("fileType", "Only jpg, jpeg, png, gif allowed", (value)=>{
@@ -407,7 +406,6 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
             return value instanceof File ? value.size <= 1024 * 1024 : true;
         })
     });
-    // ✅ Pre-fill data when editing
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CategoryModal.useEffect": ()=>{
             if (category) {
@@ -417,7 +415,6 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
     }["CategoryModal.useEffect"], [
         category
     ]);
-    // ✅ Create or Update API Call
     const handleSubmit = async (values)=>{
         const formData = new FormData();
         formData.append("categoryName", values.categoryName);
@@ -425,14 +422,12 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
             formData.append("file", values.file);
         }
         if (category) {
-            // ✅ Edit mode (Update category)
             return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].patch(`/categories/${category.categoryId}/update`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
             });
         } else {
-            // ✅ Create mode (New category)
             return __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/categories/create", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -455,7 +450,6 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
         }["CategoryModal.useMutation[mutation]"],
         onError: {
             "CategoryModal.useMutation[mutation]": (error)=>{
-                // Safely extract the error message
                 const errorMessage = error.response?.data?.message || "Something went wrong";
                 setServerError(errorMessage);
             }
@@ -471,7 +465,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                     children: category ? "Edit Category" : "Create Category"
                 }, void 0, false, {
                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                    lineNumber: 92,
+                    lineNumber: 81,
                     columnNumber: 11
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Formik"], {
@@ -502,7 +496,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             children: "Category Name"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 118,
+                                            lineNumber: 107,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Field"], {
@@ -510,7 +504,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             className: "border p-2 w-full"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 108,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ErrorMessage"], {
@@ -519,13 +513,13 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             className: "text-red-500 text-sm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 120,
+                                            lineNumber: 109,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                    lineNumber: 117,
+                                    lineNumber: 106,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -536,7 +530,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             children: "Upload Image"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 124,
+                                            lineNumber: 113,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -546,11 +540,12 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                                 const file = event.currentTarget.files?.[0] || null;
                                                 setFieldValue("file", file);
                                                 setImagePreview(file ? URL.createObjectURL(file) : category?.categoryPicture || null);
+                                                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Picture uploaded succesfully");
                                             },
                                             className: "border p-2 w-full"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 125,
+                                            lineNumber: 114,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$formik$2f$dist$2f$formik$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ErrorMessage"], {
@@ -559,7 +554,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             className: "text-red-500 text-sm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 135,
+                                            lineNumber: 125,
                                             columnNumber: 19
                                         }, this),
                                         imagePreview && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -568,13 +563,13 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             className: "mt-2 w-full h-32 object-cover"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 136,
+                                            lineNumber: 126,
                                             columnNumber: 36
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                    lineNumber: 123,
+                                    lineNumber: 112,
                                     columnNumber: 17
                                 }, this),
                                 serverError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -582,7 +577,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                     children: serverError
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 129,
                                     columnNumber: 33
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -595,7 +590,7 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             children: isSubmitting ? category ? "Updating..." : "Creating..." : category ? "Update" : "Create"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 142,
+                                            lineNumber: 132,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -610,35 +605,35 @@ const CategoryModal = ({ isOpen, onClose, category })=>{
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                            lineNumber: 149,
+                                            lineNumber: 139,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                                    lineNumber: 141,
+                                    lineNumber: 131,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/category/CategoryModal.tsx",
-                            lineNumber: 116,
+                            lineNumber: 105,
                             columnNumber: 15
                         }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/category/CategoryModal.tsx",
-                    lineNumber: 95,
+                    lineNumber: 84,
                     columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/category/CategoryModal.tsx",
-            lineNumber: 91,
+            lineNumber: 80,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/category/CategoryModal.tsx",
-        lineNumber: 90,
+        lineNumber: 79,
         columnNumber: 7
     }, this);
 };
@@ -679,11 +674,9 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-;
 const CategoryItem = ({ category, onEdit })=>{
     _s();
     const [isConfirmOpen, setIsConfirmOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false); // ✅ State for modal
-    // ✅ Mutation for deleting category
     const deleteMutation = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMutation"])({
         mutationFn: {
             "CategoryItem.useMutation[deleteMutation]": async ()=>{
@@ -725,12 +718,12 @@ const CategoryItem = ({ category, onEdit })=>{
                             className: "object-cover rounded-lg"
                         }, void 0, false, {
                             fileName: "[project]/src/components/category/CategoryItem.jsx",
-                            lineNumber: 35,
+                            lineNumber: 33,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/category/CategoryItem.jsx",
-                        lineNumber: 34,
+                        lineNumber: 32,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -738,13 +731,13 @@ const CategoryItem = ({ category, onEdit })=>{
                         children: category.categoryName
                     }, void 0, false, {
                         fileName: "[project]/src/components/category/CategoryItem.jsx",
-                        lineNumber: 43,
+                        lineNumber: 41,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                lineNumber: 33,
+                lineNumber: 31,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -758,7 +751,7 @@ const CategoryItem = ({ category, onEdit })=>{
                                 className: "text-xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                lineNumber: 50,
+                                lineNumber: 48,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -766,13 +759,13 @@ const CategoryItem = ({ category, onEdit })=>{
                                 children: "Edit"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                lineNumber: 51,
+                                lineNumber: 49,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/category/CategoryItem.jsx",
-                        lineNumber: 46,
+                        lineNumber: 44,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -783,7 +776,7 @@ const CategoryItem = ({ category, onEdit })=>{
                                 className: "text-xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                lineNumber: 57,
+                                lineNumber: 55,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -791,19 +784,19 @@ const CategoryItem = ({ category, onEdit })=>{
                                 children: "Delete"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                lineNumber: 58,
+                                lineNumber: 56,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/category/CategoryItem.jsx",
-                        lineNumber: 53,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                lineNumber: 45,
+                lineNumber: 43,
                 columnNumber: 7
             }, this),
             isConfirmOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -816,7 +809,7 @@ const CategoryItem = ({ category, onEdit })=>{
                             children: "Do you really want to delete this category?"
                         }, void 0, false, {
                             fileName: "[project]/src/components/category/CategoryItem.jsx",
-                            lineNumber: 66,
+                            lineNumber: 63,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -829,7 +822,7 @@ const CategoryItem = ({ category, onEdit })=>{
                                     children: deleteMutation.isPending ? "Deleting..." : "Confirm"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                    lineNumber: 70,
+                                    lineNumber: 67,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -838,30 +831,30 @@ const CategoryItem = ({ category, onEdit })=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/category/CategoryItem.jsx",
-                                    lineNumber: 77,
+                                    lineNumber: 74,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/category/CategoryItem.jsx",
-                            lineNumber: 69,
+                            lineNumber: 66,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/category/CategoryItem.jsx",
-                    lineNumber: 65,
+                    lineNumber: 62,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/category/CategoryItem.jsx",
-                lineNumber: 64,
+                lineNumber: 61,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/category/CategoryItem.jsx",
-        lineNumber: 32,
+        lineNumber: 30,
         columnNumber: 5
     }, this);
 };
@@ -2299,9 +2292,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/common/Header.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/common/Navbar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-toastify/dist/index.mjs [app-client] (ecmascript)"); // ✅ Import ToastContainer
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-toastify/dist/index.mjs [app-client] (ecmascript)");
 "use client";
-;
 ;
 ;
 ;
@@ -2315,18 +2307,17 @@ const AdminCategory = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ToastContainer"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                lineNumber: 14,
+                lineNumber: 13,
                 columnNumber: 7
             }, this),
-            "  ",
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                lineNumber: 17,
+                lineNumber: 16,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                lineNumber: 20,
+                lineNumber: 19,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2334,36 +2325,36 @@ const AdminCategory = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                        lineNumber: 24,
+                        lineNumber: 23,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                         className: "flex-grow p-6 shadow-md",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$category$2f$CategoryTable$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                            lineNumber: 28,
+                            lineNumber: 27,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                        lineNumber: 26,
+                        lineNumber: 25,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                lineNumber: 22,
+                lineNumber: 21,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-                lineNumber: 33,
+                lineNumber: 32,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/categories/page.tsx",
-        lineNumber: 13,
+        lineNumber: 12,
         columnNumber: 5
     }, this);
 };

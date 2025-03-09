@@ -220,11 +220,14 @@ const ProductDraftForm = ()=>{
         null,
         null,
         null
-    ]); // Track picture state locally
+    ]);
+    const [isUnauthorized, setIsUnauthorized] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showCancelModal, setShowCancelModal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const fetchProducts = async ()=>{
         try {
             const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`/products/${productId}`);
-            setProductData(response.data); // Update the product data including pictures
+            const product = response.data;
+            setProductData(product);
         } catch (error) {
             console.error("Error fetching product data:", error);
         }
@@ -278,8 +281,9 @@ const ProductDraftForm = ()=>{
                 const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get(`/products/${productId}`);
                 setProductData(response.data);
                 router.push("/dashboard/admin/products");
+                localStorage.setItem('toastMessage', 'Product created successfully!');
             } catch (error) {
-                console.error("Error creating product:", error);
+                localStorage.setItem('toastMessage', 'Failed to create product');
             } finally{
                 setSubmitting(false);
             }
@@ -325,9 +329,9 @@ const ProductDraftForm = ()=>{
                 const newPictures = [
                     ...localProductPictures
                 ];
-                newPictures[position - 1] = URL.createObjectURL(file); // Temporarily set the uploaded image URL
-                setLocalProductPictures(newPictures); // Update local state
-                formik.setFieldValue("productPictures", newPictures); // Update Formik state
+                newPictures[position - 1] = URL.createObjectURL(file);
+                setLocalProductPictures(newPictures);
+                formik.setFieldValue("productPictures", newPictures);
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].success("Picture uploaded successfully!");
             } catch (error) {
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Failed to upload picture");
@@ -354,18 +358,45 @@ const ProductDraftForm = ()=>{
         }
     };
     const handleSaveDraft = async ()=>{
-        await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].patch(`/products/${productId}/draft`, formik.values);
-        router.push("/dashboard/admin/products");
+        try {
+            const draftValues = {
+                ...formik.values,
+                categoryId: formik.values.productCategory
+            };
+            const { productCategory, ...finalValues } = draftValues;
+            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].patch(`/products/${productId}/draft`, finalValues);
+            router.push("/dashboard/admin/products");
+            localStorage.setItem('toastMessage', 'Draft saved successfully!');
+        } catch (error) {
+            localStorage.setItem('toastMessage', 'Failed to save draft');
+        }
+    };
+    const handleCancel = ()=>{
+        setShowCancelModal(true);
+    };
+    const handleDeleteProduct = async ()=>{
+        try {
+            await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].delete(`/products/${productId}/delete`);
+            router.push("/dashboard/admin/products");
+            localStorage.setItem('toastMessage', 'Draft deleted successfully!');
+        } catch (error) {
+            localStorage.setItem('toastMessage', 'Failed to delete the draft');
+        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "p-6 bg-white shadow-md rounded-lg",
         children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ToastContainer"], {}, void 0, false, {
+                fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                lineNumber: 208,
+                columnNumber: 7
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                 className: "text-3xl font-semibold mb-4",
                 children: "📝 Edit Draft Product"
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                lineNumber: 183,
+                lineNumber: 209,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -379,7 +410,7 @@ const ProductDraftForm = ()=>{
                                 children: "Product Name"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 188,
+                                lineNumber: 214,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -388,7 +419,7 @@ const ProductDraftForm = ()=>{
                                 ...formik.getFieldProps("productName")
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 189,
+                                lineNumber: 215,
                                 columnNumber: 11
                             }, this),
                             formik.touched.productName && formik.errors.productName && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -396,13 +427,13 @@ const ProductDraftForm = ()=>{
                                 children: formik.errors.productName
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 195,
+                                lineNumber: 221,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 187,
+                        lineNumber: 213,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -412,7 +443,7 @@ const ProductDraftForm = ()=>{
                                 children: "Detail"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 201,
+                                lineNumber: 227,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -420,7 +451,7 @@ const ProductDraftForm = ()=>{
                                 ...formik.getFieldProps("detail")
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 228,
                                 columnNumber: 11
                             }, this),
                             formik.touched.detail && formik.errors.detail && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -428,13 +459,13 @@ const ProductDraftForm = ()=>{
                                 children: formik.errors.detail
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 204,
+                                lineNumber: 230,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 200,
+                        lineNumber: 226,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -444,7 +475,7 @@ const ProductDraftForm = ()=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 210,
+                                lineNumber: 236,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -455,7 +486,7 @@ const ProductDraftForm = ()=>{
                                         children: "Rp."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                        lineNumber: 212,
+                                        lineNumber: 238,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -468,13 +499,13 @@ const ProductDraftForm = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                        lineNumber: 213,
+                                        lineNumber: 239,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 211,
+                                lineNumber: 237,
                                 columnNumber: 11
                             }, this),
                             formik.touched.price && formik.errors.price && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -482,13 +513,13 @@ const ProductDraftForm = ()=>{
                                 children: formik.errors.price
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 224,
+                                lineNumber: 250,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 209,
+                        lineNumber: 235,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -498,7 +529,7 @@ const ProductDraftForm = ()=>{
                                 children: "Weight"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 230,
+                                lineNumber: 256,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -514,7 +545,7 @@ const ProductDraftForm = ()=>{
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 258,
                                         columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -522,13 +553,13 @@ const ProductDraftForm = ()=>{
                                         children: "grams"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                        lineNumber: 241,
+                                        lineNumber: 267,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 231,
+                                lineNumber: 257,
                                 columnNumber: 11
                             }, this),
                             formik.touched.weight && formik.errors.weight && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -536,13 +567,13 @@ const ProductDraftForm = ()=>{
                                 children: formik.errors.weight
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 244,
+                                lineNumber: 270,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 229,
+                        lineNumber: 255,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -552,14 +583,14 @@ const ProductDraftForm = ()=>{
                                 children: "Category"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 250,
+                                lineNumber: 276,
                                 columnNumber: 11
                             }, this),
                             isLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "p-2 border rounded bg-gray-200 animate-pulse h-10 w-full"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 253,
+                                lineNumber: 279,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$select$2f$dist$2f$react$2d$select$2e$esm$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"], {
                                 options: categoryData?.content?.map((cat)=>({
@@ -570,13 +601,13 @@ const ProductDraftForm = ()=>{
                                         value: cat.categoryId,
                                         label: cat.categoryName
                                     }))?.find((option)=>option.value === Number(formik.values.productCategory)) || null,
-                                onChange: (selectedOption)=>formik.setFieldValue("productCategory", selectedOption?.value),
+                                onChange: (selectedOption)=>formik.setFieldValue("productCategory", selectedOption?.value || ""),
                                 isSearchable: true,
                                 isDisabled: !categoryData?.content,
                                 className: "text-gray-500"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 255,
+                                lineNumber: 281,
                                 columnNumber: 13
                             }, this),
                             formik.touched.productCategory && formik.errors.productCategory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -584,13 +615,13 @@ const ProductDraftForm = ()=>{
                                 children: formik.errors.productCategory
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 273,
+                                lineNumber: 299,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 249,
+                        lineNumber: 275,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -600,13 +631,13 @@ const ProductDraftForm = ()=>{
                                 children: "Product Pictures"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 279,
-                                columnNumber: 9
+                                lineNumber: 305,
+                                columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex flex-wrap gap-2 md:flex-nowrap",
+                                className: "flex flex-col md:flex-row gap-4",
                                 children: localProductPictures.map((pic, position)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "relative w-24 h-24 border rounded flex items-center justify-center bg-gray-100",
+                                        className: "relative w-56 h-40 border rounded flex items-center justify-center bg-gray-100",
                                         children: pic ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -615,8 +646,8 @@ const ProductDraftForm = ()=>{
                                                     className: "w-full h-full object-cover rounded"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                                    lineNumber: 285,
-                                                    columnNumber: 19
+                                                    lineNumber: 311,
+                                                    columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     type: "button",
@@ -627,13 +658,13 @@ const ProductDraftForm = ()=>{
                                                         className: "w-5 h-5"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                                        lineNumber: 298,
-                                                        columnNumber: 21
+                                                        lineNumber: 324,
+                                                        columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                                    lineNumber: 290,
-                                                    columnNumber: 19
+                                                    lineNumber: 316,
+                                                    columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -645,29 +676,29 @@ const ProductDraftForm = ()=>{
                                                 className: "w-6 h-6"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                                lineNumber: 310,
-                                                columnNumber: 19
+                                                lineNumber: 336,
+                                                columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                            lineNumber: 302,
-                                            columnNumber: 17
+                                            lineNumber: 328,
+                                            columnNumber: 19
                                         }, this)
                                     }, position, false, {
                                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                        lineNumber: 282,
-                                        columnNumber: 13
+                                        lineNumber: 308,
+                                        columnNumber: 15
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 280,
-                                columnNumber: 9
+                                lineNumber: 306,
+                                columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 278,
-                        columnNumber: 7
+                        lineNumber: 304,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex space-x-4",
@@ -675,39 +706,92 @@ const ProductDraftForm = ()=>{
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "submit",
                                 className: "bg-blue-500 text-white px-4 py-2 rounded",
-                                disabled: isSubmitting,
+                                disabled: isSubmitting || !formik.isValid || !formik.dirty,
                                 children: isSubmitting ? "Creating..." : "Create Product"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 321,
+                                lineNumber: 346,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "button",
-                                onClick: handleSaveDraft,
-                                className: "bg-gray-500 text-white px-4 py-2 rounded",
-                                children: "Save Draft"
+                                onClick: handleCancel,
+                                className: "bg-red-500 text-white px-4 py-2 rounded",
+                                children: "Cancel"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                                lineNumber: 324,
+                                lineNumber: 355,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                        lineNumber: 320,
+                        lineNumber: 344,
                         columnNumber: 9
+                    }, this),
+                    showCancelModal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "fixed inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center z-50",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "bg-white p-6 rounded-lg shadow-xl w-96",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                    className: "text-xl font-semibold mb-4",
+                                    children: "Do you want to save your draft?"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                                    lineNumber: 368,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    type: "button" // Prevent form submission
+                                    ,
+                                    onClick: handleSaveDraft,
+                                    className: "bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 w-full mb-3",
+                                    children: "Save Draft"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                                    lineNumber: 371,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleDeleteProduct,
+                                    className: "bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full mb-3",
+                                    children: "No, Delete Product"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                                    lineNumber: 380,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setShowCancelModal(false),
+                                    className: "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full",
+                                    children: "Cancel"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                                    lineNumber: 388,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                            lineNumber: 367,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
+                        lineNumber: 366,
+                        columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-                lineNumber: 185,
+                lineNumber: 211,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/products/draft/[productId]/page.tsx",
-        lineNumber: 182,
+        lineNumber: 207,
         columnNumber: 5
     }, this);
 };

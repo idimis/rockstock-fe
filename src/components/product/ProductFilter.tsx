@@ -4,14 +4,22 @@ import { Category } from "@/types/category";
 import axiosInstance from "@/utils/axiosInstance";
 import { useEffect, useState } from "react";
 import Select from "react-select";
-import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai"; // Importing icons for ascending/descending
+import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+import { IoClose } from "react-icons/io5"; // ✖ Clear Icon
 
-const ProductFilter = ({ handleFilterChange }: { handleFilterChange: (filters: any) => void }) => {
-  const [categories, setCategories] = useState<Category[] | undefined>(undefined);
-  const [sortField, setSortField] = useState("name"); // Default sorting by name
-  const [sortDirection, setSortDirection] = useState("asc"); // Default ascending order
+const ProductFilter = ({
+  currentSortField,
+  currentSortDirection,
+  currentCategory,
+  handleFilterChange,
+}: {
+  currentSortField: string;
+  currentSortDirection: string;
+  currentCategory?: number | null;
+  handleFilterChange: (filters: { category: number | null; sortField?: string; sortDirection?: string }) => void;
+}) => {
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  // Fetch categories on component mount
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -24,70 +32,91 @@ const ProductFilter = ({ handleFilterChange }: { handleFilterChange: (filters: a
     fetchCategories();
   }, []);
 
-  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const [field, order] = e.target.value.split("-");
-    setSortField(field);
-    setSortDirection(order);
-    handleFilterChange({ sortField: field, sortDirection: order });
+  const clearCategory = () => {
+    handleFilterChange({ category: null });
   };
 
-  const handlesortDirectionToggle = (order: string) => {
-    if (sortDirection !== order) {
-      setSortDirection(order);
-      handleFilterChange({ sortField, sortDirection: order });
-    }
-  };
+  // Add "All Categories" option
+  const categoryOptions = [
+    { value: null, label: "All Categories" },
+    ...categories.map((category) => ({
+      value: category.categoryId,
+      label: category.categoryName,
+    })),
+  ];
 
   return (
-    <div className="flex justify-between items-center space-x-4 mt-6">
-      {/* Category Filter */}
-      <div className="w-64">
-        {/* Render the Select if categories are available */}
-        {categories && categories.length > 0 ? (
-          <Select
-            options={categories?.map((category) => ({
-              value: category.categoryId, // Use categoryId as the value
-              label: category.categoryName, // Display categoryName as the label
-            }))}
-            className="text-gray-500"
-            placeholder="Select category"
-            isSearchable
-            onChange={(selectedOption) => {
-              const selectedCategory = selectedOption ? selectedOption.value : "";
-              console.log("Selected Category:", selectedCategory);  // Log selected category
-              handleFilterChange({ category: selectedCategory, sortField, sortDirection });
-            }}
-          />
-        ) : (
-          <p>No categories available</p>  // Show message if categories are empty or undefined
-        )}
+    <div className="flex flex-col md:flex-row md:items-center md:space-x-2 gap-4 mt-6">
+      {/* Category Filter (Left) */}
+      <div className="relative w-full md:w-64">
+        <Select
+          options={categoryOptions}
+          className="text-gray-500"
+          placeholder="All Categories"
+          isSearchable
+          value={categoryOptions.find((c) => c.value === currentCategory) || categoryOptions[0]} // Defaults to "All Categories"
+          onChange={(selectedOption) => {
+            handleFilterChange({ 
+              category: selectedOption?.value ?? null,
+              sortField: "name",
+              sortDirection: "asc",
+            });
+          }}
+        />
       </div>
 
-      {/* Sorting Filter by Name */}
-      <div className="w-64">
-        <select
-          value={`${sortField}-${sortDirection}`}
-          onChange={handleSortChange}
-          className="border p-2 rounded w-full text-gray-500"
-        >
-          <option value="productName-asc">Name</option>
-          <option value="price-asc">Price</option>
-        </select>
+      {/* Sorting Filter (Middle) */}
+      <div className="relative w-full md:w-64">
+        <Select
+          options={[
+            { value: "name", label: "Sort by Name" },
+            { value: "price", label: "Sort by Price" },
+          ]}
+          className="text-gray-500"
+          placeholder="Sort by"
+          isSearchable={false}
+          value={
+            currentSortField
+              ? { value: currentSortField, label: `Sort by ${currentSortField.charAt(0).toUpperCase() + currentSortField.slice(1)}` }
+              : null
+          }
+          onChange={(selectedOption) => {
+            handleFilterChange({
+              sortField: selectedOption?.value || "name",
+              sortDirection: "asc",
+              category: currentCategory ?? null,
+            });
+          }}
+        />
       </div>
 
-      {/* Ascending/Descending Toggle */}
+      {/* Sort Direction (Right) */}
       <div className="flex space-x-2">
         <button
-          onClick={() => handlesortDirectionToggle("asc")}
-          className={`p-2 rounded ${sortDirection === "asc" ? "bg-gray-200" : ""}`}
+          onClick={() =>
+            handleFilterChange({
+              sortDirection: "asc",
+              category: currentCategory ?? null,
+            })
+          }
+          className={`p-1 rounded transition ${
+            currentSortDirection === "asc" ? "bg-gray-400 text-white" : "text-gray-600 hover:bg-gray-300"
+          }`}
         >
-          <AiOutlineArrowUp className="text-gray-500" />
+          <AiOutlineArrowUp className="h-5 w-5" />
         </button>
         <button
-          onClick={() => handlesortDirectionToggle("desc")}
-          className={`p-2 rounded ${sortDirection === "desc" ? "bg-gray-200" : ""}`}
+          onClick={() =>
+            handleFilterChange({
+              sortDirection: "desc",
+              category: currentCategory ?? null,
+            })
+          }
+          className={`p-1 rounded transition ${
+            currentSortDirection === "desc" ? "bg-gray-400 text-white" : "text-gray-600 hover:bg-gray-300"
+          }`}
         >
-          <AiOutlineArrowDown className="text-gray-500" />
+          <AiOutlineArrowDown className="h-5 w-5" />
         </button>
       </div>
     </div>

@@ -1264,7 +1264,7 @@ var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
-const useProducts = (page, pageSize, searchQuery, filters)=>{
+const useProducts = (page, pageSize, searchQuery, categoryId, sortField = "name", sortDirection = "asc")=>{
     _s();
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"])({
         queryKey: [
@@ -1272,19 +1272,19 @@ const useProducts = (page, pageSize, searchQuery, filters)=>{
             page,
             pageSize,
             searchQuery,
-            filters
+            categoryId,
+            sortField,
+            sortDirection
         ],
         queryFn: {
             "useProducts.useQuery": async ()=>{
-                const { category, sortField, sortDirection } = filters || {};
                 const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/products/active", {
                     params: {
                         page: page - 1,
-                        size: pageSize,
-                        name: searchQuery || undefined,
-                        category: category || undefined,
-                        sortField: sortField || "name",
-                        sortDirection: sortDirection || "asc"
+                        name: searchQuery,
+                        categoryId: categoryId,
+                        sortField,
+                        sortDirection
                     }
                 });
                 return response.data;
@@ -1503,7 +1503,6 @@ const SearchBar = ({ basePath })=>{
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(searchQueryFromURL);
     const updateSearchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "SearchBar.useCallback[updateSearchParams]": (search)=>{
-            // Only update the URL if the query has actually changed
             if (search !== searchParams.get("search")) {
                 const params = new URLSearchParams(searchParams.toString());
                 if (search.trim() === "") {
@@ -1513,7 +1512,7 @@ const SearchBar = ({ basePath })=>{
                 }
                 params.delete("page"); // Reset page when searching
                 const newUrl = `${basePath}${params.toString() ? "?" + params.toString() : ""}`;
-                router.push(newUrl); // Use push to update the URL without affecting history
+                router.push(newUrl);
             }
         }
     }["SearchBar.useCallback[updateSearchParams]"], [
@@ -1521,22 +1520,18 @@ const SearchBar = ({ basePath })=>{
         searchParams,
         basePath
     ]);
-    // Debounce search when typing (not when clicking search)
     const debouncedUpdate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lodash$2e$debounce$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(updateSearchParams, 1500);
-    // Handle search button click
     const handleSearch = ()=>{
         updateSearchParams(searchQuery);
     };
-    // Handle enter key press
     const handleKeyPress = (e)=>{
         if (e.key === "Enter") {
             handleSearch();
         }
     };
-    // Clear search input
     const clearSearch = ()=>{
         setSearchQuery("");
-        updateSearchParams(""); // Reset URL
+        updateSearchParams("");
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex items-center border p-2 rounded w-72 max-w-md",
@@ -1550,10 +1545,10 @@ const SearchBar = ({ basePath })=>{
                     debouncedUpdate(e.target.value);
                 },
                 onKeyDown: handleKeyPress,
-                className: "text-gray-500 p-2 outline-none w-full" // Use w-full to make the input span the full width of its parent
+                className: "text-gray-500 p-2 outline-none w-full"
             }, void 0, false, {
                 fileName: "[project]/src/components/product/common/SearchBar.tsx",
-                lineNumber: 60,
+                lineNumber: 56,
                 columnNumber: 1
             }, this),
             searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1563,12 +1558,12 @@ const SearchBar = ({ basePath })=>{
                     className: "h-5 w-5"
                 }, void 0, false, {
                     fileName: "[project]/src/components/product/common/SearchBar.tsx",
-                    lineNumber: 73,
+                    lineNumber: 69,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/common/SearchBar.tsx",
-                lineNumber: 72,
+                lineNumber: 68,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1578,18 +1573,18 @@ const SearchBar = ({ basePath })=>{
                     className: "h-5 w-5"
                 }, void 0, false, {
                     fileName: "[project]/src/components/product/common/SearchBar.tsx",
-                    lineNumber: 77,
+                    lineNumber: 73,
                     columnNumber: 7
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/common/SearchBar.tsx",
-                lineNumber: 76,
+                lineNumber: 72,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/product/common/SearchBar.tsx",
-        lineNumber: 59,
+        lineNumber: 55,
         columnNumber: 1
     }, this);
 };
@@ -1619,7 +1614,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/axiosInstance.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$select$2f$dist$2f$react$2d$select$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/react-select/dist/react-select.esm.js [app-client] (ecmascript) <locals>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/ai/index.mjs [app-client] (ecmascript)"); // Importing icons for ascending/descending
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-icons/ai/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -1627,12 +1622,9 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const ProductFilter = ({ handleFilterChange })=>{
+const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory, handleFilterChange })=>{
     _s();
-    const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(undefined);
-    const [sortField, setSortField] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("name"); // Default sorting by name
-    const [sortDirection, setSortDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("asc"); // Default ascending order
-    // Fetch categories on component mount
+    const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ProductFilter.useEffect": ()=>{
             const fetchCategories = {
@@ -1648,143 +1640,140 @@ const ProductFilter = ({ handleFilterChange })=>{
             fetchCategories();
         }
     }["ProductFilter.useEffect"], []);
-    const handleSortChange = (e)=>{
-        const [field, order] = e.target.value.split("-");
-        setSortField(field);
-        setSortDirection(order);
+    const clearCategory = ()=>{
         handleFilterChange({
-            sortField: field,
-            sortDirection: order
+            category: null
         });
     };
-    const handlesortDirectionToggle = (order)=>{
-        if (sortDirection !== order) {
-            setSortDirection(order);
-            handleFilterChange({
-                sortField,
-                sortDirection: order
-            });
-        }
-    };
+    // Add "All Categories" option
+    const categoryOptions = [
+        {
+            value: null,
+            label: "All Categories"
+        },
+        ...categories.map((category)=>({
+                value: category.categoryId,
+                label: category.categoryName
+            }))
+    ];
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex justify-between items-center space-x-4 mt-6",
+        className: "flex flex-col md:flex-row md:items-center md:space-x-2 gap-4 mt-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-64",
-                children: categories && categories.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$select$2f$dist$2f$react$2d$select$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"], {
-                    options: categories?.map((category)=>({
-                            value: category.categoryId,
-                            label: category.categoryName
-                        })),
+                className: "relative w-full md:w-64",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$select$2f$dist$2f$react$2d$select$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"], {
+                    options: categoryOptions,
                     className: "text-gray-500",
-                    placeholder: "Select category",
+                    placeholder: "All Categories",
                     isSearchable: true,
+                    value: categoryOptions.find((c)=>c.value === currentCategory) || categoryOptions[0],
                     onChange: (selectedOption)=>{
-                        const selectedCategory = selectedOption ? selectedOption.value : "";
-                        console.log("Selected Category:", selectedCategory); // Log selected category
                         handleFilterChange({
-                            category: selectedCategory,
-                            sortField,
-                            sortDirection
+                            category: selectedOption?.value ?? null,
+                            sortField: "name",
+                            sortDirection: "asc"
                         });
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/product/ProductFilter.tsx",
-                    lineNumber: 47,
-                    columnNumber: 11
-                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    children: "No categories available"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/product/ProductFilter.tsx",
-                    lineNumber: 62,
-                    columnNumber: 11
-                }, this) // Show message if categories are empty or undefined
-            }, void 0, false, {
-                fileName: "[project]/src/components/product/ProductFilter.tsx",
-                lineNumber: 44,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-64",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                    value: `${sortField}-${sortDirection}`,
-                    onChange: handleSortChange,
-                    className: "border p-2 rounded w-full text-gray-500",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                            value: "productName-asc",
-                            children: "Name"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/product/ProductFilter.tsx",
-                            lineNumber: 73,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                            value: "price-asc",
-                            children: "Price"
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/product/ProductFilter.tsx",
-                            lineNumber: 74,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/components/product/ProductFilter.tsx",
-                    lineNumber: 68,
+                    lineNumber: 52,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/ProductFilter.tsx",
-                lineNumber: 67,
+                lineNumber: 51,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full md:w-64",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$select$2f$dist$2f$react$2d$select$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"], {
+                    options: [
+                        {
+                            value: "name",
+                            label: "Sort by Name"
+                        },
+                        {
+                            value: "price",
+                            label: "Sort by Price"
+                        }
+                    ],
+                    className: "text-gray-500",
+                    placeholder: "Sort by",
+                    isSearchable: false,
+                    value: currentSortField ? {
+                        value: currentSortField,
+                        label: `Sort by ${currentSortField.charAt(0).toUpperCase() + currentSortField.slice(1)}`
+                    } : null,
+                    onChange: (selectedOption)=>{
+                        handleFilterChange({
+                            sortField: selectedOption?.value || "name",
+                            sortDirection: "asc",
+                            category: currentCategory ?? null
+                        });
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/src/components/product/ProductFilter.tsx",
+                    lineNumber: 70,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/components/product/ProductFilter.tsx",
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex space-x-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>handlesortDirectionToggle("asc"),
-                        className: `p-2 rounded ${sortDirection === "asc" ? "bg-gray-200" : ""}`,
+                        onClick: ()=>handleFilterChange({
+                                sortDirection: "asc",
+                                category: currentCategory ?? null
+                            }),
+                        className: `p-1 rounded transition ${currentSortDirection === "asc" ? "bg-gray-400 text-white" : "text-gray-600 hover:bg-gray-300"}`,
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AiOutlineArrowUp"], {
-                            className: "text-gray-500"
+                            className: "h-5 w-5"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductFilter.tsx",
-                            lineNumber: 84,
+                            lineNumber: 106,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductFilter.tsx",
-                        lineNumber: 80,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>handlesortDirectionToggle("desc"),
-                        className: `p-2 rounded ${sortDirection === "desc" ? "bg-gray-200" : ""}`,
+                        onClick: ()=>handleFilterChange({
+                                sortDirection: "desc",
+                                category: currentCategory ?? null
+                            }),
+                        className: `p-1 rounded transition ${currentSortDirection === "desc" ? "bg-gray-400 text-white" : "text-gray-600 hover:bg-gray-300"}`,
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$ai$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AiOutlineArrowDown"], {
-                            className: "text-gray-500"
+                            className: "h-5 w-5"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductFilter.tsx",
-                            lineNumber: 90,
+                            lineNumber: 119,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductFilter.tsx",
-                        lineNumber: 86,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductFilter.tsx",
-                lineNumber: 79,
+                lineNumber: 94,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/product/ProductFilter.tsx",
-        lineNumber: 42,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 };
-_s(ProductFilter, "mOI864zy8WECNY0HAYfPFXtNoug=");
+_s(ProductFilter, "+ijgB8ROEl0Dkz53OTIi8GynN6s=");
 _c = ProductFilter;
 const __TURBOPACK__default__export__ = ProductFilter;
 var _c;
@@ -1831,12 +1820,8 @@ const ProductItem = ({ product, onEdit })=>{
         }["ProductItem.useMutation[deleteMutation]"],
         onSuccess: {
             "ProductItem.useMutation[deleteMutation]": ()=>{
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Product deleted successfully!");
-                setTimeout({
-                    "ProductItem.useMutation[deleteMutation]": ()=>{
-                        window.location.reload();
-                    }
-                }["ProductItem.useMutation[deleteMutation]"], 500);
+                localStorage.setItem('toastMessage', 'Product deleted successfully!');
+                window.location.reload();
             }
         }["ProductItem.useMutation[deleteMutation]"],
         onError: {
@@ -1871,7 +1856,7 @@ const ProductItem = ({ product, onEdit })=>{
                             className: "object-cover rounded-lg w-full h-full"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductItem.jsx",
-                            lineNumber: 51,
+                            lineNumber: 49,
                             columnNumber: 13
                         }, this),
                         product.productPictures.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1881,12 +1866,12 @@ const ProductItem = ({ product, onEdit })=>{
                                     onClick: handlePrevImage,
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdArrowBack"], {}, void 0, false, {
                                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                                        lineNumber: 64,
+                                        lineNumber: 62,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                                    lineNumber: 60,
+                                    lineNumber: 58,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1894,12 +1879,12 @@ const ProductItem = ({ product, onEdit })=>{
                                     onClick: handleNextImage,
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdArrowForward"], {}, void 0, false, {
                                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                                        lineNumber: 70,
+                                        lineNumber: 68,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                                    lineNumber: 66,
+                                    lineNumber: 64,
                                     columnNumber: 17
                                 }, this)
                             ]
@@ -1910,12 +1895,12 @@ const ProductItem = ({ product, onEdit })=>{
                     children: "No Image"
                 }, void 0, false, {
                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                    lineNumber: 76,
+                    lineNumber: 74,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/ProductItem.jsx",
-                lineNumber: 48,
+                lineNumber: 46,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1926,15 +1911,15 @@ const ProductItem = ({ product, onEdit })=>{
                         children: product.productName
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 84,
+                        lineNumber: 82,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-sm text-blue-600",
-                        children: product.productCategory
+                        children: product.categoryName
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 85,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1946,7 +1931,7 @@ const ProductItem = ({ product, onEdit })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 86,
+                        lineNumber: 84,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1957,7 +1942,7 @@ const ProductItem = ({ product, onEdit })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 87,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1965,13 +1950,13 @@ const ProductItem = ({ product, onEdit })=>{
                         children: product.detail
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 88,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductItem.jsx",
-                lineNumber: 83,
+                lineNumber: 81,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1982,7 +1967,7 @@ const ProductItem = ({ product, onEdit })=>{
                         children: "Stock:"
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 93,
+                        lineNumber: 91,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1990,13 +1975,13 @@ const ProductItem = ({ product, onEdit })=>{
                         children: product.totalStock
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 94,
+                        lineNumber: 92,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductItem.jsx",
-                lineNumber: 92,
+                lineNumber: 90,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2009,12 +1994,12 @@ const ProductItem = ({ product, onEdit })=>{
                             className: "text-xl"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductItem.jsx",
-                            lineNumber: 103,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 99,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2024,18 +2009,18 @@ const ProductItem = ({ product, onEdit })=>{
                             className: "text-xl"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductItem.jsx",
-                            lineNumber: 109,
+                            lineNumber: 107,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductItem.jsx",
-                        lineNumber: 105,
+                        lineNumber: 103,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductItem.jsx",
-                lineNumber: 98,
+                lineNumber: 96,
                 columnNumber: 7
             }, this),
             isConfirmOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2048,7 +2033,7 @@ const ProductItem = ({ product, onEdit })=>{
                             children: "Do you really want to delete this product?"
                         }, void 0, false, {
                             fileName: "[project]/src/components/product/ProductItem.jsx",
-                            lineNumber: 117,
+                            lineNumber: 115,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2061,7 +2046,7 @@ const ProductItem = ({ product, onEdit })=>{
                                     children: deleteMutation.isPending ? "Deleting..." : "Confirm"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                                    lineNumber: 121,
+                                    lineNumber: 119,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2070,30 +2055,30 @@ const ProductItem = ({ product, onEdit })=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                                    lineNumber: 128,
+                                    lineNumber: 126,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/product/ProductItem.jsx",
-                            lineNumber: 120,
+                            lineNumber: 118,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/product/ProductItem.jsx",
-                    lineNumber: 116,
+                    lineNumber: 114,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/ProductItem.jsx",
-                lineNumber: 115,
+                lineNumber: 113,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/product/ProductItem.jsx",
-        lineNumber: 46,
+        lineNumber: 44,
         columnNumber: 5
     }, this);
 };
@@ -2176,7 +2161,6 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/useProducts.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$SkeletonRow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/product/SkeletonRow.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$common$2f$Pagination$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/product/common/Pagination.tsx [app-client] (ecmascript)");
@@ -2195,46 +2179,49 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-;
 const ProductTable = ()=>{
     _s();
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"])();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    // Extract query parameters
     const currentPage = Number(searchParams.get("page")) || 1;
-    const searchQueryFromURL = searchParams.get("search") || "";
+    const searchQuery = searchParams.get("search") || "";
+    const categoryId = searchParams.get("category") ? Number(searchParams.get("category")) : null;
+    const sortField = searchParams.get("sortField") || "name";
+    const sortDirection = searchParams.get("sort") || "asc";
     const pageSize = 10;
     const createDraftMutation = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useCreateDraft$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCreateDraft"])();
-    const [filters, setFilters] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        category: "",
-        sortField: "name",
-        sortDirection: "asc"
-    });
-    const { data, isLoading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useProducts"])(currentPage, pageSize, searchQueryFromURL, filters);
-    const [isFetching, setIsFetching] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [isModalOpen, setIsModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [editingProduct, setEditingProduct] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "ProductTable.useEffect": ()=>{
-            setIsFetching(isLoading);
-            console.log("Filters being sent to the backend:", filters); // Log the filters object
-        }
-    }["ProductTable.useEffect"], [
-        isLoading
-    ]);
-    const updatePage = (page)=>{
-        setIsFetching(true);
-        window.location.href = `/dashboard/admin/products?page=${page}&search=${searchQueryFromURL}`;
+    const { data, isLoading } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useProducts"])(currentPage, pageSize, searchQuery, categoryId !== null ? categoryId : undefined, sortField, sortDirection);
+    const updateQueryParams = (params)=>{
+        const query = new URLSearchParams(searchParams.toString());
+        Object.entries(params).forEach(([key, value])=>{
+            if (value === null || value === "" || key === "page" && value === 1 || key === "sortField" && value === "name" && query.get("sort") === "asc" || key === "sort" && value === "asc" && query.get("sortField") === "name") {
+                query.delete(key);
+            } else {
+                query.set(key, String(value));
+            }
+        });
+        router.push(`/dashboard/admin/products?${query.toString()}`);
+    };
+    const handleSearch = (query)=>{
+        updateQueryParams({
+            search: query,
+            page: 1
+        });
+    };
+    const handlePageChange = (page)=>{
+        updateQueryParams({
+            page
+        });
     };
     const handleFilterChange = (filters)=>{
-        console.log("Filters updated:", filters); // Log filters before updating state
-        setFilters(filters);
+        updateQueryParams({
+            category: filters.category ?? null,
+            sortField: filters.sortField || sortField,
+            sort: filters.sortDirection || sortDirection,
+            page: 1
+        });
     };
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "ProductTable.useEffect": ()=>{
-            console.log("Filters being sent to the backend:", filters); // Log the filters object
-        }
-    }["ProductTable.useEffect"], [
-        filters
-    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "p-6 bg-white shadow-md rounded-lg",
         children: [
@@ -2246,7 +2233,7 @@ const ProductTable = ()=>{
                         children: "🛍️ Product Management"
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 61,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2257,89 +2244,98 @@ const ProductTable = ()=>{
                         children: createDraftMutation.isPending ? "Creating..." : "Create Draft Product"
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 64,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductTable.tsx",
-                lineNumber: 60,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex justify-between items-center mb-6",
+                className: "flex flex-col md:flex-row items-center justify-between gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$ProductFilter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        currentSortField: sortField,
+                        currentSortDirection: sortDirection,
+                        currentCategory: categoryId,
                         handleFilterChange: handleFilterChange
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 76,
-                        columnNumber: 9
+                        lineNumber: 84,
+                        columnNumber: 3
                     }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$common$2f$SearchBar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                        basePath: "/dashboard/admin/products"
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-full md:w-auto flex justify-end",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$common$2f$SearchBar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            basePath: "/dashboard/admin/products",
+                            onSearch: handleSearch
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/product/ProductTable.tsx",
+                            lineNumber: 93,
+                            columnNumber: 5
+                        }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 77,
-                        columnNumber: 9
+                        lineNumber: 92,
+                        columnNumber: 3
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/product/ProductTable.tsx",
-                lineNumber: 75,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "space-y-4 mt-6",
-                children: isFetching ? Array.from({
+                children: isLoading ? Array.from({
                     length: 10
                 }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$SkeletonRow$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, index, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 83,
+                        lineNumber: 100,
                         columnNumber: 56
                     }, this)) : (data?.content ?? []).length > 0 ? (data?.content ?? []).map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$ProductItem$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         product: product,
-                        onEdit: ()=>{
-                            setEditingProduct(product);
-                            setIsModalOpen(true);
-                        }
+                        onEdit: ()=>{}
                     }, product.productId, false, {
                         fileName: "[project]/src/components/product/ProductTable.tsx",
-                        lineNumber: 86,
-                        columnNumber: 13
-                    }, this)) : !isFetching && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        lineNumber: 104,
+                        columnNumber: 15
+                    }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center text-gray-500 mt-4",
-                    children: searchQueryFromURL ? `No products found for "${searchQueryFromURL}"` : "No products available"
+                    children: searchQuery ? `No products found for "${searchQuery}"` : "No products available"
                 }, void 0, false, {
                     fileName: "[project]/src/components/product/ProductTable.tsx",
-                    lineNumber: 97,
+                    lineNumber: 107,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/product/ProductTable.tsx",
-                lineNumber: 81,
+                lineNumber: 98,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$common$2f$Pagination$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 currentPage: currentPage,
                 totalPages: data?.totalPages ?? 1,
-                onPageChange: updatePage,
+                onPageChange: handlePageChange,
                 basePath: "/dashboard/admin/products"
             }, void 0, false, {
                 fileName: "[project]/src/components/product/ProductTable.tsx",
-                lineNumber: 105,
+                lineNumber: 115,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/product/ProductTable.tsx",
-        lineNumber: 58,
+        lineNumber: 67,
         columnNumber: 5
     }, this);
 };
-_s(ProductTable, "wZSYof57+ugtAesgiPMLyjWy+1Y=", false, function() {
+_s(ProductTable, "dHWMY9TJyjx+Ygy97lmzdNclmss=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useSearchParams"],
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useCreateDraft$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCreateDraft"],
         __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useProducts"]
     ];
@@ -2367,6 +2363,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/common/Footer.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-toastify/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$ProductTable$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/product/ProductTable.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
@@ -2376,23 +2376,37 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product
 ;
 ;
 ;
+;
 const AdminCategory = ()=>{
+    _s();
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AdminCategory.useEffect": ()=>{
+            const message = localStorage.getItem('toastMessage');
+            if (message) {
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success(message);
+                localStorage.removeItem("toastMessage");
+            }
+        }
+    }["AdminCategory.useEffect"], [
+        router
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex min-h-screen flex-col",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ToastContainer"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                lineNumber: 14,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Header$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                lineNumber: 17,
+                lineNumber: 29,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Navbar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                lineNumber: 20,
+                lineNumber: 32,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2400,39 +2414,44 @@ const AdminCategory = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AdminSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                        lineNumber: 24,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
                         className: "flex-grow p-6 shadow-md",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$product$2f$ProductTable$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                            lineNumber: 28,
+                            lineNumber: 40,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                        lineNumber: 26,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                lineNumber: 22,
+                lineNumber: 34,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Footer$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-                lineNumber: 33,
+                lineNumber: 45,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/admin/products/page.tsx",
-        lineNumber: 13,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 };
+_s(AdminCategory, "vQduR7x+OPXj6PSmJyFnf+hU7bg=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
+    ];
+});
 _c = AdminCategory;
 const __TURBOPACK__default__export__ = AdminCategory;
 var _c;

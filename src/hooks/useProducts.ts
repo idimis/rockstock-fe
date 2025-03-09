@@ -4,19 +4,24 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useQuery } from "@tanstack/react-query";
 import { ApiResponse } from "@/types/product";
 
-export const useProducts = (page: number, pageSize: number, searchQuery?: string, filters?: { category: string, sortField: string, sortDirection: string }) => {
+export const useProducts = (
+  page: number,
+  pageSize: number,
+  searchQuery: string,
+  categoryId?: number | null,
+  sortField: string = "name",
+  sortDirection: string = "asc"
+) => {
   return useQuery<ApiResponse>({
-    queryKey: ["products", page, pageSize, searchQuery, filters],
+    queryKey: ["products", page, pageSize, searchQuery, categoryId, sortField, sortDirection],
     queryFn: async () => {
-      const { category, sortField, sortDirection } = filters || {};
       const response = await axiosInstance.get("/products/active", {
         params: {
           page: page - 1,
-          size: pageSize,
-          name: searchQuery || undefined,
-          category: category || undefined,
-          sortField: sortField || "name",
-          sortDirection: sortDirection || "asc",
+          name: searchQuery,
+          categoryId: categoryId,
+          sortField,
+          sortDirection,
         },
       });
       return response.data;

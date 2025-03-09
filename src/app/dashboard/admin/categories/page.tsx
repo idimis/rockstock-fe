@@ -5,13 +5,12 @@ import Sidebar from "@/components/common/AdminSidebar";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
-import { ToastContainer } from "react-toastify";  // ✅ Import ToastContainer
-import "react-toastify/dist/ReactToastify.css";  // ✅ Import styles
+import { ToastContainer } from "react-toastify"; 
 
 const AdminCategory = () => {
   return (
     <div className="flex min-h-screen flex-col">
-      <ToastContainer />  {/* ✅ Toast container added here */}
+      <ToastContainer />
 
       {/* Header */}
       <Header />
