@@ -55,4 +55,4 @@ coverage/
 .stylelintcache
 
 # Optional jest cache
-jest/
+jest/.next/
