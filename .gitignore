@@ -56,3 +56,5 @@ coverage/
 
 # Optional jest cache
 jest/.next/
+.next/
+.next/
