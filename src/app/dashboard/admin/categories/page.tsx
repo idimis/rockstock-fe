@@ -1,6 +1,6 @@
 "use client";
 
-import CategoryTable from "@/components/category/CategoryTable";
+import CategoryTable from "@/components/dashboardAdmin/category/CategoryTable";
 import Sidebar from "@/components/common/AdminSidebar";
 import Header from "@/components/common/Header";
 import Navbar from "@/components/common/Navbar";

@@ -7,10 +7,10 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useCategories } from "@/hooks/useCategories";
 import { Product, ProductStatus, ProductFormValues } from "@/types/product";
 import { ToastContainer } from "react-toastify";
-import ProductFormSkeleton from "@/components/product/draft/DraftFormSkeleton";
-import { validationSchema } from "@/components/product/draft/validationSchemas"
-import DraftFormFields from "@/components/product/draft/DraftFormFields";
-import { EditButton } from "@/components/product/draft/EditButton";
+import ProductFormSkeleton from "@/components/dashboardAdmin/product/draft/DraftFormSkeleton";
+import { validationSchema } from "@/components/dashboardAdmin/product/draft/validationSchemas"
+import DraftFormFields from "@/components/dashboardAdmin/product/draft/DraftFormFields";
+import { EditButton } from "@/components/dashboardAdmin/product/draft/EditButton";
 
 const ProductEditForm = () => {
   const params = useParams();
@@ -28,19 +28,19 @@ const ProductEditForm = () => {
       const product = response.data;
 
       if (!product || Object.values(product).every((value) => value === null)) {
-        router.push("/404");
+        router.push("/error/404");
         return;
       }
 
       setProductData(product);
 
       if (product.status !== ProductStatus.ACTIVE) {
-        router.push("/403");
+        router.push("/error/403");
         return;
       }
 
     } catch (error) {
-      router.push("/404");
+      router.push("/error/404");
     }
   };
 

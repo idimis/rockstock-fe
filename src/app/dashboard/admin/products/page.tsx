@@ -6,7 +6,7 @@ import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProductTable from "@/components/product/ProductTable";
+import ProductTable from "@/components/dashboardAdmin/product/ProductTable";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 

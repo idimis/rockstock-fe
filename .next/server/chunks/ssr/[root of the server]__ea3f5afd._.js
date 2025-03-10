@@ -42,9 +42,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 const ForbiddenPage = ()=>{
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        setTimeout(()=>{
+        const timeout = setTimeout(()=>{
             router.push("/");
         }, 3000);
+        return ()=>clearTimeout(timeout);
     }, [
         router
     ]);
@@ -58,7 +59,7 @@ const ForbiddenPage = ()=>{
                     children: "403"
                 }, void 0, false, {
                     fileName: "[project]/src/app/403/page.tsx",
-                    lineNumber: 18,
+                    lineNumber: 20,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -66,15 +67,23 @@ const ForbiddenPage = ()=>{
                     children: "Forbidden"
                 }, void 0, false, {
                     fileName: "[project]/src/app/403/page.tsx",
-                    lineNumber: 19,
+                    lineNumber: 22,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-lg sm:text-xl text-gray-600 mt-2",
-                    children: "You don't have permission to access this page."
+                    children: "You don't have permission to view this page."
                 }, void 0, false, {
                     fileName: "[project]/src/app/403/page.tsx",
-                    lineNumber: 20,
+                    lineNumber: 25,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-gray-500 mt-1",
+                    children: "If you believe this is a mistake, please contact the administrator."
+                }, void 0, false, {
+                    fileName: "[project]/src/app/403/page.tsx",
+                    lineNumber: 28,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -82,18 +91,27 @@ const ForbiddenPage = ()=>{
                     children: "Redirecting to homepage..."
                 }, void 0, false, {
                     fileName: "[project]/src/app/403/page.tsx",
-                    lineNumber: 21,
+                    lineNumber: 32,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: ()=>router.push("/"),
+                    className: "mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition",
+                    children: "Go to Homepage"
+                }, void 0, false, {
+                    fileName: "[project]/src/app/403/page.tsx",
+                    lineNumber: 34,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/403/page.tsx",
-            lineNumber: 17,
+            lineNumber: 19,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/403/page.tsx",
-        lineNumber: 16,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 };

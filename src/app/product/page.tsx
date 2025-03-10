@@ -4,7 +4,7 @@ import React from 'react';
 import Footer from '@/components/common/Footer';
 import Navbar from '@/components/common/Navbar';
 import Header from '@/components/common/Header';
-import ProductTable from '@/components/product/ProductTable';
+import ProductTable from '@/components/dashboardAdmin/product/ProductTable';
 
 const Inspirations: React.FC = () => {
   return (
