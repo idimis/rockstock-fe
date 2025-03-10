@@ -3,8 +3,8 @@
 import { useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import debounce from "lodash.debounce";
-import { FiSearch } from "react-icons/fi"; // 🔍 Search icon
-import { IoClose } from "react-icons/io5"; // ✖ Close icon
+import { FiSearch } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 interface SearchBarProps {
   basePath: string;
@@ -27,7 +27,7 @@ const SearchBar = ({ basePath }: SearchBarProps) => {
       } else {
         params.set("search", search);
       }
-      params.delete("page"); // Reset page when searching
+      params.delete("page");
   
       const newUrl = `${basePath}${params.toString() ? "?" + params.toString() : ""}`;
       router.push(newUrl);
@@ -52,8 +52,8 @@ const SearchBar = ({ basePath }: SearchBarProps) => {
   };
 
   return (
-<div className="flex items-center border p-2 rounded w-72 max-w-md">
-<input
+  <div className="flex items-center border p-2 rounded w-full md:w-72 max-w-md">
+    <input
       type="text"
       placeholder="Search..."
       value={searchQuery}
@@ -73,8 +73,6 @@ const SearchBar = ({ basePath }: SearchBarProps) => {
       <FiSearch className="h-5 w-5" />
     </button>
   </div>
-
-
   );
 };
 

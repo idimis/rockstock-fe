@@ -23,7 +23,7 @@ const NotFound = ()=>{
         "NotFound.useEffect": ()=>{
             setTimeout({
                 "NotFound.useEffect": ()=>{
-                    router.push("/"); // Redirect home after 3 seconds
+                    router.push("/");
                 }
             }["NotFound.useEffect"], 3000);
         }

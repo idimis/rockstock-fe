@@ -9,8 +9,8 @@
     "static/chunks/node_modules_axios_lib_99999129._.js",
     "static/chunks/node_modules_react-select_dist_aeaafd1c._.js",
     "static/chunks/node_modules_react-icons_6ed981ab._.js",
-    "static/chunks/node_modules_80d85ecf._.js",
-    "static/chunks/src_769385d9._.js"
+    "static/chunks/node_modules_4f34ad00._.js",
+    "static/chunks/src_0a5c1df9._.js"
   ],
   "source": "dynamic"
 });

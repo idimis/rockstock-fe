@@ -936,7 +936,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$categor
 ;
 const CategoryTable = ()=>{
     const searchParams = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSearchParams"])();
-    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const currentPage = Number(searchParams.get("page")) || 1;
     const searchQueryFromURL = searchParams.get("search") || "";
     const pageSize = 10;
@@ -971,7 +970,7 @@ const CategoryTable = ()=>{
                         children: "📦 Category Management"
                     }, void 0, false, {
                         fileName: "[project]/src/components/category/CategoryTable.tsx",
-                        lineNumber: 48,
+                        lineNumber: 46,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -983,13 +982,13 @@ const CategoryTable = ()=>{
                         children: "+ Create Category"
                     }, void 0, false, {
                         fileName: "[project]/src/components/category/CategoryTable.tsx",
-                        lineNumber: 51,
+                        lineNumber: 49,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/category/CategoryTable.tsx",
-                lineNumber: 47,
+                lineNumber: 45,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -998,12 +997,12 @@ const CategoryTable = ()=>{
                     basePath: "/dashboard/admin/categories"
                 }, void 0, false, {
                     fileName: "[project]/src/components/category/CategoryTable.tsx",
-                    lineNumber: 64,
+                    lineNumber: 62,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/category/CategoryTable.tsx",
-                lineNumber: 63,
+                lineNumber: 61,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1012,7 +1011,7 @@ const CategoryTable = ()=>{
                     length: 10
                 }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$category$2f$SkeletonRow$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, index, false, {
                         fileName: "[project]/src/components/category/CategoryTable.tsx",
-                        lineNumber: 70,
+                        lineNumber: 68,
                         columnNumber: 58
                     }, this)) : (data?.content ?? []).length > 0 ? (data?.content ?? []).map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$category$2f$CategoryItem$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         category: category,
@@ -1022,19 +1021,19 @@ const CategoryTable = ()=>{
                         }
                     }, category.categoryId, false, {
                         fileName: "[project]/src/components/category/CategoryTable.tsx",
-                        lineNumber: 73,
+                        lineNumber: 71,
                         columnNumber: 15
                     }, this)) : !isFetching && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center text-gray-500 mt-4",
                     children: searchQueryFromURL ? `No categories found for "${searchQueryFromURL}"` : "No categories available"
                 }, void 0, false, {
                     fileName: "[project]/src/components/category/CategoryTable.tsx",
-                    lineNumber: 84,
+                    lineNumber: 82,
                     columnNumber: 15
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/category/CategoryTable.tsx",
-                lineNumber: 68,
+                lineNumber: 66,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$category$2f$Pagination$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1044,7 +1043,7 @@ const CategoryTable = ()=>{
                 basePath: "/dashboard/admin/categories"
             }, void 0, false, {
                 fileName: "[project]/src/components/category/CategoryTable.tsx",
-                lineNumber: 92,
+                lineNumber: 90,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$category$2f$CategoryModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1053,13 +1052,13 @@ const CategoryTable = ()=>{
                 category: editingCategory
             }, void 0, false, {
                 fileName: "[project]/src/components/category/CategoryTable.tsx",
-                lineNumber: 100,
+                lineNumber: 98,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/category/CategoryTable.tsx",
-        lineNumber: 45,
+        lineNumber: 43,
         columnNumber: 7
     }, this);
 };

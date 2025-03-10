@@ -5,10 +5,12 @@ import axiosInstance from "@/utils/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
-const ProductItem = ({ product, onEdit }) => {
+const ProductItem = ({ product }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const router = useRouter();
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -26,6 +28,10 @@ const ProductItem = ({ product, onEdit }) => {
     },
   });
 
+  const onEdit = () => {
+    router.push(`/dashboard/admin/products/edit/${product.productId}`);
+  };
+
   const handleNextImage = () => {
     if (product.productPictures.length > 1) {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % product.productPictures.length);
@@ -41,8 +47,7 @@ const ProductItem = ({ product, onEdit }) => {
   };
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg shadow-sm flex items-center space-x-6">
-      {/* Product Image with Slider */}
+    <div className="bg-gray-100 p-4 rounded-lg shadow-sm flex flex-col md:flex-row items-center space-y-4 md:space-x-6">
       <div className="relative w-40 h-40 flex-shrink-0">
         {product.productPictures && product.productPictures.length > 0 ? (
           <>
@@ -77,8 +82,7 @@ const ProductItem = ({ product, onEdit }) => {
         )}
       </div>
 
-      {/* Product Details */}
-      <div className="flex-grow">
+      <div className="flex-grow text-center md:text-left">
         <h3 className="text-xl font-bold text-gray-900">{product.productName}</h3>
         <p className="text-sm text-blue-600">{product.categoryName}</p>
         <p className="text-sm text-gray-700">Weight: {product.weight}g</p>
@@ -86,29 +90,28 @@ const ProductItem = ({ product, onEdit }) => {
         <p className="text-md text-gray-700 mt-2">{product.detail}</p>
       </div>
 
-      {/* Total Stock */}
-      <div className="text-right">
-        <p className="text-sm font-semibold text-gray-800">Stock:</p>
+      <div className="flex items-center text-center gap-2">
+        <p className="text-lg font-semibold text-gray-800">Total Stock:</p>
         <p className="text-lg font-bold text-gray-900">{product.totalStock}</p>
       </div>
 
-      {/* Action Buttons */}
       <div className="flex space-x-4">
         <button
           className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition"
           onClick={() => onEdit(product)}
         >
           <MdEdit className="text-xl" />
+          <span className="hidden md:inline">Edit</span>
         </button>
         <button
           className="flex items-center gap-2 text-red-600 hover:text-red-800 transition"
           onClick={() => setIsConfirmOpen(true)}
         >
           <MdDelete className="text-xl" />
+          <span className="hidden md:inline">Delete</span>
         </button>
       </div>
 
-      {/* Confirmation Modal */}
       {isConfirmOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96 text-center">

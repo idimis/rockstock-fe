@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 export const useCreateDraft = () => {
   const router = useRouter();
-  const queryClient = useQueryClient(); // ✅ Add this
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
@@ -13,12 +13,10 @@ export const useCreateDraft = () => {
     },
     
     onSuccess: (data) => {
-      console.log("Draft created successfully:", data); // ✅ Log draft response
       queryClient.invalidateQueries({ queryKey: ["products"] }); 
       router.push(`/dashboard/admin/products/draft/${data.productId}`);
     },
     onError: (error) => {
-      console.error("Error creating draft:", error);
     },
   });
 };

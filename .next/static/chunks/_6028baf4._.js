@@ -23,7 +23,7 @@ const ForbiddenPage = ()=>{
         "ForbiddenPage.useEffect": ()=>{
             setTimeout({
                 "ForbiddenPage.useEffect": ()=>{
-                    router.push("/"); // Redirect home after 3 seconds
+                    router.push("/");
                 }
             }["ForbiddenPage.useEffect"], 3000);
         }

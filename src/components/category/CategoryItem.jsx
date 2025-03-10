@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 
 const CategoryItem = ({ category, onEdit }) => {
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false); // ✅ State for modal
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -50,7 +50,7 @@ const CategoryItem = ({ category, onEdit }) => {
         </button>
         <button 
           className="flex items-center gap-2 text-lg md:text-base text-red-600 hover:text-red-800 transition"
-          onClick={() => setIsConfirmOpen(true)} // ✅ Open confirmation modal
+          onClick={() => setIsConfirmOpen(true)}
         >
           <MdDelete className="text-xl" />
           <span className="hidden md:inline">Delete</span>

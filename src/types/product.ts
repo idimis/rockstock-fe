@@ -8,8 +8,13 @@ export interface Product {
   weight: number;
   totalStock: number;
   categoryName: string;
-  productPictures: { productPictureUrl: string; position: number }[] | null;
+  productPictures?: ProductPicture[];
   status: ProductStatus;
+}
+
+export interface ProductPicture{
+  productPictureUrl: string;
+  position: number;
 }
 
 export enum ProductStatus {
@@ -23,15 +28,13 @@ export interface Category {
   categoryPicture: string;
 }
 
-export interface ApiResponse {
-  content: Product[];
-  totalPages: number;
-  number: number;
-}
-
-export interface CategoriesResponse {
-  content: Category[];
-  totalPages: number;
+export interface ProductFormValues {
+  productName: string;
+  detail: string;
+  price: number;
+  weight: number;
+  productCategory: string;
+  productPictures: (string | null)[];
 }
 
 export interface CategoryFormData {

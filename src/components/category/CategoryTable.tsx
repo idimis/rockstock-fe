@@ -8,12 +8,10 @@
   import { useState, useEffect } from "react";
   import CategoryModal from "@/components/category/CategoryModal";
   import CategoryItem from "@/components/category/CategoryItem";
-  import { Category } from "@/types/category";
+  import { Category } from "@/types/product";
 
   const CategoryTable = () => {
     const searchParams = useSearchParams();
-    const router = useRouter();
-
     const currentPage = Number(searchParams.get("page")) || 1;
     const searchQueryFromURL = searchParams.get("search") || "";
     const pageSize = 10;
@@ -69,7 +67,7 @@
           {isFetching ? (
             Array.from({ length: 10 }).map((_, index) => <SkeletonRow key={index} />)
           ) : (data?.content ?? []).length > 0 ? (
-            (data?.content ?? []).map((category) => (
+            (data?.content ?? []).map((category: Category) => (
               <CategoryItem 
                 key={category.categoryId}
                 category={category}
