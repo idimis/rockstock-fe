@@ -21,19 +21,11 @@ const ProductFilter = ({
 
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
         const response = await axiosInstance.get("/categories");
         setCategories(response.data.data.content);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
     };
     fetchCategories();
   }, []);
-
-  const clearCategory = () => {
-    handleFilterChange({ category: null });
-  };
   
   const categoryOptions = [
     { value: null, label: "All Categories" },

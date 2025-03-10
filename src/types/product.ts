@@ -1,5 +1,5 @@
 export interface Product {
-  pictures(pictures: any): unknown;
+  pictures(pictures: ProductPicture[]): unknown;
   categoryId: number;
   productId: number;
   productName: string;
@@ -8,7 +8,7 @@ export interface Product {
   weight: number;
   totalStock: number;
   categoryName: string;
-  productPictures?: ProductPicture[];
+  productPictures: ProductPicture[];
   status: ProductStatus;
 }
 
@@ -26,6 +26,11 @@ export interface Category {
   categoryId: number;
   categoryName: string;
   categoryPicture: string;
+}
+
+export interface CategoriesResponse {
+  content: Category[];
+  totalPages: number;
 }
 
 export interface ProductFormValues {
