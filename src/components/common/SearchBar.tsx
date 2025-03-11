@@ -2,9 +2,8 @@
 
 import { useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import debounce from "lodash.debounce";
-import { FiSearch } from "react-icons/fi"; // 🔍 Search icon
-import { IoClose } from "react-icons/io5"; // ✖ Close icon
+import { FiSearch } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 interface SearchBarProps {
   basePath: string;
@@ -17,63 +16,58 @@ const SearchBar = ({ basePath }: SearchBarProps) => {
   const searchQueryFromURL = searchParams.get("search") || "";
   const [searchQuery, setSearchQuery] = useState(searchQueryFromURL);
 
-  // Function to update the URL when searching
   const updateSearchParams = useCallback((search: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    if (search !== searchParams.get("search")) {
+      const params = new URLSearchParams(searchParams.toString());
 
-    if (search.trim() === "") {
-      params.delete("search");
-    } else {
-      params.set("search", search);
+      if (search.trim() === "") {
+        params.delete("search");
+      } else {
+        params.set("search", search);
+      }
+      params.delete("page");
+
+      const newUrl = `${basePath}${params.toString() ? "?" + params.toString() : ""}`;
+      router.push(newUrl);
     }
-    params.delete("page"); // Reset page when searching
-
-    const newUrl = `${basePath}${params.toString() ? "?" + params.toString() : ""}`;
-    router.push(newUrl);
   }, [router, searchParams, basePath]);
 
-  // Debounce search when typing (not when clicking search)
-  const debouncedUpdate = debounce(updateSearchParams, 1500);
-
-  // Handle search button click
   const handleSearch = () => {
     updateSearchParams(searchQuery);
   };
 
-  // Handle enter key press
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
 
-  // Clear search input
   const clearSearch = () => {
     setSearchQuery("");
-    updateSearchParams(""); // Reset URL
+    updateSearchParams("");
   };
 
   return (
-    <div className="flex items-center border p-2 rounded w-full max-w-md">
+    <div className="relative w-full max-w-lg">
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Search furniture..."
+        className="w-full px-10 py-2 text-gray-800 border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-red-600"
         value={searchQuery}
-        onChange={(e) => {
-          setSearchQuery(e.target.value);
-          debouncedUpdate(e.target.value);
-        }}
-        onKeyDown={handleKeyPress} // ✅ Press Enter to search
-        className="text-gray-500 flex-1 p-2 outline-none"
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
+      <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
       {searchQuery && (
-        <button onClick={clearSearch} className="text-gray-500 hover:text-gray-700 p-1">
-          <IoClose className="h-5 w-5" />
-        </button>
-      )}
-      <button onClick={handleSearch} className="text-blue-500 hover:text-blue-700 p-1">
-        <FiSearch className="h-5 w-5" />
+      <button
+        onClick={clearSearch}
+        className={`absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 ${
+          searchQuery ? "block" : "invisible"
+        }`}
+      >
+        <IoClose className="h-5 w-5" />
       </button>
+      )}
     </div>
   );
 };

@@ -1155,23 +1155,25 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useQuery.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-client] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module '@/lib/axiosInstance'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
+"use client";
 ;
 ;
 ;
 ;
 ;
-;
-// Fetch categories from API
 const fetchCategories = async ()=>{
-    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("http://localhost:8080/api/v1/categories?page=0&size=10");
-    return response.data.data.content; // Extract categories array
+    const response = await axiosInstance.get("/categories?page=0&size=10");
+    return response.data.data.content;
 };
 const ProductCategories = ()=>{
     _s();
@@ -1181,237 +1183,139 @@ const ProductCategories = ()=>{
         ],
         queryFn: fetchCategories
     });
-    const itemsPerPage = 4;
+    const itemsPerPage = 5;
     const [index, setIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
-    const [isAnimating, setIsAnimating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [direction, setDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("right"); // Track scroll direction
-    // Memoized visible categories to avoid unnecessary re-renders
-    const visibleCategories = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
-        "ProductCategories.useMemo[visibleCategories]": ()=>{
-            if (!categories) return [];
-            return [
-                ...categories.slice(index, index + itemsPerPage),
-                ...categories.slice(0, Math.max(0, index + itemsPerPage - categories.length))
-            ];
+    const [direction, setDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("right");
+    // Ensure correct looping behavior
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ProductCategories.useEffect": ()=>{
+            if (!categories || categories.length < itemsPerPage) return;
+            setIndex({
+                "ProductCategories.useEffect": (prevIndex)=>prevIndex % categories.length
+            }["ProductCategories.useEffect"]);
         }
-    }["ProductCategories.useMemo[visibleCategories]"], [
-        categories,
-        index
+    }["ProductCategories.useEffect"], [
+        categories
     ]);
-    // Smooth scroll effect with directional animation
     const scroll = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "ProductCategories.useCallback[scroll]": (dir)=>{
-            if (isAnimating || !categories || categories.length <= itemsPerPage) return;
-            setIsAnimating(true);
+            if (!categories || categories.length <= itemsPerPage) return;
             setDirection(dir);
             setIndex({
                 "ProductCategories.useCallback[scroll]": (prevIndex)=>dir === "right" ? (prevIndex + 1) % categories.length : (prevIndex - 1 + categories.length) % categories.length
             }["ProductCategories.useCallback[scroll]"]);
-            setTimeout({
-                "ProductCategories.useCallback[scroll]": ()=>setIsAnimating(false)
-            }["ProductCategories.useCallback[scroll]"], 300); // Ensure animation completes before next click
         }
     }["ProductCategories.useCallback[scroll]"], [
-        isAnimating,
         categories
     ]);
-    if (isLoading) {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-            className: "max-w-[1440px] mx-auto px-8 py-12 my-8",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-2xl font-semibold text-center text-black mb-8",
-                    children: "Featured Categories"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                    lineNumber: 55,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex justify-center gap-6",
-                    children: Array.from({
-                        length: 5
-                    }).map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "w-[240px] h-[320px] bg-gray-200 animate-pulse rounded-lg"
-                        }, i, false, {
-                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                            lineNumber: 60,
-                            columnNumber: 13
-                        }, this))
-                }, void 0, false, {
-                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                    lineNumber: 58,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-            lineNumber: 54,
-            columnNumber: 7
-        }, this);
-    }
-    if (isError) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-        className: "text-center",
-        children: "Failed to load categories."
-    }, void 0, false, {
-        fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-        lineNumber: 67,
-        columnNumber: 23
-    }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "max-w-[1440px] mx-auto px-8 py-12 my-8",
+        className: "max-w-[1440px] mx-auto px-8 py-12 relative group",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                className: "text-2xl font-semibold text-center text-black mb-8",
-                children: "Featured Categories"
+                className: "text-2xl font-bold text-center mb-8",
+                children: "Kategori Pilihan"
             }, void 0, false, {
                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                lineNumber: 71,
+                lineNumber: 45,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative flex items-center justify-center pl-16",
+                className: "relative flex items-center justify-center",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>scroll("left"),
-                        disabled: isAnimating,
-                        className: "absolute left-0 bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition z-10",
-                        children: "<"
+                        className: "absolute left-0 bg-black text-white p-3 rounded-full shadow-md hover:bg-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10",
+                        children: "‹"
                     }, void 0, false, {
                         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                        lineNumber: 77,
+                        lineNumber: 48,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "overflow-hidden w-full max-w-6xl relative",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                            className: "flex gap-4",
                             initial: {
-                                x: direction === "right" ? "20%" : "-20%",
-                                opacity: 0
+                                x: direction === "right" ? "100%" : "-100%"
                             },
                             animate: {
-                                x: "0%",
-                                opacity: 1
+                                x: "0%"
+                            },
+                            exit: {
+                                x: direction === "right" ? "-100%" : "100%"
                             },
                             transition: {
                                 type: "spring",
                                 stiffness: 80,
-                                damping: 10
+                                damping: 15
                             },
-                            className: "flex gap-6 p-6",
-                            children: visibleCategories.map((category)=>{
-                                const validImageUrl = category.categoryPicture;
-                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "relative border rounded-lg shadow-lg overflow-hidden group flex-none w-[240px] h-[320px] bg-white",
+                            children: categories?.slice(index, index + itemsPerPage).map((category)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative w-[18%] h-80 rounded-lg overflow-hidden shadow-md flex-shrink-0",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "relative w-full h-[60%] bg-gray-100 flex items-center justify-center",
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                src: validImageUrl,
-                                                alt: category.categoryName,
-                                                width: 200,
-                                                height: 200,
-                                                className: "object-cover"
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                lineNumber: 103,
-                                                columnNumber: 21
-                                            }, this)
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                            src: category.categoryPicture || "/placeholder.jpg",
+                                            alt: category.categoryName,
+                                            layout: "fill",
+                                            className: "object-cover"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                            lineNumber: 102,
-                                            columnNumber: 19
+                                            lineNumber: 66,
+                                            columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "p-4 bg-white flex flex-col justify-between h-[40%]",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                    className: "text-lg font-semibold text-black",
-                                                    children: category.categoryName
-                                                }, void 0, false, {
-                                                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                    lineNumber: 113,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                    href: {
-                                                        pathname: "/products?[category}",
-                                                        query: {
-                                                            category: category.categoryName
-                                                        }
-                                                    },
-                                                    className: "mt-4 inline-block px-6 py-2 bg-red-600 text-white rounded-md text-sm hover:bg-black transition text-center",
-                                                    children: [
-                                                        "Explore ",
-                                                        category.categoryName
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                    lineNumber: 117,
-                                                    columnNumber: 21
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                            lineNumber: 112,
-                                            columnNumber: 19
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white",
+                                            className: "absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-xl font-semibold",
-                                                children: "Click to Explore"
+                                                className: "text-white text-lg font-semibold bg-white px-4 py-2 rounded-full transition-all duration-300 hover:bg-black hover:text-white",
+                                                children: category.categoryName
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                                lineNumber: 130,
-                                                columnNumber: 21
+                                                lineNumber: 74,
+                                                columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                            lineNumber: 129,
-                                            columnNumber: 19
+                                            lineNumber: 73,
+                                            columnNumber: 17
                                         }, this)
                                     ]
                                 }, category.categoryId, true, {
                                     fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                                    lineNumber: 98,
-                                    columnNumber: 17
-                                }, this);
-                            })
+                                    lineNumber: 65,
+                                    columnNumber: 15
+                                }, this))
                         }, index, false, {
                             fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                            lineNumber: 87,
+                            lineNumber: 56,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                        lineNumber: 86,
+                        lineNumber: 55,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>scroll("right"),
-                        disabled: isAnimating,
-                        className: "absolute right-0 bg-black text-white p-4 rounded-full shadow-md hover:bg-gray-700 transition z-10",
-                        children: ">"
+                        className: "absolute right-0 bg-black text-white p-3 rounded-full shadow-md hover:bg-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10",
+                        children: "›"
                     }, void 0, false, {
                         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                        lineNumber: 139,
+                        lineNumber: 84,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-                lineNumber: 75,
+                lineNumber: 46,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/homepage/ProductCategories.tsx",
-        lineNumber: 70,
+        lineNumber: 44,
         columnNumber: 5
     }, this);
 };
-_s(ProductCategories, "SG2FquuASNE3GuQLsIf2w9VgXUw=", false, function() {
+_s(ProductCategories, "qLs+CPTesOeToUKLCp1uzUTkDy8=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"]
     ];

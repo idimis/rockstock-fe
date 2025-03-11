@@ -1264,7 +1264,7 @@ var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
-const useProducts = (page, pageSize, searchQuery, categoryId, sortField = "name", sortDirection = "asc")=>{
+const useProducts = (page, pageSize = 10, searchQuery, categoryId, sortField = "name", sortDirection = "asc")=>{
     _s();
     return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"])({
         queryKey: [
@@ -1281,6 +1281,7 @@ const useProducts = (page, pageSize, searchQuery, categoryId, sortField = "name"
                 const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/products/active", {
                     params: {
                         page: page - 1,
+                        size: pageSize,
                         name: searchQuery,
                         categoryId: categoryId,
                         sortField,
@@ -1585,58 +1586,58 @@ const SearchBar = ({ basePath })=>{
         updateSearchParams("");
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex items-center border p-2 rounded w-full md:w-72 max-w-md",
+        className: "relative flex-1 max-w-lg ml-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                 type: "text",
-                placeholder: "Search...",
+                placeholder: "Search furniture...",
+                className: "w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600",
                 value: searchQuery,
                 onChange: (e)=>{
                     setSearchQuery(e.target.value);
                     debouncedUpdate(e.target.value);
                 },
-                onKeyDown: handleKeyPress,
-                className: "text-gray-500 p-2 outline-none w-full"
+                onKeyDown: handleKeyPress
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
                 lineNumber: 56,
-                columnNumber: 5
+                columnNumber: 7
             }, this),
             searchQuery && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: clearSearch,
-                className: "text-gray-500 hover:text-gray-700 p-1",
+                className: "absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$io5$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["IoClose"], {
                     className: "h-5 w-5"
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
-                    lineNumber: 69,
-                    columnNumber: 9
+                    lineNumber: 74,
+                    columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
-                lineNumber: 68,
-                columnNumber: 7
+                lineNumber: 70,
+                columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: handleSearch,
-                className: "text-blue-500 hover:text-blue-700 p-1",
+                className: "absolute top-0 right-0 p-2 bg-red-600 rounded-md text-white",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$fi$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FiSearch"], {
                     className: "h-5 w-5"
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
-                    lineNumber: 73,
-                    columnNumber: 7
+                    lineNumber: 83,
+                    columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
-                lineNumber: 72,
-                columnNumber: 5
+                lineNumber: 79,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/dashboardAdmin/product/common/SearchBar.tsx",
-        lineNumber: 55,
-        columnNumber: 3
+        lineNumber: 54,
+        columnNumber: 5
     }, this);
 };
 _s(SearchBar, "yGRQ1vjAERP0P0FYvZsROofJV4A=", false, function() {
@@ -2267,13 +2268,18 @@ const ProductTable = ()=>{
     const updateQueryParams = (params)=>{
         const query = new URLSearchParams(searchParams.toString());
         Object.entries(params).forEach(([key, value])=>{
-            if (value === null || value === "" || key === "page" && value === 1 || key === "sortField" && value === "name" && query.get("sort") === "asc" || key === "sort" && value === "asc" && query.get("sortField") === "name") {
+            if (key === "category" && value == null) {
+                query.delete("sortField");
+                query.delete("sort");
+            }
+            if (value === null || value === "" || key === "page" && value === 1 || key === "sortField" && value === "name" || key === "sort" && value === "asc" // Remove sort=asc always
+            ) {
                 query.delete(key);
             } else {
                 query.set(key, String(value));
             }
         });
-        router.push(`/dashboard/admin/products?${query.toString()}`);
+        router.push(`/product?${query.toString()}`);
     };
     const handleSearch = (query)=>{
         updateQueryParams({
@@ -2305,7 +2311,7 @@ const ProductTable = ()=>{
                         children: "🛍️ Product Management"
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 66,
+                        lineNumber: 71,
                         columnNumber: 7
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2318,18 +2324,18 @@ const ProductTable = ()=>{
                             children: createDraftMutation.isPending ? "Creating..." : "Create Product"
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                            lineNumber: 70,
+                            lineNumber: 75,
                             columnNumber: 9
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 69,
+                        lineNumber: 74,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                lineNumber: 65,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2344,12 +2350,12 @@ const ProductTable = ()=>{
                             handleFilterChange: handleFilterChange
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                            lineNumber: 82,
+                            lineNumber: 87,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 81,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2359,18 +2365,18 @@ const ProductTable = ()=>{
                             onSearch: handleSearch
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                            lineNumber: 90,
+                            lineNumber: 95,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 89,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                lineNumber: 80,
+                lineNumber: 85,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2379,25 +2385,25 @@ const ProductTable = ()=>{
                     length: 10
                 }).map((_, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$dashboardAdmin$2f$product$2f$common$2f$FullSkeleton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, index, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 96,
+                        lineNumber: 101,
                         columnNumber: 56
                     }, this)) : (data?.content ?? []).length > 0 ? (data?.content ?? []).map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$dashboardAdmin$2f$product$2f$ProductItem$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         product: product
                     }, product.productId, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                        lineNumber: 100,
+                        lineNumber: 105,
                         columnNumber: 15
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center text-gray-500 mt-4",
                     children: searchQuery ? `No products found for "${searchQuery}"` : "No products available"
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                    lineNumber: 103,
+                    lineNumber: 108,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                lineNumber: 94,
+                lineNumber: 99,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$dashboardAdmin$2f$product$2f$common$2f$Pagination$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -2407,13 +2413,13 @@ const ProductTable = ()=>{
                 basePath: "/dashboard/admin/products"
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-                lineNumber: 110,
+                lineNumber: 115,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/dashboardAdmin/product/ProductTable.tsx",
-        lineNumber: 64,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 };

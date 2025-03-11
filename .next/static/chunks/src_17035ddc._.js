@@ -1186,7 +1186,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navi
 ;
 var _s = __turbopack_context__.k.signature();
 ;
-const Pagination = ({ currentPage, totalPages, basePath, onPageChange })=>{
+const Pagination = ({ currentPage, totalPages, basePath })=>{
     _s();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const handlePageChange = (page)=>{
@@ -1410,22 +1410,13 @@ const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory
         "ProductFilter.useEffect": ()=>{
             const fetchCategories = {
                 "ProductFilter.useEffect.fetchCategories": async ()=>{
-                    try {
-                        const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/categories");
-                        setCategories(response.data.data.content);
-                    } catch (error) {
-                        console.error("Error fetching categories:", error);
-                    }
+                    const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/categories");
+                    setCategories(response.data.data.content);
                 }
             }["ProductFilter.useEffect.fetchCategories"];
             fetchCategories();
         }
     }["ProductFilter.useEffect"], []);
-    const clearCategory = ()=>{
-        handleFilterChange({
-            category: null
-        });
-    };
     const categoryOptions = [
         {
             value: null,
@@ -1458,12 +1449,12 @@ const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                        lineNumber: 50,
+                        lineNumber: 42,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                    lineNumber: 49,
+                    lineNumber: 41,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1495,12 +1486,12 @@ const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                        lineNumber: 67,
+                        lineNumber: 59,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                    lineNumber: 66,
+                    lineNumber: 58,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1516,12 +1507,12 @@ const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory
                                 className: "h-5 w-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                                lineNumber: 102,
+                                lineNumber: 94,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                            lineNumber: 91,
+                            lineNumber: 83,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1534,29 +1525,29 @@ const ProductFilter = ({ currentSortField, currentSortDirection, currentCategory
                                 className: "h-5 w-5"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                                lineNumber: 115,
+                                lineNumber: 107,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                            lineNumber: 104,
+                            lineNumber: 96,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-                    lineNumber: 90,
+                    lineNumber: 82,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-            lineNumber: 48,
+            lineNumber: 40,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/dashboardAdmin/product/common/ProductFilter.tsx",
-        lineNumber: 47,
+        lineNumber: 39,
         columnNumber: 5
     }, this);
 };
@@ -1616,7 +1607,8 @@ const ProductItem = ({ product })=>{
         }["ProductItem.useMutation[deleteMutation]"],
         onError: {
             "ProductItem.useMutation[deleteMutation]": (error)=>{
-                const errorMessage = error.response?.data?.message || "Failed to delete product";
+                const axiosError = error;
+                const errorMessage = axiosError.response?.data?.message || "Failed to delete product";
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$toastify$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error(errorMessage);
             }
         }["ProductItem.useMutation[deleteMutation]"]
@@ -1649,7 +1641,7 @@ const ProductItem = ({ product })=>{
                             className: "object-cover rounded-lg w-full h-full"
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                            lineNumber: 59,
+                            lineNumber: 62,
                             columnNumber: 13
                         }, this),
                         product.productPictures.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1659,12 +1651,12 @@ const ProductItem = ({ product })=>{
                                     onClick: handlePrevImage,
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdArrowBack"], {}, void 0, false, {
                                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 75,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                    lineNumber: 68,
+                                    lineNumber: 71,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1672,12 +1664,12 @@ const ProductItem = ({ product })=>{
                                     onClick: handleNextImage,
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$icons$2f$md$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MdArrowForward"], {}, void 0, false, {
                                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                        lineNumber: 78,
+                                        lineNumber: 81,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                    lineNumber: 74,
+                                    lineNumber: 77,
                                     columnNumber: 17
                                 }, this)
                             ]
@@ -1688,12 +1680,12 @@ const ProductItem = ({ product })=>{
                     children: "No Image"
                 }, void 0, false, {
                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                    lineNumber: 84,
+                    lineNumber: 87,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                lineNumber: 56,
+                lineNumber: 59,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1704,7 +1696,7 @@ const ProductItem = ({ product })=>{
                         children: product.productName
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 91,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1712,7 +1704,7 @@ const ProductItem = ({ product })=>{
                         children: product.categoryName
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 92,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1724,7 +1716,7 @@ const ProductItem = ({ product })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 93,
+                        lineNumber: 96,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1735,7 +1727,7 @@ const ProductItem = ({ product })=>{
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 94,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1743,13 +1735,13 @@ const ProductItem = ({ product })=>{
                         children: product.detail
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 97,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                lineNumber: 90,
+                lineNumber: 93,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1760,7 +1752,7 @@ const ProductItem = ({ product })=>{
                         children: "Total Stock:"
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 101,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1768,13 +1760,13 @@ const ProductItem = ({ product })=>{
                         children: product.totalStock
                     }, void 0, false, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 102,
+                        lineNumber: 105,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                lineNumber: 100,
+                lineNumber: 103,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1788,7 +1780,7 @@ const ProductItem = ({ product })=>{
                                 className: "text-xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                lineNumber: 110,
+                                lineNumber: 113,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1796,13 +1788,13 @@ const ProductItem = ({ product })=>{
                                 children: "Edit"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                lineNumber: 111,
+                                lineNumber: 114,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 106,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1813,7 +1805,7 @@ const ProductItem = ({ product })=>{
                                 className: "text-xl"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                lineNumber: 117,
+                                lineNumber: 120,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1821,32 +1813,32 @@ const ProductItem = ({ product })=>{
                                 children: "Delete"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                lineNumber: 118,
+                                lineNumber: 121,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                        lineNumber: 113,
+                        lineNumber: 116,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                lineNumber: 105,
+                lineNumber: 108,
                 columnNumber: 7
             }, this),
             isConfirmOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50",
+                className: "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50  z-50",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white p-6 rounded-lg shadow-lg w-96 text-center",
+                    className: "bg-white p-6 rounded-lg shadow-lg max-w-full sm:max-w-lg w-1/2 sm:w-96 text-center",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                             className: "text-lg font-semibold text-gray-800",
                             children: "Do you really want to delete this product?"
                         }, void 0, false, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                            lineNumber: 125,
+                            lineNumber: 128,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1859,7 +1851,7 @@ const ProductItem = ({ product })=>{
                                     children: deleteMutation.isPending ? "Deleting..." : "Confirm"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                    lineNumber: 129,
+                                    lineNumber: 132,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1868,30 +1860,30 @@ const ProductItem = ({ product })=>{
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 139,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                            lineNumber: 128,
+                            lineNumber: 131,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                    lineNumber: 124,
+                    lineNumber: 127,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-                lineNumber: 123,
+                lineNumber: 126,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/dashboardAdmin/product/ProductItem.tsx",
-        lineNumber: 55,
+        lineNumber: 58,
         columnNumber: 5
     }, this);
 };
@@ -1947,7 +1939,7 @@ const useCreateDraft = ()=>{
             }
         }["useCreateDraft.useMutation"],
         onError: {
-            "useCreateDraft.useMutation": (error)=>{}
+            "useCreateDraft.useMutation": ()=>{}
         }["useCreateDraft.useMutation"]
     });
 };

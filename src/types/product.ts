@@ -50,3 +50,9 @@ export interface CategoryFormData {
 export interface ApiErrorResponse {
   message?: string;
 }
+
+export interface ApiResponse {
+  content: Product[];
+  totalPages: number;
+  number: number;
+  }

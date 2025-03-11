@@ -10,6 +10,7 @@ import HeroSection from '@/components/homepage/HeroSection';
 import ProductCategories from '@/components/homepage/ProductCategories';
 import FeaturedProducts from '@/components/homepage/FeaturedProducts';
 import NewestProducts from '@/components/homepage/NewestProducts';
+import ProductCarousel from '@/components/homepage/ProductCarousel';
 
 // import Testimonials from '@/components/homepage/Testimonials';
 
@@ -24,6 +25,7 @@ const Page: React.FC = () => {
         <HeroSection />
         <FeaturedProducts />
         <NewestProducts />
+        <ProductCarousel />
         <ProductCategories />
         {/* <Testimonials /> */}
         <Footer />

@@ -2,6 +2,8 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
 
 interface Product {
   id: number;
@@ -23,9 +25,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       className="border rounded-lg shadow-lg p-4 cursor-pointer hover:shadow-xl transition"
       onClick={handleCardClick}
     >
-      <img
+      <Image
         src={product.imageUrl}
         alt={product.title}
+        width={400}
+        height={160}
         className="w-full h-40 object-cover rounded-md"
       />
       <h3 className="text-lg font-bold mt-2">{product.title}</h3>

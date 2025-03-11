@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 
 interface ImageCarouselProps {
   images: { productPictureUrl: string; position: number }[];
@@ -19,7 +20,13 @@ const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
 
   return (
     <div className="relative w-64 h-64">
-      <img src={currentImage?.productPictureUrl || "/placeholder.png"} alt="Product" className="w-full h-full object-cover rounded-md" />
+    <Image
+        src={currentImage?.productPictureUrl || "/placeholder.png"}
+        alt="Product"
+        width={256}
+        height={256}
+        className="w-full h-full object-cover rounded-md"
+      />      
       {currentPosition > 1 && (
         <button onClick={prevImage} className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-2 py-1">
           ◀

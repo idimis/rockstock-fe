@@ -28,93 +28,47 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 var { g: global, d: __dirname, k: __turbopack_refresh__, m: module } = __turbopack_context__;
 {
 __turbopack_context__.s({
-    "default": (()=>__TURBOPACK__default__export__)
+    "useProducts": (()=>useProducts)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/axiosInstance.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useQuery.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
 ;
-const useProducts = ()=>{
+const useProducts = (page, pageSize, searchQuery, categoryId, sortField = "name", sortDirection = "asc")=>{
     _s();
-    const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [currentPage, setCurrentPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
-    const [totalPages, setTotalPages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(1);
-    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    const [selectedCategory, setSelectedCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
-    const [sortOption, setSortOption] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("createdAt");
-    const [sortDirection, setSortDirection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("ASC");
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "useProducts.useEffect": ()=>{
-            const fetchProducts = {
-                "useProducts.useEffect.fetchProducts": async ()=>{
-                    setLoading(true);
-                    try {
-                        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/products", {
-                            params: {
-                                page: currentPage - 1,
-                                size: 8,
-                                name: searchQuery,
-                                category: selectedCategory,
-                                sortField: sortOption,
-                                sortDirection
-                            }
-                        });
-                        setProducts(data.content);
-                        setTotalPages(data.totalPages);
-                    } catch (error) {
-                        console.error("Error fetching products:", error);
-                    } finally{
-                        setLoading(false);
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            "products",
+            page,
+            pageSize,
+            searchQuery,
+            categoryId,
+            sortField,
+            sortDirection
+        ],
+        queryFn: {
+            "useProducts.useQuery": async ()=>{
+                const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/products/active", {
+                    params: {
+                        page: page - 1,
+                        name: searchQuery,
+                        categoryId: categoryId,
+                        sortField,
+                        sortDirection
                     }
-                }
-            }["useProducts.useEffect.fetchProducts"];
-            fetchProducts();
-        }
-    }["useProducts.useEffect"], [
-        currentPage,
-        searchQuery,
-        selectedCategory,
-        sortOption,
-        sortDirection
-    ]);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "useProducts.useEffect": ()=>{
-            const fetchCategories = {
-                "useProducts.useEffect.fetchCategories": async ()=>{
-                    try {
-                        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$axiosInstance$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/categories");
-                        setCategories(data.data);
-                    } catch (error) {
-                        console.error("Error fetching categories:", error);
-                    }
-                }
-            }["useProducts.useEffect.fetchCategories"];
-            fetchCategories();
-        }
-    }["useProducts.useEffect"], []);
-    return {
-        products,
-        categories,
-        currentPage,
-        setCurrentPage,
-        totalPages,
-        loading,
-        selectedCategory,
-        setSelectedCategory,
-        searchQuery,
-        setSearchQuery,
-        sortOption,
-        setSortOption,
-        sortDirection,
-        setSortDirection
-    };
+                });
+                return response.data;
+            }
+        }["useProducts.useQuery"]
+    });
 };
-_s(useProducts, "dYIsTgTy0c2rg3HM3IDZwWlcJ08=");
-const __TURBOPACK__default__export__ = useProducts;
+_s(useProducts, "4ZpngI1uv+Uo3WQHEZmTQ5FNM+k=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useQuery"]
+    ];
+});
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -477,47 +431,46 @@ __turbopack_context__.s({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 ;
-const Pagination = ({ currentPage, totalPages, onPageChange })=>{
-    if (totalPages <= 1) return null; // Hide pagination if only 1 page
+const Pagination = ({ currentPage, totalPages, setCurrentPage })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "flex justify-center mt-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: `px-4 py-2 mx-1 rounded-lg ${currentPage === 1 ? "bg-gray-300" : "bg-blue-500 text-white"}`,
-                onClick: ()=>currentPage > 1 && onPageChange(currentPage - 1),
+                onClick: ()=>currentPage > 1 && setCurrentPage(currentPage - 1),
                 disabled: currentPage === 1,
                 children: "Prev"
             }, void 0, false, {
                 fileName: "[project]/src/components/products/Pagination.tsx",
-                lineNumber: 12,
-                columnNumber: 7
+                lineNumber: 10,
+                columnNumber: 9
             }, this),
             Array.from({
                 length: totalPages
             }, (_, i)=>i + 1).map((page)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    onClick: ()=>onPageChange(page),
+                    onClick: ()=>setCurrentPage(page),
                     className: `px-4 py-2 mx-1 rounded-lg ${currentPage === page ? "bg-blue-500 text-white" : "bg-gray-200 text-black"}`,
                     children: page
                 }, page, false, {
                     fileName: "[project]/src/components/products/Pagination.tsx",
-                    lineNumber: 21,
-                    columnNumber: 9
+                    lineNumber: 19,
+                    columnNumber: 11
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 className: `px-4 py-2 mx-1 rounded-lg ${currentPage === totalPages ? "bg-gray-300" : "bg-blue-500 text-white"}`,
-                onClick: ()=>currentPage < totalPages && onPageChange(currentPage + 1),
+                onClick: ()=>currentPage < totalPages && setCurrentPage(currentPage + 1),
                 disabled: currentPage === totalPages,
                 children: "Next"
             }, void 0, false, {
                 fileName: "[project]/src/components/products/Pagination.tsx",
-                lineNumber: 32,
-                columnNumber: 7
+                lineNumber: 30,
+                columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/products/Pagination.tsx",
-        lineNumber: 11,
-        columnNumber: 5
+        lineNumber: 9,
+        columnNumber: 7
     }, this);
 };
 _c = Pagination;
@@ -623,7 +576,7 @@ var _s = __turbopack_context__.k.signature();
 ;
 const ProductListingPage = ()=>{
     _s();
-    const { products, categories, currentPage, setCurrentPage, totalPages, loading, selectedCategory, setSelectedCategory, sortOption, setSortOption, sortDirection, setSortDirection } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])();
+    const { products, categories, currentPage, setCurrentPage, totalPages, loading, selectedCategory, setSelectedCategory, sortOption, setSortOption, sortDirection, setSortDirection } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useProducts"])();
     // Lifted search state
     // Keep searchQuery state
     const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
@@ -791,7 +744,7 @@ const ProductListingPage = ()=>{
 };
 _s(ProductListingPage, "7/u9D0U4DiKgr7pqkMatoMPJBaU=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$useProducts$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useProducts"]
     ];
 });
 _c = ProductListingPage;
